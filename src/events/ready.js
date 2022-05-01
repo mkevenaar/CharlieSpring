@@ -3,6 +3,6 @@ module.exports = {
 	once: true,
 	execute(client) {
 		console.log('Logged as:', client.user.tag);
-		client.user.setPresence({ activities: [{ name: 'Why are we like this?', type: "WATCHING" }], status: 'online' });
+		client.user.setPresence({ activities: [{ name: 'Why are we like this?', type: 'WATCHING' }], status: 'online' });
 	},
 };
