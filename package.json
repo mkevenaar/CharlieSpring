@@ -2,18 +2,20 @@
   "name": "cpr",
   "version": "0.1.0-dev",
   "description": "A discord bot for our HeartStopper server",
-  "main": "index.js",
+  "main": "src/index.js",
   "private": "true",
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0",
     "yarn": ">=1.22.15"
   },
+  "type": "module",
   "scripts": {
-    "start": "node ./index.js",
-    "dev": "nodemon ./index.js",
-    "commands": "node ./deploy-commands.js",
-    "commands-guild": "node ./deploy-commands-guild.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js --mode=dev",
+    "commands": "node src/index.js --mode=global",
+    "commands:guild": "node src/index.js --mode=guild",
+    "commands:purge": "node src/index.js --mode=purgeCommands"
   },
   "author": {
     "name": "mkevenaar"
@@ -28,7 +30,9 @@
     "@discordjs/rest": "^0.4.1",
     "discord-api-types": "^0.32.0",
     "discord.js": "^13.6.0",
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.0.0",
+    "mongoose": "^6.3.2",
+    "yargs": "^17.4.1"
   },
   "devDependencies": {
     "nodemon": "2.0.16",
