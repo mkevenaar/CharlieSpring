@@ -1169,9 +1169,9 @@ convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-cross-env@^7.0.3:
+cross-env@7.0.3:
   version "7.0.3"
-  resolved "https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
   integrity sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
   dependencies:
     cross-spawn "^7.0.1"
@@ -2129,7 +2129,7 @@ jest-snapshot@^28.1.0:
     pretty-format "^28.1.0"
     semver "^7.3.5"
 
-jest-util@^28.1.0:
+jest-util@28.1.0, jest-util@^28.1.0:
   version "28.1.0"
   resolved "https://registry.npmjs.org/jest-util/-/jest-util-28.1.0.tgz"
   integrity sha512-qYdCKD77k4Hwkose2YBEqQk7PzUf/NSE+rutzceduFveQREeH6b+89Dc9+wjX9dAwHcgdx4yedGA3FQlU/qCTA==
@@ -2176,9 +2176,9 @@ jest-worker@^28.1.0:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@^28.1.0:
+jest@28.1.0:
   version "28.1.0"
-  resolved "https://registry.npmjs.org/jest/-/jest-28.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-28.1.0.tgz#f420e41c8f2395b9a30445a97189ebb57593d831"
   integrity sha512-TZR+tHxopPhzw3c3560IJXZWLNHgpcz1Zh0w5A65vynLGNcg/5pZ+VildAd7+XGOu6jd58XMY/HNn0IkZIXVXg==
   dependencies:
     "@jest/core" "^28.1.0"
@@ -2377,9 +2377,9 @@ mongodb-memory-server-core@8.5.2:
     uuid "^8.3.1"
     yauzl "^2.10.0"
 
-mongodb-memory-server@^8.5.2:
+mongodb-memory-server@8.5.2:
   version "8.5.2"
-  resolved "https://registry.npmjs.org/mongodb-memory-server/-/mongodb-memory-server-8.5.2.tgz"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-8.5.2.tgz#b643e9ef1ec97045dfbcf9bae3eeffdf9c69856f"
   integrity sha512-+4/zxz9TxpPMxaUEm0axQvSf+tS6GtPyc5MEjwkiprBGsH7aTe9GEjuHKnXGP8ObarHFpgW3kV4C4oEzYvxQIQ==
   dependencies:
     mongodb-memory-server-core "8.5.2"
