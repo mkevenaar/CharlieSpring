@@ -10,7 +10,7 @@ export default {
 		'coverage',
 		'docker',
 		'node_modules',
-		'logs'
+		'logs',
 	],
 	globalSetup: './test/setup-global.js',
 	setupFilesAfterEnv: [],
