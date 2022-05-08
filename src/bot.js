@@ -14,7 +14,7 @@ const jsExt = Constants.jsExt;
  * Creates the discord client with interface hooks
  * @returns {Client<boolean>}
  */
-function createDiscordClient() {
+export function createDiscordClient() {
 	const client = new Client({
 		intents: [
 			Intents.FLAGS.GUILDS,
@@ -37,7 +37,7 @@ function createDiscordClient() {
  * @returns {Promise<void>}
  */
 export async function initBot() {
-	const { TOKEN, MONGODB, TOPGG_TOKEN } = getEnvConfig();
+	const { TOKEN, TOPGG_TOKEN } = getEnvConfig();
 	const client = createDiscordClient();
 
 	// Commands Setup
