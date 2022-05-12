@@ -87,12 +87,6 @@ export const data = new SlashCommandBuilder()
               .setName('name')
               .setDescription('Name of the role category you want to delete')
               .setRequired(true);
-          })
-          .addBooleanOption((removerole) => {
-            return removerole
-              .setName('delete')
-              .setDescription('Delete the category role message, including reactions (optional)')
-              .setRequired(false);
           });
       });
   })

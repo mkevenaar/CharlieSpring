@@ -53,13 +53,16 @@ export class reactionTools {
 
   static async deleteCategory(interaction, client) {
     const name = interaction.options.getString('name');
-    const remove = interaction.options.getBoolean('delete');
 
     const reactionService = client.database.ReactionService;
+    let reactionRoleService = client.database.ReactionRoleService;
 
-    if (remove) {
-      await this.deleteRoleMessage(client, interaction.guild, name);
-    }
+    let category = await reactionService.get(interaction.guild.id, name);
+    category.roles.forEach(async (role) => {
+      await reactionRoleService.delete(interaction.guild.id, name, role);
+    });
+
+    await this.deleteRoleMessage(client, interaction.guild, name);
 
     await reactionService.delete(interaction.guild.id, name);
   }

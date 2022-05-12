@@ -11,6 +11,11 @@ export async function execute(reaction, user, client) {
         return;
       }
 
+      /* Don't give yourself the roles */
+      if(client.user.id === user.id) {
+        return;
+      }
+
       /* Get the member that reacted originally. */
       const member = await reaction.message.guild.members.fetch(user.id);
       if (!member) {
