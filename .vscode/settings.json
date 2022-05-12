@@ -1,10 +1,17 @@
 {
     "cSpell.words": [
+        "autoposter",
         "botstats",
+        "charliespring",
         "crey",
         "davidzwa",
         "discordjs",
         "Dyrant",
-        "Ludoviko"
-    ]
+        "Ludoviko",
+        "reactioncategory",
+        "reactionrole",
+        "removerole",
+        "topgg"
+    ],
+    "jest.jestCommandLine": "yarn run test:cov"
 }

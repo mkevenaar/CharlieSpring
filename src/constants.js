@@ -1,8 +1,18 @@
 export const AppModes = {
   dev: 'dev',
   purgeCommands: 'purgeCommands',
+  purgeGlobalCommands: 'purgeGlobalCommands',
   global: 'global',
   guild: 'guild',
+};
+
+export const ReactionCommands = {
+  add: 'add',
+  configure: 'configure',
+  delete: 'delete',
+  edit: 'edit',
+  list: 'list',
+  rebuild: 'rebuild',
 };
 
 const defaultDatabase = 'CharlieSpring';

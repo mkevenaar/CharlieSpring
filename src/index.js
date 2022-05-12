@@ -23,13 +23,17 @@ switch (argv.mode) {
 
     await purgeCommands(CLIENT_ID, GUILD_ID);
     break;
+  case AppModes.purgeGlobalCommands:
+    await purgeCommands(CLIENT_ID);
+    break;
   case AppModes.global:
     await deployCommands(CLIENT_ID);
     break;
   case AppModes.dev:
   default:
+    // do not await here, just start the bot, sometimes it takes a while...
+    deployCommands(CLIENT_ID);
     // Only here do we init the bot
-    await deployCommands(CLIENT_ID);
     await initBot();
     break;
 }
