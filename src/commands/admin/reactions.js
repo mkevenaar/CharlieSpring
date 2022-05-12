@@ -183,8 +183,8 @@ export async function execute(interaction, client) {
   // Ensure welcome messages enabled
   const reactionsProp = guildData?.addons?.reactions;
   if (
-    (interaction.options.getSubcommand() !== ReactionCommands.configure ||
-      interaction.options.getSubcommand() !== ReactionCommands.list) &&
+    interaction.options.getSubcommand() !== ReactionCommands.configure &&
+    interaction.options.getSubcommand() !== ReactionCommands.list &&
     !reactionsProp?.enabled
   ) {
     await interaction.reply({ content: 'Reactions not enabled, stopping', ephemeral: true });
