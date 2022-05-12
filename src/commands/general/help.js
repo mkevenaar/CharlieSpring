@@ -8,9 +8,7 @@ export async function execute(interaction, client) {
   const help = new MessageEmbed()
     .setColor('#2d4d58')
     .setTitle('Help')
-    .setDescription(
-      'Available slash commands:\n'
-    )
+    .setDescription('Available slash commands:\n')
     .addFields(
       { name: 'Admin Commands', value: 'Commands available for admins' },
       {
@@ -71,18 +69,19 @@ export async function execute(interaction, client) {
       }
     );
 
-    const btnrow = new MessageActionRow()
-    .addComponents(
-      new MessageButton()
-        .setLabel('Support')
-        .setEmoji("🆘")
-        .setURL("https://github.com/mkevenaar/CharlieSpring/issues")
-        .setStyle('LINK'),
-      new MessageButton()
-        .setLabel('Add me to your server!')
-        .setEmoji("🔗")
-        .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=412652891206&scope=bot%20applications.commands`)
-        .setStyle('LINK'),
-    );
+  const btnrow = new MessageActionRow().addComponents(
+    new MessageButton()
+      .setLabel('Support')
+      .setEmoji('🆘')
+      .setURL('https://github.com/mkevenaar/CharlieSpring/issues')
+      .setStyle('LINK'),
+    new MessageButton()
+      .setLabel('Add me to your server!')
+      .setEmoji('🔗')
+      .setURL(
+        `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=412652891206&scope=bot%20applications.commands`
+      )
+      .setStyle('LINK')
+  );
   await interaction.reply({ embeds: [help], components: [btnrow], ephemeral: true });
 }
