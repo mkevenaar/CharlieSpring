@@ -1,9 +1,14 @@
 import { getEnvConfig } from './shared.js';
 import { Client, Collection, Intents } from 'discord.js';
+import mongoose from 'mongoose';
 import { AutoPoster } from 'topgg-autoposter';
 import { resolveChannel, convertTime } from './tools/tools.js';
+import { reactionTools } from './tools/reactions.js';
 import { Constants } from './constants.js';
 import { readdirSync } from 'fs';
+import { GuildService } from './database/guild.service.js';
+import { ReactionService } from './database/reaction.service.js';
+import { ReactionRoleService } from './database/reaction.role.service.js';
 
 const sourceFolder = Constants.sourceFolder;
 const eventsFolder = Constants.eventsFolder;
@@ -21,12 +26,20 @@ export function createDiscordClient() {
       Intents.FLAGS.GUILD_MESSAGES,
       Intents.FLAGS.GUILD_PRESENCES,
       Intents.FLAGS.GUILD_MEMBERS,
+      Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     ],
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   });
   client.commands = new Collection();
+  client.database = {
+    GuildService: GuildService,
+    ReactionService: ReactionService,
+    ReactionRoleService: ReactionRoleService,
+  };
   client.tools = {
     convertTime,
     resolveChannel,
+    reactionTools: reactionTools,
   };
 
   return client;
@@ -37,7 +50,7 @@ export function createDiscordClient() {
  * @returns {Promise<void>}
  */
 export async function initBot() {
-  const { TOKEN, TOPGG_TOKEN } = getEnvConfig();
+  const { TOKEN, MONGODB, TOPGG_TOKEN } = getEnvConfig();
   const client = createDiscordClient();
 
   // Commands Setup
@@ -85,6 +98,8 @@ export async function initBot() {
     }
   }
 
+  connectWithRetry(MONGODB);
+
   // Login
   await client.login(TOKEN);
 
@@ -98,4 +113,20 @@ export async function initBot() {
       console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`);
     });
   }
+}
+
+// Connect to the database
+async function connectWithRetry(MONGODB) {
+  return mongoose
+    .connect(MONGODB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((err) => {
+      console.log('Unable to connect to MongoDB Database.\nError: ' + err);
+      setTimeout(connectWithRetry, 5000, MONGODB);
+    });
 }
