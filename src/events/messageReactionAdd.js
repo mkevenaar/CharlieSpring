@@ -12,7 +12,7 @@ export async function execute(reaction, user, client) {
       }
 
       /* Don't give yourself the roles */
-      if(client.user.id === user.id) {
+      if (client.user.id === user.id) {
         return;
       }
 
