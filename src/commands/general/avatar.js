@@ -15,7 +15,7 @@ export async function execute(interaction) {
   try {
     let user;
     user = interaction.options.getUser('user');
-    if(!user) {
+    if (!user) {
       user = interaction.user;
     }
 
