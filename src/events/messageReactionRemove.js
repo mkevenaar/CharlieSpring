@@ -1,3 +1,5 @@
+import { NotFoundException } from '../exceptions/runtime.exceptions.js';
+
 export const name = 'messageReactionRemove';
 export const once = false;
 
@@ -24,12 +26,10 @@ export async function execute(reaction, user, client) {
         }
       });
     })
-    .catch((e) => {
-      /* Check if the error is caused by message or channel being deleted, and ignore error if so */
-      if (reaction?.message?.deleted) {
-        return;
+    .catch((error) => {
+      if (!error instanceof NotFoundException) {
+        console.error('An error happened inside the addReaction handler of messageReactionAdd');
+        console.error(error);
       }
-      console.error('An error happened inside the addReaction handler of messageReactionAdd');
-      console.error(e);
     });
 }
