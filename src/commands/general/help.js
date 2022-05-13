@@ -53,6 +53,11 @@ export async function execute(interaction, client) {
       },
       { name: 'General Commands', value: 'Commands available for anyone' },
       {
+        name: '/avatar',
+        value: 'Get a users avatar',
+        inline: true,
+      },
+      {
         name: '/botstats',
         value: 'Information about the current statistics of the bot',
         inline: true,
