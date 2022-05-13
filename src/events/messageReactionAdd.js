@@ -36,6 +36,5 @@ export async function execute(reaction, user, client) {
         console.error('An error happened inside the addReaction handler of messageReactionAdd');
         console.error(error);
       }
-
     });
 }
