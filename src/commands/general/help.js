@@ -76,7 +76,7 @@ export async function execute(interaction, client) {
         name: '/whois',
         value: 'Get a users information',
         inline: true,
-      },
+      }
     );
 
   const btnrow = new MessageActionRow().addComponents(
