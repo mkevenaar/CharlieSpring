@@ -27,7 +27,7 @@ export async function execute(interaction) {
     const reply = await interaction.reply({ embeds: [message], fetchReply: true });
 
     if (NickBots.includes(user.id)) {
-      let emoji = NickEmoji[Math.floor(Math.random()*NickEmoji.length)];
+      let emoji = NickEmoji[Math.floor(Math.random() * NickEmoji.length)];
       await reply.react(emoji);
     }
   } catch (err) {

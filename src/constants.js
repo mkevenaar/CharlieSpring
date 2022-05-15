@@ -29,4 +29,4 @@ export const DefaultRestOptions = { version: '9' };
 
 export const NickBots = ['970253083718344704', '969889333156937740'];
 
-export const NickEmoji = ['❤️','💓','❤️‍🔥','♥️','💞','💕'];
+export const NickEmoji = ['❤️', '💓', '❤️‍🔥', '♥️', '💞', '💕'];
