@@ -32,7 +32,7 @@ switch (argv.mode) {
     break;
   case AppModes.generateDocs:
     await generateDocs();
-    break
+    break;
   case AppModes.dev:
   default:
     // do not await here, just start the bot, sometimes it takes a while...
