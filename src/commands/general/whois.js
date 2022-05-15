@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { MessageEmbed } from 'discord.js';
+import { NickBots, NickEmoji } from '../../constants.js';
 import moment from 'moment';
 
 export const data = new SlashCommandBuilder()
@@ -153,7 +154,12 @@ export async function execute(interaction, client) {
       message.addField('Badges', userFlags.map((flag) => flags[flag]).join('\n'), true);
     }
 
-    await interaction.reply({ embeds: [message], ephemeral: false });
+    const reply = await interaction.reply({ embeds: [message], ephemeral: false, fetchReply: true });
+
+    if (NickBots.includes(user.id)) {
+      let emoji = NickEmoji[Math.floor(Math.random()*NickEmoji.length)];
+      await reply.react(emoji);
+    }
   } catch (err) {
     console.log(err);
     await interaction.reply({
