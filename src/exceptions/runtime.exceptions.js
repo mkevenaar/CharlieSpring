@@ -14,6 +14,14 @@ export class CommandNotFoundException extends Error {
   }
 }
 
+export class EmojiDoesNotExistException extends Error {
+  constructor(message, path) {
+    super(message);
+    this.name = EmojiDoesNotExistException.name;
+    this.path = path;
+  }
+}
+
 export class NotFoundException extends Error {
   constructor(message, path) {
     super(message);

@@ -1,4 +1,5 @@
-import { MessageEmbed, Role } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
+import { EmojiDoesNotExistException } from '../exceptions/runtime.exceptions.js';
 
 export class reactionTools {
   static async configureReactions(interaction, client) {
@@ -111,12 +112,9 @@ export class reactionTools {
     if (!!emoji?.length) {
       let emojiValidation = await this.parseEmoji(emoji, interaction);
       if (!emojiValidation) {
-        await interaction.reply({
-          content:
-            'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.',
-          ephemeral: true,
-        });
-        return;
+        throw new EmojiDoesNotExistException(
+          'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.'
+        );
       }
       await reactionRoleService.updateEmoji(interaction.guild.id, category, role.id, emoji);
     }
@@ -218,7 +216,7 @@ export class reactionTools {
       return interaction.guild.emojis.cache.get(lastTerm.substring(0, lastTerm.length - 1));
     } else {
       // Unicode emojis
-      const regex = /\p{Extended_Pictographic}/gu;
+      const regex = /\p{Extended_Pictographic}|\p{Emoji_Presentation}/gu;
       return regex.test(emoji);
     }
   }
