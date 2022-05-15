@@ -17,6 +17,7 @@
     "commands:guild": "node src/index.js --mode=guild",
     "commands:purge": "node src/index.js --mode=purgeCommands",
     "commands:purgeGlobal": "node src/index.js --mode=purgeGlobalCommands",
+    "commands:docs": "node src/index.js --mode=generateDocs",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --forceExit",
     "test:cov": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --forceExit --coverage"
   },

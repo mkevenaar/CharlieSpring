@@ -62,7 +62,7 @@ async function importFile(folder, file) {
   return await import(importPath);
 }
 
-export async function findCommandFiles() {
+export async function findCommandFiles(docs = false) {
   const commands = [];
   let folders = readdirSync(`src/${commandsFolder}/`);
   for (const folder of folders) {
@@ -72,7 +72,11 @@ export async function findCommandFiles() {
 
     for (const file of commandFiles) {
       const command = await importFile(folder, file);
-      commands.push(command.data.toJSON());
+      let data = command.data.toJSON();
+      if (docs) {
+        data.group = folder;
+      }
+      commands.push(data);
     }
   }
 

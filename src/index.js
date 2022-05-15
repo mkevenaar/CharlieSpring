@@ -1,5 +1,6 @@
 import { configure, getEnvConfig, processArgs } from './shared.js';
 import { deployCommands, purgeCommands } from './bot-commands.js';
+import { generateDocs } from './docs.js';
 import { AppModes } from './constants.js';
 import { initBot } from './bot.js';
 
@@ -29,6 +30,9 @@ switch (argv.mode) {
   case AppModes.global:
     await deployCommands(CLIENT_ID);
     break;
+  case AppModes.generateDocs:
+    await generateDocs();
+    break
   case AppModes.dev:
   default:
     // do not await here, just start the bot, sometimes it takes a while...

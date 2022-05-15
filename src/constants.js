@@ -1,9 +1,10 @@
 export const AppModes = {
   dev: 'dev',
-  purgeCommands: 'purgeCommands',
-  purgeGlobalCommands: 'purgeGlobalCommands',
+  generateDocs: 'generateDocs',
   global: 'global',
   guild: 'guild',
+  purgeCommands: 'purgeCommands',
+  purgeGlobalCommands: 'purgeGlobalCommands',
 };
 
 export const ReactionCommands = {
@@ -23,6 +24,7 @@ export const Constants = {
   commandsFolder: 'commands',
   eventsFolder: 'events',
   jsExt: '.js',
+  docsFolder: 'docs',
 };
 
 export const DefaultRestOptions = { version: '9' };
