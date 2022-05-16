@@ -38,7 +38,7 @@
     "moment": "2.29.3",
     "mongoose": "6.3.3",
     "topgg-autoposter": "2.0.1",
-    "yargs": "17.5.0"
+    "yargs": "17.5.1"
   },
   "devDependencies": {
     "all-contributors-cli": "6.20.0",
