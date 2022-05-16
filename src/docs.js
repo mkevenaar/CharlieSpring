@@ -64,7 +64,7 @@ export async function generateFile(command, folder, filename) {
   }
   command.options.forEach((option) => {
     data.push(
-      `|/${option.name}|${OptionNames[option.type]}|${option.description}|${option.required}|`
+      `|${option.name}|${OptionNames[option.type]}|${option.description}|${option.required}|`
     );
   });
   data.push('');

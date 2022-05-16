@@ -6,4 +6,4 @@ Get a users avatar
 
 |Parameter|Type|Description|Required|
 |-|-|-|-|
-|/user|User (Discord user)|User you want the avatar of (optional)|false|
+|user|User (Discord user)|User you want the avatar of (optional)|false|

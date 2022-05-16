@@ -6,4 +6,4 @@ Get a users information
 
 |Parameter|Type|Description|Required|
 |-|-|-|-|
-|/user|User (Discord user)|User you want the whois of (optional)|false|
+|user|User (Discord user)|User you want the whois of (optional)|false|
