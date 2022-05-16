@@ -128,7 +128,8 @@ export async function execute(interaction, client) {
       .addField('Bot', `\`${member.user.bot}\``, true)
       .addField(`Roles [${roleCount.length}]`, roleCount.join(' '), false)
       .setTimestamp()
-      .setFooter({ text: `Requested by ${interaction.user.username}` });
+      .setFooter({ text: `Requested by ${interaction.user.username}` })
+      .setColor(member.displayHexColor);
 
     if (activities.length > 0) {
       message.setDescription(activities.join('\n'));
