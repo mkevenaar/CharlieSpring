@@ -23,7 +23,7 @@ export async function execute(interaction) {
     let message = new MessageEmbed()
       .setTitle(`Avatar of ${user.username}`)
       .setImage(`${user.displayAvatarURL({ dynamic: true })}?size=1024`)
-      .setColor(member.displayHexColor);
+      .setColor(user.displayHexColor);
 
     const reply = await interaction.reply({ embeds: [message], fetchReply: true });
 

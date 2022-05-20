@@ -74,7 +74,7 @@ export const data = new SlashCommandBuilder()
           .addStringOption((description) => {
             return description
               .setName('new-name')
-              .setDescription('New name of the role category you want to edit (optional')
+              .setDescription('New name of the role category you want to edit (optional)')
               .setRequired(false);
           });
       })
