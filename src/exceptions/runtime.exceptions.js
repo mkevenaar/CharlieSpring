@@ -22,6 +22,14 @@ export class EmojiDoesNotExistException extends Error {
   }
 }
 
+export class InvalidPermissionException extends Error {
+  constructor(message, path) {
+    super(message);
+    this.name = InvalidPermissionException.name;
+    this.path = path;
+  }
+}
+
 export class NotFoundException extends Error {
   constructor(message, path) {
     super(message);

@@ -1,6 +1,11 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, Permissions } from 'discord.js';
 import { NickBots, NickEmoji } from '../../constants.js';
+import { botPermissions } from '../../tools/botPermissions.js';
+
+export const permission = new botPermissions()
+  .setBotPerms([Permissions.FLAGS.SEND_MESSAGES])
+  .setBotMessage("It seems that I don't have permission to send messages!");
 
 export const data = new SlashCommandBuilder()
   .setName('avatar')
