@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Permissions, MessageActionRow, MessageEmbed, MessageButton } from 'discord.js';
 import { botPermissions } from '../../tools/botPermissions.js';
+import { BotColors } from '../../constants.js';
 
 export const permission = new botPermissions()
   .setBotPerms([Permissions.FLAGS.SEND_MESSAGES])
@@ -11,7 +12,7 @@ export const data = new SlashCommandBuilder().setName('help').setDescription('Sh
 export async function execute(interaction, client) {
   //TODO: This needs to be improved, but we need a help command. For now a manual command.
   const help = new MessageEmbed()
-    .setColor('#2d4d58')
+    .setColor(BotColors.default)
     .setTitle('Help')
     .setDescription('Available slash commands:\n')
     .addFields(
