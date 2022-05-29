@@ -1,7 +1,14 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Permissions, MessageActionRow, MessageEmbed, MessageButton } from 'discord.js';
+import {
+  Permissions,
+  MessageActionRow,
+  MessageEmbed,
+  MessageButton,
+  MessageSelectMenu,
+} from 'discord.js';
 import { botPermissions } from '../../tools/botPermissions.js';
-import { BotColors } from '../../constants.js';
+import { BotColors, HelpUrls } from '../../constants.js';
+import { findCategories } from '../../shared.js';
 
 export const permission = new botPermissions()
   .setBotPerms([Permissions.FLAGS.SEND_MESSAGES])
@@ -10,94 +17,37 @@ export const permission = new botPermissions()
 export const data = new SlashCommandBuilder().setName('help').setDescription('Shows help');
 
 export async function execute(interaction, client) {
-  //TODO: This needs to be improved, but we need a help command. For now a manual command.
   const help = new MessageEmbed()
     .setColor(BotColors.default)
-    .setTitle('Help')
-    .setDescription('Available slash commands:\n')
-    .addFields(
-      { name: 'Admin Commands', value: 'Commands available for admins' },
-      {
-        name: '/reactions category add',
-        value: 'Creates a new category for your roles (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions category edit',
-        value: 'Edits an existing category for your roles (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions category delete',
-        value: 'Deletes a category for your roles (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions role add',
-        value: 'Adds a new role to an existing category (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions role edit',
-        value: 'Edits an existing role in a category (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions role delete',
-        value: 'Deletes a role from your category (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions configure',
-        value: 'Enable reaction roles and set channel (admin only)',
-        inline: true,
-      },
-      {
-        name: '/reactions rebuild',
-        value: 'Rebuild the reaction roles. !!WARN!! Potential destructive (admin only)',
-        inline: true,
-      },
-      { name: 'General Commands', value: 'Commands available for anyone' },
-      {
-        name: '/avatar',
-        value: 'Get a users avatar',
-        inline: true,
-      },
-      {
-        name: '/botstats',
-        value: 'Information about the current statistics of the bot',
-        inline: true,
-      },
-      {
-        name: '/help',
-        value: 'Shows this help',
-        inline: true,
-      },
-      {
-        name: '/ping',
-        value: 'Replies with Pong!',
-        inline: true,
-      },
-      {
-        name: '/whois',
-        value: 'Get a users information',
-        inline: true,
-      }
-    );
+    .addField('Help!', 'Please select a category below to continue');
 
-  const btnrow = new MessageActionRow().addComponents(
+  const selectRow = new MessageActionRow().addComponents(
+    new MessageSelectMenu()
+      .setCustomId('help')
+      .setPlaceholder('Please select a category')
+      .addOptions(await findCategories())
+  );
+  const buttonRow = new MessageActionRow().addComponents(
     new MessageButton()
-      .setLabel('Support')
+      .setLabel('Support Server')
       .setEmoji('🆘')
-      .setURL('https://github.com/mkevenaar/CharlieSpring/issues')
+      .setURL(HelpUrls.supportServer)
+      .setStyle('LINK'),
+    new MessageButton()
+      .setLabel('Online help')
+      .setEmoji('🌐')
+      .setURL(HelpUrls.websiteUrl)
+      .setStyle('LINK'),
+    new MessageButton()
+      .setLabel('Create Issue')
+      .setEmoji('✍️')
+      .setURL(HelpUrls.gitHubUrl)
       .setStyle('LINK'),
     new MessageButton()
       .setLabel('Add me to your server!')
       .setEmoji('🔗')
-      .setURL(
-        `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=412652891206&scope=bot%20applications.commands`
-      )
+      .setURL(HelpUrls.inviteUrl)
       .setStyle('LINK')
   );
-  await interaction.reply({ embeds: [help], components: [btnrow], ephemeral: true });
+  await interaction.reply({ embeds: [help], components: [selectRow, buttonRow], ephemeral: true });
 }

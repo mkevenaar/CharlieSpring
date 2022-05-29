@@ -3,10 +3,12 @@ import { REST } from '@discordjs/rest';
 import { Constants, DefaultRestOptions } from './constants.js';
 import yargs from 'yargs';
 import { readdirSync } from 'fs';
+import { createRequire } from 'node:module';
 
 let envConfigured = false;
 const commandsFolder = Constants.commandsFolder;
 const jsExt = Constants.jsExt;
+const require = createRequire(import.meta.url);
 
 function validateEnvConfigState() {
   if (!envConfigured)
@@ -58,7 +60,11 @@ export function getRestInstance() {
 
 async function importFile(folder, file) {
   const importPath = `./${commandsFolder}/${folder}/${file}`;
-  console.log(`Dynamically importing file from ${importPath}`);
+  /**
+   * Disabled this line bc every time someone uses /help the file gets dynamically imported
+   * This generates a lot of noise in the logs, which I would like to prevent
+   */
+  // console.log(`Dynamically importing file from ${importPath}`);
   return await import(importPath);
 }
 
@@ -81,4 +87,23 @@ export async function findCommandFiles(docs = false) {
   }
 
   return commands;
+}
+
+export async function findCategories(selected = '') {
+  const categories = [];
+  let folders = readdirSync(`src/${commandsFolder}/`);
+  for (const folder of folders) {
+    const categoryFiles = readdirSync(`src/${commandsFolder}/${folder}/`).filter((file) =>
+      file.endsWith('category.json')
+    );
+
+    for (const file of categoryFiles) {
+      const importPath = `./${commandsFolder}/${folder}/${file}`;
+      const category = require(importPath);
+      category.default = category.value === selected;
+      categories.push(category);
+    }
+  }
+
+  return categories;
 }

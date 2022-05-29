@@ -9,7 +9,7 @@ A Discord bot written in NodeJS
 
 You can invite the bot that I host with this link:
 
-[![Add to my server](https://img.shields.io/badge/Add%20to%20my%20server-Charlie%20Spring-green?logo=discord)](https://discord.com/api/oauth2/authorize?client_id=969931731706724382&permissions=412652760134&scope=bot%20applications.commands)
+[![Add to my server](https://img.shields.io/badge/Add%20to%20my%20server-Charlie%20Spring-green?logo=discord)](https://nickandcharliebots.net/charlie)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
