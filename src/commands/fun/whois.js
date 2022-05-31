@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { MessageEmbed, Permissions } from 'discord.js';
 import { NickBots, NickEmoji } from '../../constants.js';
-import moment from 'moment';
 import { botPermissions } from '../../tools/botPermissions.js';
 
 export const permission = new botPermissions()
@@ -58,9 +57,9 @@ export async function execute(interaction, client) {
       })
       .map((role) => '<@&' + role.id + '>');
     // Get joined date for member
-    let joinDate = moment(member.guild.joinedTimestamp).format('MMMM Do YYYY, HH:mm:ss');
+    let joinDate = Math.floor(member.guild.joinedTimestamp / 1000);
     // Get user account create date
-    let createDate = moment(user.createdAt).format('MMMM Do YYYY, HH:mm:ss');
+    let createDate = Math.floor(user.createdAt / 1000);
 
     // User Flags
     const userFlags = (await member.user.fetchFlags()).toArray();
@@ -128,8 +127,8 @@ export async function execute(interaction, client) {
       })
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .addField(`User`, `${user}`, false)
-      .addField(`Joined At`, joinDate, true)
-      .addField(`Created At`, createDate, true)
+      .addField(`Joined At`, `<t:${joinDate}:F>`, true)
+      .addField(`Created At`, `<t:${createDate}:F>`, true)
       .addField('Bot', `\`${member.user.bot}\``, true)
       .addField(`Roles [${roleCount.length}]`, roleCount.join(' '), false)
       .setTimestamp()
