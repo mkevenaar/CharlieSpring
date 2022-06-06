@@ -4,11 +4,14 @@ import mongoose from 'mongoose';
 import { AutoPoster } from 'topgg-autoposter';
 import { resolveChannel, convertTime } from './tools/tools.js';
 import { reactionTools } from './tools/reactions.js';
+import { webtoonTools } from './tools/webtoons.js';
 import { Constants } from './constants.js';
 import { readdirSync } from 'fs';
 import { GuildService } from './database/guild.service.js';
 import { ReactionService } from './database/reaction.service.js';
 import { ReactionRoleService } from './database/reaction.role.service.js';
+import { WebtoonsService } from './database/webtoons.service.js';
+import { WebtoonsRssService } from './services/webtoons.rss.service.js';
 
 const sourceFolder = Constants.sourceFolder;
 const eventsFolder = Constants.eventsFolder;
@@ -37,11 +40,13 @@ export function createDiscordClient() {
     GuildService: GuildService,
     ReactionService: ReactionService,
     ReactionRoleService: ReactionRoleService,
+    WebtoonsService: WebtoonsService,
   };
   client.tools = {
     convertTime,
     resolveChannel,
     reactionTools: reactionTools,
+    webtoonTools: webtoonTools,
   };
 
   return client;
@@ -138,6 +143,11 @@ export async function initBot() {
       client.on(event.name, (...args) => event.execute(...args, client));
     }
   }
+
+  // Initialize objects once client is ready
+  client.on('ready', async () => {
+    client.WebtoonsRssService = new WebtoonsRssService(client);
+  });
 
   connectWithRetry(MONGODB);
 

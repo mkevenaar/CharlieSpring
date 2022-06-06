@@ -47,8 +47,7 @@ export class ReactionRoleService {
     let roleEntry = new ReactionRoleModel({
       id: role.id,
       categoryName: categoryName,
-      guildId,
-      guildId,
+      guildId: guildId,
       emoji: emoji,
       registeredAt: Date.now(),
     });

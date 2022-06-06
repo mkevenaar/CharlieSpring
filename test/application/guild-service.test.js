@@ -3,6 +3,7 @@ import { ReactionService } from '../../src/database/reaction.service.js';
 import { ReactionRoleService } from '../../src/database/reaction.role.service.js';
 import { GuildService } from '../../src/database/guild.service.js';
 import { ReactionCategoryModel } from '../../src/database/models/reaction.category.js';
+import { WebtoonsModel } from '../../src/database/models/webtoons.js';
 import mongoose from 'mongoose';
 
 let reactionService;

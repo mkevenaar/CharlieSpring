@@ -7,11 +7,16 @@
         "davidzwa",
         "discordjs",
         "Dyrant",
+        "heartstopper",
+        "Lucxjo",
         "Ludoviko",
+        "mkevenaar",
         "reactioncategory",
         "reactionrole",
         "removerole",
-        "topgg"
+        "topgg",
+        "webtoon",
+        "webtoons"
     ],
     "jest.jestCommandLine": "yarn run test:cov"
 }
