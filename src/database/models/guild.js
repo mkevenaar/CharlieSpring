@@ -18,12 +18,22 @@ const GuildSchema = new mongoose.Schema({
         enabled: false, // Reactions features are enabled
         channel: null, // ID for the channel to send reaction messages to
       },
+      webtoons: {
+        enabled: false, // Webtoons features are enabled
+        channel: null, // ID for the channel to send webtoon messages to
+      },
     },
   },
   categories: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'reactioncategory',
+    },
+  ],
+  webtoons: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'webtoons',
     },
   ],
 });
