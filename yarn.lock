@@ -1332,10 +1332,10 @@ discontinuous-range@1.0.0:
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
   integrity sha512-c68LpLbO+7kP/b1Hr1qs8/BJ09F5khZGTxqxZuhzxpmwJKOgRFHJWIb9/KmqnqHhLdO55aOxFH/EGBvUQbL/RQ==
 
-discord-api-types@0.33.4:
-  version "0.33.4"
-  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.33.4.tgz#c815ba8c34762167c4d9a133371188a9b3743780"
-  integrity sha512-Y6RMvXsHKiBgQhm/q5MgRieXc4Tzh5p/JuDyqreI48lmy+AQfO+g9Xhz0tuGBaN1FtsrLT7mD+lbFONPo5vdwA==
+discord-api-types@0.33.5:
+  version "0.33.5"
+  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.33.5.tgz#6548b70520f7b944c60984dca4ab58654d664a12"
+  integrity sha512-dvO5M52v7m7Dy96+XUnzXNsQ/0npsYpU6dL205kAtEDueswoz3aU3bh1UMoK4cQmcGtB1YRyLKqp+DXi05lzFg==
 
 discord-api-types@^0.33.3:
   version "0.33.3"
