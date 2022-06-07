@@ -77,9 +77,10 @@ export class WebtoonsRssService {
           }
         } catch (error) {
           console.error(error);
-          channel.send(
-            `There was an error fetching the data:\n${error.message}!\nFeed: ${webtoon.title}: ${webtoon.rss}`
-          );
+          // Disabled temporary
+          // channel.send(
+          //   `There was an error fetching the data:\n${error.message}!\nFeed: ${webtoon.title}: ${webtoon.rss}`
+          // );
         }
 
         if (newDate !== 0) {
