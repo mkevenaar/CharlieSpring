@@ -31,7 +31,7 @@ export const data = new SlashCommandBuilder()
       .addBooleanOption((enable) => {
         return enable
           .setName('enable')
-          .setDescription('Enable (true) or disable (false) the reaction roles, default disabled')
+          .setDescription('Enable (true) or disable (false) the webtoons, default disabled')
           .setRequired(false);
       });
   })
