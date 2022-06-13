@@ -5,7 +5,11 @@ export class GuildService {
     const filter = { id: guildId };
     const categoryPath = { path: 'categories' };
     const webtoonPath = { path: 'webtoons' };
-    let guildEntry = await GuildModel.findOne(filter).populate(categoryPath).populate(webtoonPath);
+    const tapasPath = { path: 'tapas' };
+    let guildEntry = await GuildModel.findOne(filter)
+      .populate(categoryPath)
+      .populate(webtoonPath)
+      .populate(tapasPath);
 
     if (!guildEntry) {
       guildEntry = await this.create(guildId);
@@ -61,6 +65,60 @@ export class GuildService {
 
     await guildEntry.save();
     return guildEntry;
+  }
+
+  // Tapas
+  static async updateTapas(guildId, enable, channel) {
+    let guildEntry = await this.get(guildId);
+
+    if (!guildEntry.addons.tapas) {
+      guildEntry.addons.tapas = {
+        enabled: false,
+        channel: '',
+      };
+    }
+
+    if (typeof enable === 'boolean') {
+      guildEntry.addons.tapas.enabled = enable;
+    }
+
+    if (!!channel?.id) {
+      guildEntry.addons.tapas.channel = channel.id;
+    }
+
+    guildEntry.markModified('addons.tapas');
+
+    await guildEntry.save();
+    return guildEntry;
+  }
+
+  static async addTapas(guildId, tapas) {
+    let guildEntry = await this.get(guildId);
+    guildEntry.tapas.push(tapas);
+    await guildEntry.save();
+    return guildEntry;
+  }
+
+  static async deleteTapas(guildId, tapas) {
+    let guildEntry = await this.get(guildId);
+
+    const itemToRemoveIndex = guildEntry.tapas.findIndex(function (item) {
+      return item._id.toString() === tapas._id.toString();
+    });
+
+    // proceed to remove an item only if it exists.
+    if (itemToRemoveIndex !== -1) {
+      guildEntry.tapas.splice(itemToRemoveIndex, 1);
+    }
+
+    await guildEntry.save();
+    return guildEntry;
+  }
+
+  static async listTapas() {
+    const tapasFilter = { 'addons.tapas.enabled': true };
+    const tapasPath = { path: 'tapas' };
+    return GuildModel.find(tapasFilter).populate(tapasPath);
   }
 
   // Webtoons

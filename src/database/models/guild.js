@@ -18,6 +18,10 @@ const GuildSchema = new mongoose.Schema({
         enabled: false, // Reactions features are enabled
         channel: null, // ID for the channel to send reaction messages to
       },
+      tapas: {
+        enabled: false, // Tapas features are enabled
+        channel: null, // ID for the channel to send tapas messages to
+      },
       webtoons: {
         enabled: false, // Webtoons features are enabled
         channel: null, // ID for the channel to send webtoon messages to
@@ -28,6 +32,12 @@ const GuildSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'reactioncategory',
+    },
+  ],
+  tapas: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'tapas',
     },
   ],
   webtoons: [
