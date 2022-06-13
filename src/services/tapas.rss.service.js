@@ -1,46 +1,46 @@
 import { GuildService } from '../database/guild.service.js';
-import { WebtoonsService } from '../database/webtoons.service.js';
+import { TapasService } from '../database/tapas.service.js';
 import { BotColors } from '../constants.js';
 import { MessageEmbed } from 'discord.js';
 import { NotFoundException } from '../exceptions/runtime.exceptions.js';
 import { BaseRssService } from './base.rss.service.js';
 
-export class WebtoonsRssService extends BaseRssService {
+export class TapasRssService extends BaseRssService {
   async load() {
-    let guilds = await GuildService.listWebtoons();
+    let guilds = await GuildService.listTapas();
     guilds.forEach((guild) => {
-      guild.webtoons.forEach((webtoon) => {
-        this.fetch(webtoon, guild.addons.webtoons.channel, true);
+      guild.tapas.forEach((tapas) => {
+        this.fetch(tapas, guild.addons.tapas.channel, true);
       });
     });
   }
 
-  async fetch(webtoon, channelId, now = false) {
+  async fetch(tapas, channelId, now = false) {
     setTimeout(
       async () => {
-        // break out of the loop if the webtoon gets deleted!
+        // break out of the loop if the tapas gets deleted!
         try {
-          webtoon = await WebtoonsService.get(webtoon.guildId, webtoon.rss);
+          tapas = await TapasService.get(tapas.guildId, tapas.rss);
         } catch (error) {
           if (!error instanceof NotFoundException) {
             throw error;
           } else {
+            console.log(tapas);
             return;
           }
         }
 
         //Do the RSS magic
-        let guild = await this.client.guilds.fetch(webtoon.guildId);
+        let guild = await this.client.guilds.fetch(tapas.guildId);
         const channel = await this.client.tools.resolveChannel(channelId, guild);
         let newDate = 0;
-
         if (!channel) return;
 
         try {
-          const newFeed = await this.RSSParser.parseURL(webtoon.rss);
+          const newFeed = await this.RSSParser.parseURL(tapas.rss);
           let newItems = newFeed.items
             .map((newItem) => {
-              if (webtoon.lastItemDate < Date.parse(newItem.pubDate)) {
+              if (tapas.lastItemDate < Date.parse(newItem.pubDate)) {
                 newDate =
                   newDate < Date.parse(newItem.pubDate) ? Date.parse(newItem.pubDate) : newDate;
                 return newItem;
@@ -50,7 +50,7 @@ export class WebtoonsRssService extends BaseRssService {
               return element !== undefined;
             });
 
-          if (webtoon.lastItemDate === 0) {
+          if (tapas.lastItemDate === 0) {
             newItems = [newItems[0]];
           }
           // Make Discord embeds for each one
@@ -58,9 +58,9 @@ export class WebtoonsRssService extends BaseRssService {
           for (const embed of embeds) {
             // Send to the channel
             let returnData = {};
-            if (webtoon.role) {
-              returnData.allowedMentions = { roles: [webtoon.role] };
-              returnData.content = `<@&${webtoon.role}> a new update to ${webtoon.title} is posted!`;
+            if (tapas.role) {
+              returnData.allowedMentions = { roles: [tapas.role] };
+              returnData.content = `<@&${tapas.role}> a new update to ${tapas.title} is posted!`;
             }
             returnData.embeds = [embed];
             channel.send(returnData);
@@ -69,16 +69,16 @@ export class WebtoonsRssService extends BaseRssService {
           console.error(error);
           // Disabled temporary
           // channel.send(
-          //   `There was an error fetching the data:\n${error.message}!\nFeed: ${webtoon.title}: ${webtoon.rss}`
+          //   `There was an error fetching the data:\n${error.message}!\nFeed: ${tapas.title}: ${tapas.rss}`
           // );
         }
 
         if (newDate !== 0) {
-          webtoon.lastItemDate = newDate;
-          await webtoon.save();
+          tapas.lastItemDate = newDate;
+          await tapas.save();
         }
 
-        this.fetch(webtoon, channelId);
+        this.fetch(tapas, channelId);
       },
       now ? 0 : 60000
     );

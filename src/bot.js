@@ -4,12 +4,15 @@ import mongoose from 'mongoose';
 import { AutoPoster } from 'topgg-autoposter';
 import { resolveChannel, convertTime } from './tools/tools.js';
 import { reactionTools } from './tools/reactions.js';
+import { tapasTools } from './tools/tapas.js';
 import { webtoonTools } from './tools/webtoons.js';
 import { Constants } from './constants.js';
 import { readdirSync } from 'fs';
 import { GuildService } from './database/guild.service.js';
 import { ReactionService } from './database/reaction.service.js';
 import { ReactionRoleService } from './database/reaction.role.service.js';
+import { TapasService } from './database/tapas.service.js';
+import { TapasRssService } from './services/tapas.rss.service.js';
 import { WebtoonsService } from './database/webtoons.service.js';
 import { WebtoonsRssService } from './services/webtoons.rss.service.js';
 
@@ -40,12 +43,14 @@ export function createDiscordClient() {
     GuildService: GuildService,
     ReactionService: ReactionService,
     ReactionRoleService: ReactionRoleService,
+    TapasService: TapasService,
     WebtoonsService: WebtoonsService,
   };
   client.tools = {
     convertTime,
     resolveChannel,
     reactionTools: reactionTools,
+    tapasTools: tapasTools,
     webtoonTools: webtoonTools,
   };
 
@@ -146,6 +151,7 @@ export async function initBot() {
 
   // Initialize objects once client is ready
   client.on('ready', async () => {
+    client.TapasRssService = new TapasRssService(client);
     client.WebtoonsRssService = new WebtoonsRssService(client);
   });
 
