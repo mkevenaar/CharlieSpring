@@ -25,7 +25,6 @@ export class TapasRssService extends BaseRssService {
           if (!error instanceof NotFoundException) {
             throw error;
           } else {
-            console.log(tapas);
             return;
           }
         }
@@ -34,6 +33,7 @@ export class TapasRssService extends BaseRssService {
         let guild = await this.client.guilds.fetch(tapas.guildId);
         const channel = await this.client.tools.resolveChannel(channelId, guild);
         let newDate = 0;
+
         if (!channel) return;
 
         try {
@@ -64,6 +64,11 @@ export class TapasRssService extends BaseRssService {
             }
             returnData.embeds = [embed];
             channel.send(returnData);
+
+            if (newDate !== 0) {
+              tapas.lastItemDate = newDate;
+              await tapas.save();
+            }
           }
         } catch (error) {
           console.error(error);
@@ -72,12 +77,6 @@ export class TapasRssService extends BaseRssService {
           //   `There was an error fetching the data:\n${error.message}!\nFeed: ${tapas.title}: ${tapas.rss}`
           // );
         }
-
-        if (newDate !== 0) {
-          tapas.lastItemDate = newDate;
-          await tapas.save();
-        }
-
         this.fetch(tapas, channelId);
       },
       now ? 0 : 60000
@@ -89,7 +88,7 @@ export class TapasRssService extends BaseRssService {
     for (const item of items) {
       let embed = new MessageEmbed().setColor(BotColors.default);
 
-      if (item.creator) embed.setAuthor({ name: item.creator });
+      if (item.creator) embed.setAuthor({ name: item.creator + ' @ Tapas' });
       if (item.category) embed.addField('Category:', item.category);
       if (item.content) embed.setDescription(await this.convertHtml(item.content));
       if (feed.image && feed.image.title) embed.setFooter({ text: feed.image.title });

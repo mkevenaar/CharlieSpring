@@ -64,6 +64,11 @@ export class WebtoonsRssService extends BaseRssService {
             }
             returnData.embeds = [embed];
             channel.send(returnData);
+
+            if (newDate !== 0) {
+              webtoon.lastItemDate = newDate;
+              await webtoon.save();
+            }
           }
         } catch (error) {
           console.error(error);
@@ -72,12 +77,6 @@ export class WebtoonsRssService extends BaseRssService {
           //   `There was an error fetching the data:\n${error.message}!\nFeed: ${webtoon.title}: ${webtoon.rss}`
           // );
         }
-
-        if (newDate !== 0) {
-          webtoon.lastItemDate = newDate;
-          await webtoon.save();
-        }
-
         this.fetch(webtoon, channelId);
       },
       now ? 0 : 60000
@@ -89,7 +88,7 @@ export class WebtoonsRssService extends BaseRssService {
     for (const item of items) {
       let embed = new MessageEmbed().setColor(BotColors.default);
 
-      if (item.creator) embed.setAuthor({ name: item.creator });
+      if (item.creator) embed.setAuthor({ name: item.creator + ' @ Webtoons' });
       if (item.category) embed.addField('Category:', item.category);
       if (item.content) embed.setDescription(await this.convertHtml(item.content));
       if (feed.image && feed.image.title) embed.setFooter({ text: feed.image.title });
