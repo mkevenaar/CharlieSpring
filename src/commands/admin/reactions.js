@@ -183,7 +183,11 @@ export async function execute(interaction, client) {
     interaction.options.getSubcommand() !== ReactionCommands.list &&
     (!reactionsProp?.enabled || reactionsProp?.channel === null)
   ) {
-    await interaction.reply({ content: 'Reactions not enabled, stopping.\nPlease configure reactions using `/reaction configure`. Both `channel` and `enable` have to be set for the bot to function properly', ephemeral: true });
+    await interaction.reply({
+      content:
+        'Reactions not enabled, stopping.\nPlease configure reactions using `/reaction configure`. Both `channel` and `enable` have to be set for the bot to function properly',
+      ephemeral: true,
+    });
     return;
   }
 
