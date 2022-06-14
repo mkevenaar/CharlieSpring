@@ -31,6 +31,7 @@ export class ReactionRoleService {
 
   static async create(guildId, categoryName, role, description, emoji) {
     let existingRole;
+    let existingCategory = await ReactionService.get(guildId, categoryName);
 
     try {
       existingRole = await this.get(guildId, categoryName, role.id);
