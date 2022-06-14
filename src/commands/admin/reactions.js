@@ -175,12 +175,15 @@ export async function execute(interaction, client) {
 
   // Ensure welcome messages enabled
   const reactionsProp = guildData?.addons?.reactions;
+
+  console.log(reactionsProp?.channel);
+
   if (
     interaction.options.getSubcommand() !== ReactionCommands.configure &&
     interaction.options.getSubcommand() !== ReactionCommands.list &&
-    !reactionsProp?.enabled
+    (!reactionsProp?.enabled || reactionsProp?.channel === null)
   ) {
-    await interaction.reply({ content: 'Reactions not enabled, stopping', ephemeral: true });
+    await interaction.reply({ content: 'Reactions not enabled, stopping.\nPlease configure reactions using `/reaction configure`. Both `channel` and `enable` have to be set for the bot to function properly', ephemeral: true });
     return;
   }
 
