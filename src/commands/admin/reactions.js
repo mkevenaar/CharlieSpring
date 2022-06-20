@@ -176,8 +176,6 @@ export async function execute(interaction, client) {
   // Ensure welcome messages enabled
   const reactionsProp = guildData?.addons?.reactions;
 
-  console.log(reactionsProp?.channel);
-
   if (
     interaction.options.getSubcommand() !== ReactionCommands.configure &&
     interaction.options.getSubcommand() !== ReactionCommands.list &&
