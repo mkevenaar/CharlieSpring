@@ -29,7 +29,7 @@ export class ReactionService {
     return ReactionCategoryModel.findOneAndDelete(filter);
   }
 
-  static async create(guildId, categoryName, description = '') {
+  static async create(guildId, categoryName, description = '', color = '') {
     let existingCategory;
 
     try {
@@ -54,6 +54,10 @@ export class ReactionService {
       categoryEntry.description = description;
     }
 
+    if (!!color?.length) {
+      categoryEntry.color = color;
+    }
+
     await categoryEntry.save();
     await GuildService.addCategory(guildId, categoryEntry);
     return categoryEntry;
@@ -72,6 +76,16 @@ export class ReactionService {
     let categoryEntry = await this.get(guildId, categoryName);
     if (!!description?.length) {
       categoryEntry.description = description;
+    }
+
+    await categoryEntry.save();
+    return categoryEntry;
+  }
+
+  static async updateColor(guildId, categoryName, color) {
+    let categoryEntry = await this.get(guildId, categoryName);
+    if (!!color?.length) {
+      categoryEntry.color = color;
     }
 
     await categoryEntry.save();

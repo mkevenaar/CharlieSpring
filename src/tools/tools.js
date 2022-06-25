@@ -54,3 +54,17 @@ export function isURL(str) {
   var url = new RegExp(urlRegex, 'i');
   return str.length < 2083 && url.test(str);
 }
+
+export function isHexColor(str) {
+  if (str[0] != '#') {
+    return false;
+  }
+
+  if (!(str.length == 4 || str.length == 7)) {
+    return false;
+  }
+
+  var colorRegex = '^#([0-9a-f]{3}){1,2}$';
+  var color = new RegExp(colorRegex, 'i');
+  return color.test(str);
+}
