@@ -60,6 +60,12 @@ export const data = new SlashCommandBuilder()
               .setName('description')
               .setDescription('Description of the role category (optional)')
               .setRequired(false);
+          })
+          .addStringOption((color) => {
+            return color
+              .setName('color')
+              .setDescription('Hexadecimal color of the role category (optional)')
+              .setRequired(false);
           });
       })
       .addSubcommand((edit) => {
@@ -82,6 +88,12 @@ export const data = new SlashCommandBuilder()
             return description
               .setName('new-name')
               .setDescription('New name of the role category you want to edit (optional)')
+              .setRequired(false);
+          })
+          .addStringOption((color) => {
+            return color
+              .setName('color')
+              .setDescription('Hexadecimal color of the role category (optional)')
               .setRequired(false);
           });
       })

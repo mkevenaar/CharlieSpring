@@ -5,6 +5,7 @@ const ReactionCategorySchema = new mongoose.Schema({
   registeredAt: { type: Number, default: Date.now },
   name: { type: String, required: true },
   description: { type: String },
+  color: { type: String },
   messageId: { type: String },
   roles: [
     {

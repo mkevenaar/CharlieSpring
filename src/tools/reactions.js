@@ -1,5 +1,9 @@
 import { MessageEmbed } from 'discord.js';
-import { EmojiDoesNotExistException } from '../exceptions/runtime.exceptions.js';
+import {
+  EmojiDoesNotExistException,
+  InvalidColorException,
+} from '../exceptions/runtime.exceptions.js';
+import { isHexColor } from './tools.js';
 
 export class reactionTools {
   static async configureReactions(interaction, client) {
@@ -23,10 +27,20 @@ export class reactionTools {
   static async addCategory(interaction, client) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
+    const color = interaction.options.getString('color');
 
     const reactionService = client.database.ReactionService;
 
-    await reactionService.create(interaction.guild.id, name, description);
+    let colorValidation = isHexColor(color);
+
+    //Validation
+    if (!colorValidation) {
+      throw new InvalidColorException(
+        'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
+      );
+    }
+
+    await reactionService.create(interaction.guild.id, name, description, color);
 
     await this.updateRoleMessage(client, interaction.guild, name);
   }
@@ -35,6 +49,7 @@ export class reactionTools {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
     const newName = interaction.options.getString('new-name');
+    const color = interaction.options.getString('color');
 
     const reactionService = client.database.ReactionService;
 
@@ -42,6 +57,18 @@ export class reactionTools {
 
     if (!!description?.length) {
       await reactionService.updateDescription(interaction.guild.id, name, description);
+    }
+
+    if (!!color?.length) {
+      let colorValidation = isHexColor(color);
+      console.log(color);
+      //Validation
+      if (!colorValidation) {
+        throw new InvalidColorException(
+          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
+        );
+      }
+      await reactionService.updateColor(interaction.guild.id, name, color);
     }
 
     if (!!newName?.length) {
@@ -79,12 +106,9 @@ export class reactionTools {
 
     //Validation
     if (!emojiValidation) {
-      await interaction.reply({
-        content:
-          'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.',
-        ephemeral: true,
-      });
-      return;
+      throw new EmojiDoesNotExistException(
+        'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.'
+      );
     }
 
     await reactionRoleService.create(interaction.guild.id, category, role, description, emoji);
@@ -153,6 +177,10 @@ export class reactionTools {
     if (category.description) {
       body.push(category.description);
       body.push('');
+    }
+
+    if (category.color) {
+      message.setColor(category.color);
     }
 
     category.roles.forEach((role) => {
