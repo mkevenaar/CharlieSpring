@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import {
   EmojiDoesNotExistException,
   InvalidColorException,
@@ -169,7 +169,7 @@ export class reactionTools {
     let roleChannel = await client.tools.resolveChannel(channelId, guild);
     if (!roleChannel) return; // Unable to find channel in guild
 
-    let message = new MessageEmbed();
+    let message = new EmbedBuilder();
     let body = [];
 
     message.setTitle(category.name);

@@ -28,7 +28,7 @@ export const Constants = {
   docsFolder: 'docs',
 };
 
-export const DefaultRestOptions = { version: '9' };
+export const DefaultRestOptions = { version: '10' };
 
 export const NickBots = ['970253083718344704', '969889333156937740'];
 

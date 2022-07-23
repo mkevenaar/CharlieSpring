@@ -6,7 +6,7 @@
   "private": "true",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=16.9.0",
     "yarn": ">=1.22.15"
   },
   "type": "module",
@@ -27,14 +27,16 @@
   "contributors": [
     {
       "name": "Lucxjo"
+    },
+    {
+      "name": "davidzwa"
     }
   ],
   "dependencies": {
-    "@discordjs/builders": "1.0.0",
     "@discordjs/rest": "1.0.0",
     "cheerio": "1.0.0-rc.12",
     "discord-api-types": "0.36.3",
-    "discord.js": "13.9.1",
+    "discord.js": "14.0.3",
     "dotenv": "16.0.1",
     "html-to-text": "8.2.0",
     "mongoose": "6.4.6",
