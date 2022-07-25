@@ -1,7 +1,7 @@
 export default {
   testEnvironment: 'node',
   testTimeout: 5000,
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
   modulePathIgnorePatterns: [
     'index.js',
     'migrate-mongo-config.js',
