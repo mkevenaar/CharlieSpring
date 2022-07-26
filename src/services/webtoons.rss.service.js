@@ -1,7 +1,7 @@
 import { GuildService } from '../database/guild.service.js';
 import { WebtoonsService } from '../database/webtoons.service.js';
 import { BotColors } from '../constants.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { NotFoundException } from '../exceptions/runtime.exceptions.js';
 import { BaseRssService } from './base.rss.service.js';
 
@@ -86,10 +86,10 @@ export class WebtoonsRssService extends BaseRssService {
   async makeEmbeds(items, feed) {
     const embeds = [];
     for (const item of items) {
-      let embed = new MessageEmbed().setColor(BotColors.default);
+      let embed = new EmbedBuilder().setColor(BotColors.default);
 
       if (item.creator) embed.setAuthor({ name: item.creator + ' @ Webtoons' });
-      if (item.category) embed.addField('Category:', item.category);
+      if (item.category) embed.addFields([{ name: 'Category:', value: item.category }]);
       if (item.content) embed.setDescription(await this.convertHtml(item.content));
       if (feed.image && feed.image.title) embed.setFooter({ text: feed.image.title });
       if (feed.image && feed.image.url) embed.setImage(feed.image.url);

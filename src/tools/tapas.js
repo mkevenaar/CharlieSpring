@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { InvalidUrlException, RSSParseError } from '../exceptions/runtime.exceptions.js';
 import { isURL } from './tools.js';
 
@@ -21,18 +21,22 @@ export class tapasTools {
     const guildService = client.database.GuildService;
     let guildData = await guildService.get(interaction.guild.id);
 
-    let tapasEmbed = new MessageEmbed()
+    let tapasEmbed = new EmbedBuilder()
       .setTitle('Tapas')
       .setDescription('Currently configured on the server: ')
-      .addField(`Enabled`, `${guildData.addons.tapas.enabled}`, true)
-      .addField(`Channel`, `<#${guildData.addons.tapas.channel}>`, true);
+      .addFields([
+        { name: `Enabled`, value: `${guildData.addons.tapas.enabled}`, inline: true },
+        { name: `Channel`, value: `<#${guildData.addons.tapas.channel}>`, inline: true },
+      ]);
 
     guildData.tapas.forEach((tapas) => {
       let role = '';
       if (tapas.role) {
         role = `\nRole: <@&${tapas.role}>`;
       }
-      tapasEmbed.addField(`${tapas.title}`, `RSS: ${tapas.rss}${role}`, false);
+      tapasEmbed.addFields([
+        { name: `${tapas.title}`, value: `RSS: ${tapas.rss}${role}`, inline: false },
+      ]);
     });
     return await interaction.reply({ embeds: [tapasEmbed], ephemeral: true });
   }

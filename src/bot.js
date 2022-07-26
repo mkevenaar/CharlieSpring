@@ -1,5 +1,5 @@
 import { getEnvConfig } from './shared.js';
-import { Client, Collection, Intents } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials, InteractionType } from 'discord.js';
 import mongoose from 'mongoose';
 import { AutoPoster } from 'topgg-autoposter';
 import { resolveChannel, convertTime } from './tools/tools.js';
@@ -29,13 +29,13 @@ const jsExt = Constants.jsExt;
 export function createDiscordClient() {
   const client = new Client({
     intents: [
-      Intents.FLAGS.GUILDS,
-      Intents.FLAGS.GUILD_MESSAGES,
-      Intents.FLAGS.GUILD_PRESENCES,
-      Intents.FLAGS.GUILD_MEMBERS,
-      Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildPresences,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessageReactions,
     ],
-    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+    partials: [Partials.Message, Partials.Channel, Partials.Reaction],
   });
   client.commands = new Collection();
   client.selectMenu = new Collection();
@@ -89,7 +89,7 @@ export async function initBot() {
 
   // Executing commands
   client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isCommand()) return;
+    if (!interaction.type == InteractionType.ApplicationCommand) return;
 
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
@@ -119,7 +119,7 @@ export async function initBot() {
 
   // Executing Select Menus
   client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isSelectMenu()) return;
+    if (!interaction.type == InteractionType.selectMenu) return;
 
     const menu = client.selectMenu.get(interaction.customId);
     if (!menu) return;

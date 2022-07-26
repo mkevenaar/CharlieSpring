@@ -1,10 +1,9 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed, Permissions } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } from 'discord.js';
 import { NickBots, NickEmoji } from '../../constants.js';
 import { botPermissions } from '../../tools/botPermissions.js';
 
 export const permission = new botPermissions()
-  .setBotPerms([Permissions.FLAGS.SEND_MESSAGES])
+  .setBotPerms([PermissionsBitField.Flags.SendMessages])
   .setBotMessage("It seems that I don't have permission to send messages!");
 
 export const data = new SlashCommandBuilder()
@@ -19,14 +18,12 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction) {
   try {
-    let user;
-    user = interaction.options.getUser('user');
-    if (!user) {
-      user = interaction.user;
-    }
+    let userId = interaction.options.getUser('user')?.id || interaction.user.id;
 
-    let message = new MessageEmbed()
-      .setTitle(`Avatar of ${user.username}`)
+    let user = await interaction.guild.members.fetch(userId);
+
+    let message = new EmbedBuilder()
+      .setTitle(`Avatar of ${user.user.username}`)
       .setImage(`${user.displayAvatarURL({ dynamic: true })}?size=1024`)
       .setColor(user.displayHexColor);
 

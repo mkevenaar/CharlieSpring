@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { InvalidUrlException, RSSParseError } from '../exceptions/runtime.exceptions.js';
 import { isURL } from './tools.js';
 
@@ -19,18 +19,22 @@ export class webtoonTools {
     const guildService = client.database.GuildService;
     let guildData = await guildService.get(interaction.guild.id);
 
-    let webtoonsEmbed = new MessageEmbed()
+    let webtoonsEmbed = new EmbedBuilder()
       .setTitle('Webtoons')
       .setDescription('Currently configured on the server: ')
-      .addField(`Enabled`, `${guildData.addons.webtoons.enabled}`, true)
-      .addField(`Channel`, `<#${guildData.addons.webtoons.channel}>`, true);
+      .addFields([
+        { name: `Enabled`, value: `${guildData.addons.webtoons.enabled}`, inline: true },
+        { name: `Channel`, value: `<#${guildData.addons.webtoons.channel}>`, inline: true },
+      ]);
 
     guildData.webtoons.forEach((webtoon) => {
       let role = '';
       if (webtoon.role) {
         role = `\nRole: <@&${webtoon.role}>`;
       }
-      webtoonsEmbed.addField(`${webtoon.title}`, `RSS: ${webtoon.rss}${role}`, false);
+      webtoonsEmbed.addFields([
+        { name: `${webtoon.title}`, value: `RSS: ${webtoon.rss}${role}`, inline: false },
+      ]);
     });
     return await interaction.reply({ embeds: [webtoonsEmbed], ephemeral: true });
   }
