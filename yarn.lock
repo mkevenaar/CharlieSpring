@@ -302,23 +302,23 @@
     ts-mixer "^6.0.1"
     tslib "^2.4.0"
 
-"@discordjs/collection@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-1.0.0.tgz#4d777d87e56640a200200e7f5605c0fba05ac1b8"
-  integrity sha512-nAxDQYE5dNAzEGQ7HU20sujDsG5vLowUKCEqZkKUIlrXERZFTt/60zKUj/g4+AVCGeq+pXC5hivMaNtiC+PY5Q==
+"@discordjs/collection@^1.0.0", "@discordjs/collection@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-1.0.1.tgz#4acc41dfdacd6a14a7cf3109968044a2d40593dd"
+  integrity sha512-5V/wswzR3r2RVYXLxxg4TvrAnBhVCNgHTXhC+OUtLoriJ072rPMHo+Iw1SS1vrCckp8Es40XM411+WkNRPaXFw==
 
 "@discordjs/rest@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@discordjs/rest/-/rest-1.0.0.tgz#624ac48cf8f66f46d47371323963a0c0617ddd63"
-  integrity sha512-uDAvnE0P2a8axMdD4C51EGjvCRQ2HZk2Yxf6vHWZgIqG87D8DGKMPwmquIxrrB07MjV+rwci2ObU+mGhGP+bJg==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@discordjs/rest/-/rest-1.0.1.tgz#5c1c379de9eb4170b4964a11ced8add1d5ae808d"
+  integrity sha512-w08CTKVzzYYvKxEjXKOs9AdS7KQ1J502TrPfF8eCZ2lF6AfKuMP/32YgDakiwIyYTDjEQS/v0nKLSFcncHRMtg==
   dependencies:
-    "@discordjs/collection" "^1.0.0"
+    "@discordjs/collection" "^1.0.1"
     "@sapphire/async-queue" "^1.3.2"
     "@sapphire/snowflake" "^3.2.2"
-    discord-api-types "^0.36.2"
-    file-type "^17.1.2"
+    discord-api-types "^0.36.3"
+    file-type "^17.1.4"
     tslib "^2.4.0"
-    undici "^5.7.0"
+    undici "^5.8.0"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -601,9 +601,9 @@
     selderee "^0.6.0"
 
 "@sinclair/typebox@^0.24.1":
-  version "0.24.20"
-  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.20.tgz#11a657875de6008622d53f56e063a6347c51a6dd"
-  integrity sha512-kVaO5aEFZb33nPMTZBxiPEkY+slxiPtqC7QX8f9B3eGOMBvEfuMfxp9DSTTCsRJPumPKjrge4yagyssO4q6qzQ==
+  version "0.24.21"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.21.tgz#f2e435ac4c1919ae89c2b693a0d4213d09899290"
+  integrity sha512-II2SIjvxBVJmrGkkZYza/BqNjwx3PWROIA8CZ0/Hn7LV0Mv0CVpZxoyHGBVsQqfFLMv9DmArIeRHTwo76bE6oA==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
@@ -934,14 +934,14 @@ braces@^3.0.2, braces@~3.0.2:
     fill-range "^7.0.1"
 
 browserslist@^4.20.2:
-  version "4.21.2"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.21.2.tgz#59a400757465535954946a400b841ed37e2b4ecf"
-  integrity sha512-MonuOgAtUB46uP5CezYbRaYKBNt2LxP0yX+Pmj4LkcDFGkn9Cbpi83d9sCjwQDErXsIJSzY5oKGDbgOlF/LPAA==
+  version "4.21.3"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.21.3.tgz#5df277694eb3c48bc5c4b05af3e8b7e09c5a6d1a"
+  integrity sha512-898rgRXLAyRkM1GryrrBHGkqA5hlpkV5MhtZwg9QXeiyLUYs2k00Un05aX5l2/yJIOObYKOpS2JNo8nJDE7fWQ==
   dependencies:
-    caniuse-lite "^1.0.30001366"
-    electron-to-chromium "^1.4.188"
+    caniuse-lite "^1.0.30001370"
+    electron-to-chromium "^1.4.202"
     node-releases "^2.0.6"
-    update-browserslist-db "^1.0.4"
+    update-browserslist-db "^1.0.5"
 
 bser@2.1.1:
   version "2.1.1"
@@ -995,7 +995,7 @@ camelcase@^6.2.0, camelcase@^6.3.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caniuse-lite@^1.0.30001366:
+caniuse-lite@^1.0.30001370:
   version "1.0.30001370"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001370.tgz#0a30d4f20d38b9e108cc5ae7cc62df9fe66cd5ba"
   integrity sha512-3PDmaP56wz/qz7G508xzjx8C+MC2qEm4SYhSEzC9IBROo+dGXFWRuaXkWti0A9tuI00g+toiriVqxtWMgl350g==
@@ -1259,7 +1259,7 @@ discontinuous-range@1.0.0:
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
   integrity sha512-c68LpLbO+7kP/b1Hr1qs8/BJ09F5khZGTxqxZuhzxpmwJKOgRFHJWIb9/KmqnqHhLdO55aOxFH/EGBvUQbL/RQ==
 
-discord-api-types@^0.36.2:
+discord-api-types@^0.36.2, discord-api-types@^0.36.3:
   version "0.36.3"
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.36.3.tgz#a931b7e57473a5c971d6937fa5f392eb30047579"
   integrity sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==
@@ -1341,10 +1341,10 @@ dotenv@16.0.1:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
   integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
 
-electron-to-chromium@^1.4.188:
-  version "1.4.202"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.202.tgz#0c2ed733f42b02ec49a955c5badfcc65888c390b"
-  integrity sha512-JYsK2ex9lmQD27kj19fhXYxzFJ/phLAkLKHv49A5UY6kMRV2xED3qMMLg/voW/+0AR6wMiI+VxlmK9NDtdxlPA==
+electron-to-chromium@^1.4.202:
+  version "1.4.203"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.203.tgz#335ee9ef97ac538624fe1e694c0e4a8b15428020"
+  integrity sha512-EG+Llo8SZGZCgErY+PzE9N+Ld/O80243hTufTeg4GbZ1U+Xn92n6ewxKhZjt/bxdF7aS5OXEU7QlRs5uRoTVKw==
 
 emittery@^0.10.2:
   version "0.10.2"
@@ -1479,7 +1479,7 @@ figures@^3.0.0:
   dependencies:
     escape-string-regexp "^1.0.5"
 
-file-type@^17.1.2:
+file-type@^17.1.4:
   version "17.1.4"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-17.1.4.tgz#e86bd6cc1b727ff2b2bd62f100958e4bcf37a6a3"
   integrity sha512-3w/rJUUPBj6CYhVER3D5JCKwYJJiC36uj5dP+LnyubHI6H6FJo1TeWVCEA09YLVoZqV3/mLP26j9+Pz1GjAyjQ==
@@ -3229,7 +3229,7 @@ undefsafe@^2.0.5:
   resolved "https://registry.yarnpkg.com/undefsafe/-/undefsafe-2.0.5.tgz#38733b9327bdcd226db889fb723a6efd162e6e2c"
   integrity sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==
 
-undici@^5.7.0, undici@^5.8.0:
+undici@^5.8.0:
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/undici/-/undici-5.8.0.tgz#dec9a8ccd90e5a1d81d43c0eab6503146d649a4f"
   integrity sha512-1F7Vtcez5w/LwH2G2tGnFIihuWUlc58YidwLiCv+jR2Z50x0tNXpRRw7eOIJ+GvqCqIkg9SB7NWAJ/T9TLfv8Q==
@@ -3239,7 +3239,7 @@ unpipe@1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
 
-update-browserslist-db@^1.0.4:
+update-browserslist-db@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.5.tgz#be06a5eedd62f107b7c19eb5bcefb194411abf38"
   integrity sha512-dteFFpCyvuDdr9S/ff1ISkKt/9YZxKjI9WlRR99c180GaztJtRa/fn18FdxGVKVsnPY7/a/FDN68mcvUmP4U7Q==
