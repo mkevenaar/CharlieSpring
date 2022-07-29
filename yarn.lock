@@ -291,13 +291,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@discordjs/builders@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-1.0.0.tgz#1ddc5a7f9d20977e7414c02989169bb7f55294ba"
-  integrity sha512-8y91ZfpOHubiGJu5tVyGI9tQCEyHZDTeqUWVcJd0dq7B96xIf84S0L4fwmD1k9zTe1eqEFSk0gc7BpY+FKn7Ww==
+"@discordjs/builders@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-1.1.0.tgz#4366a4fe069238c3e6e674b74404c79f3ba76525"
+  integrity sha512-EO8TSltiIc9Z1wE854wAFvv5AccqEtvjFmao9PPoxQhRaJ0hEb7FwWRTCA1jGg4ZWI3hcp4m+RET5ufZQz3rOg==
   dependencies:
     "@sapphire/shapeshift" "^3.5.1"
-    discord-api-types "^0.36.2"
+    discord-api-types "^0.36.3"
     fast-deep-equal "^3.1.3"
     ts-mixer "^6.0.1"
     tslib "^2.4.0"
@@ -1259,17 +1259,17 @@ discontinuous-range@1.0.0:
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
   integrity sha512-c68LpLbO+7kP/b1Hr1qs8/BJ09F5khZGTxqxZuhzxpmwJKOgRFHJWIb9/KmqnqHhLdO55aOxFH/EGBvUQbL/RQ==
 
-discord-api-types@^0.36.2, discord-api-types@^0.36.3:
+discord-api-types@^0.36.3:
   version "0.36.3"
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.36.3.tgz#a931b7e57473a5c971d6937fa5f392eb30047579"
   integrity sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==
 
-discord.js@14.1.0:
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.1.0.tgz#f17788d5f6ea425a39a8c0fefaaa0da9f07555aa"
-  integrity sha512-XC3/AvbJvg1xV34H1h4davzG7KK2bAAQ/Fgw50bswof2aHKXEeqbyPZ2DJhOPb0FgmvMsoyf9Zzz31DYKxbSZA==
+discord.js@14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.1.1.tgz#7948a2f4e85f67402e7d0b9ff28bdfbb16c3a24a"
+  integrity sha512-6Oa2f+Y0+s6B5HTTqcAP7Z6tUmguNTKpzbuTmE1JIeT/aUTr9dVe397D/bvcBSRpJERQzMyEWyEiVQnMRHcx4A==
   dependencies:
-    "@discordjs/builders" "^1.0.0"
+    "@discordjs/builders" "^1.1.0"
     "@discordjs/collection" "^1.0.1"
     "@discordjs/rest" "^1.0.1"
     "@sapphire/snowflake" "^3.2.2"
