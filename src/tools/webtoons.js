@@ -1,6 +1,6 @@
 import { EmbedBuilder } from 'discord.js';
 import { InvalidUrlException, RSSParseError } from '../exceptions/runtime.exceptions.js';
-import { isURL } from './tools.js';
+import url from 'node:url';
 
 import Parser from 'rss-parser';
 
@@ -95,11 +95,9 @@ export class webtoonTools {
   }
 
   static async validateWebtoonUrl(webtoon_rss) {
-    if (!isURL(webtoon_rss)) {
-      throw new InvalidUrlException('The provided URL is invalid');
-    }
-
-    if (!webtoon_rss.startsWith('https://www.webtoons.com')) {
+    let host = url.parse(webtoon_rss).host;
+    let allowedHosts = ['www.webtoons.com', 'webtoons.com'];
+    if (!allowedHosts.includes(host)) {
       throw new InvalidUrlException('The provided URL is not a webtoon URL');
     }
   }

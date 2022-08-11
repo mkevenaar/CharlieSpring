@@ -1,6 +1,6 @@
 import { EmbedBuilder } from 'discord.js';
 import { InvalidUrlException, RSSParseError } from '../exceptions/runtime.exceptions.js';
-import { isURL } from './tools.js';
+import url from 'node:url';
 
 import Parser from 'rss-parser';
 import fetch from 'node-fetch';
@@ -97,11 +97,9 @@ export class tapasTools {
   }
 
   static async validateTapasUrl(tapas_url) {
-    if (!isURL(tapas_url)) {
-      throw new InvalidUrlException('The provided URL is invalid');
-    }
-
-    if (!tapas_url.startsWith('https://tapas.io')) {
+    let host = url.parse(webtoon_rss).host;
+    let allowedHosts = ['www.tapas.io', 'tapas.io'];
+    if (!allowedHosts.includes(host)) {
       throw new InvalidUrlException('The provided URL is not a tapas URL');
     }
   }
