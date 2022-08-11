@@ -9,8 +9,8 @@ export async function resolveChannel(search, guild) {
   }
 
   if (search.includes('<#')) {
-    let firstChannel = search.replace('<#', '');
-    let channelID = firstChannel.replace('>', '');
+    let firstChannel = search.replace('<#/g', '');
+    let channelID = firstChannel.replace('>/g', '');
     let channel = guild.channels.cache.get(channelID);
     if (channel) return channel;
   }
@@ -46,13 +46,6 @@ export async function convertTime(milliseconds) {
     .replace('{mins}', mins)
     .replace('{secs}', secs);
   return sentence;
-}
-
-export function isURL(str) {
-  var urlRegex =
-    '^(?!mailto:)(?:(?:http|https|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$';
-  var url = new RegExp(urlRegex, 'i');
-  return str.length < 2083 && url.test(str);
 }
 
 export function isHexColor(str) {
