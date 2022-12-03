@@ -36,7 +36,7 @@
     "cheerio": "1.0.0-rc.12",
     "discord.js": "14.7.1",
     "dotenv": "16.0.3",
-    "html-to-text": "8.2.1",
+    "html-to-text": "9.0.0",
     "mongoose": "6.7.5",
     "node-fetch": "3.3.0",
     "rss-parser": "3.12.0",
