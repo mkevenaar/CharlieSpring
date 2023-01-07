@@ -1,4 +1,4 @@
-import htmlConvert from 'html-to-text';
+import { convert } from 'html-to-text';
 import Parser from 'rss-parser';
 
 export class BaseRssService {
@@ -11,7 +11,6 @@ export class BaseRssService {
   }
 
   async convertHtml(text) {
-    const { convert } = htmlConvert;
     text = text
       .replace(/\*/gi, '')
       .replace(/<(strong|b)>(.*?)<\/(strong|b)>/gi, '**$2**') // Bolded markdown
