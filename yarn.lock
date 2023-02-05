@@ -1447,9 +1447,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "18.11.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.18.tgz#8dfb97f0da23c2293e554c5a50d61ef134d7697f"
-  integrity sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==
+  version "18.11.19"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.19.tgz#35e26df9ec441ab99d73e99e9aca82935eea216d"
+  integrity sha512-YUgMWAQBWLObABqrvx8qKO1enAvBUdjZOAWQ5grBAkp5LQv45jBvYKZ3oFS9iKRCQyFjqw6iuEa1vmFqtxYLZw==
 
 "@types/prettier@^2.1.5":
   version "2.7.2"
@@ -3906,9 +3906,9 @@ undefsafe@^2.0.5:
   integrity sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==
 
 undici@^5.13.0:
-  version "5.16.0"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.16.0.tgz#6b64f9b890de85489ac6332bd45ca67e4f7d9943"
-  integrity sha512-KWBOXNv6VX+oJQhchXieUznEmnJMqgXMbs0xxH2t8q/FUAWSJvOSr/rMaZKnX5RIVq7JDn0JbP4BOnKG2SGXLQ==
+  version "5.17.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.17.1.tgz#94fa53eb33d512be6c5e2bca58cbd3e6c2e26806"
+  integrity sha512-qMwK+1tmJ6DsMlsl/AYsZXnkIraXmQzzBuPSiQXP6q0WvNO+dwfiBAhjZWmxxW4N0PS31fzB6ulDOUS6cv8oKw==
   dependencies:
     busboy "^1.6.0"
 
