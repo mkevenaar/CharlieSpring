@@ -41,7 +41,7 @@
     "node-fetch": "3.3.1",
     "rss-parser": "3.13.0",
     "topgg-autoposter": "2.0.1",
-    "yargs": "17.7.1"
+    "yargs": "17.7.2"
   },
   "devDependencies": {
     "all-contributors-cli": "6.25.0",
