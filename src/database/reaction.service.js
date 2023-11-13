@@ -35,7 +35,7 @@ export class ReactionService {
     try {
       existingCategory = await this.get(guildId, categoryName);
     } catch (error) {
-      if (!error instanceof NotFoundException) {
+      if ((!error) instanceof NotFoundException) {
         throw error;
       }
     }
