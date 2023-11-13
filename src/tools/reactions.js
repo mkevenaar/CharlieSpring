@@ -31,13 +31,15 @@ export class reactionTools {
 
     const reactionService = client.database.ReactionService;
 
-    let colorValidation = isHexColor(color);
+    if (color) {
+      let colorValidation = isHexColor(color);
 
-    //Validation
-    if (!colorValidation) {
-      throw new InvalidColorException(
-        'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
-      );
+      //Validation
+      if (!colorValidation) {
+        throw new InvalidColorException(
+          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
+        );
+      }
     }
 
     await reactionService.create(interaction.guild.id, name, description, color);
@@ -188,7 +190,10 @@ export class reactionTools {
       body.push(role.emoji + ' - ' + roleText);
     });
 
-    message.setDescription(body.join('\n'));
+    if (body.length) {
+      message.setDescription(body.join('\n'));
+    }
+
     let roleMessage;
     if (messageId?.trim()?.length) {
       roleMessage = await roleChannel.messages.fetch(messageId);
