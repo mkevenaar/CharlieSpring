@@ -1,24 +1,24 @@
 {
-    "cSpell.words": [
-        "autoposter",
-        "botstats",
-        "charliespring",
-        "crey",
-        "davidzwa",
-        "discordjs",
-        "Dyrant",
-        "heartstopper",
-        "Lucxjo",
-        "Ludoviko",
-        "metas",
-        "mkevenaar",
-        "reactioncategory",
-        "reactionrole",
-        "removerole",
-        "tapastic",
-        "topgg",
-        "webtoon",
-        "webtoons"
-    ],
-    "jest.jestCommandLine": "yarn run test:cov"
+  "cSpell.words": [
+    "autoposter",
+    "botstats",
+    "charliespring",
+    "crey",
+    "davidzwa",
+    "discordjs",
+    "Dyrant",
+    "heartstopper",
+    "Lucxjo",
+    "Ludoviko",
+    "metas",
+    "mkevenaar",
+    "reactioncategory",
+    "reactionrole",
+    "removerole",
+    "tapastic",
+    "topgg",
+    "webtoon",
+    "webtoons"
+  ],
+  "jest.jestCommandLine": "yarn run test:cov"
 }

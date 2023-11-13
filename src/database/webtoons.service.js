@@ -33,7 +33,7 @@ export class WebtoonsService {
     try {
       existingWebtoon = await this.get(guildId, rss);
     } catch (error) {
-      if (!error instanceof NotFoundException) {
+      if ((!error) instanceof NotFoundException) {
         throw error;
       }
     }

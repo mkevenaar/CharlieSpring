@@ -22,7 +22,7 @@ export class WebtoonsRssService extends BaseRssService {
         try {
           webtoon = await WebtoonsService.get(webtoon.guildId, webtoon.rss);
         } catch (error) {
-          if (!error instanceof NotFoundException) {
+          if ((!error) instanceof NotFoundException) {
             throw error;
           } else {
             return;

@@ -33,7 +33,7 @@ export class TapasService {
     try {
       existingTapas = await this.get(guildId, rss);
     } catch (error) {
-      if (!error instanceof NotFoundException) {
+      if ((!error) instanceof NotFoundException) {
         throw error;
       }
     }

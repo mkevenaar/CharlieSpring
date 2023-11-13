@@ -32,7 +32,7 @@ export async function execute(reaction, user, client) {
       });
     })
     .catch((error) => {
-      if (!error instanceof NotFoundException) {
+      if ((!error) instanceof NotFoundException) {
         console.error('An error happened inside the addReaction handler of messageReactionAdd');
         console.error(error);
       }

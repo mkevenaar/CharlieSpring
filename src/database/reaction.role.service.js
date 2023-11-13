@@ -36,7 +36,7 @@ export class ReactionRoleService {
     try {
       existingRole = await this.get(guildId, categoryName, role.id);
     } catch (error) {
-      if (!error instanceof NotFoundException) {
+      if ((!error) instanceof NotFoundException) {
         throw error;
       }
     }

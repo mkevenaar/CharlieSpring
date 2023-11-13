@@ -22,7 +22,7 @@ export class TapasRssService extends BaseRssService {
         try {
           tapas = await TapasService.get(tapas.guildId, tapas.rss);
         } catch (error) {
-          if (!error instanceof NotFoundException) {
+          if ((!error) instanceof NotFoundException) {
             throw error;
           } else {
             return;

@@ -49,7 +49,7 @@ jobs:
           repository: ${{ steps.repo.outputs._1 }}
           milestone: ${{ steps.gitversion.outputs.majorMinorPatch }}
           name: 'Release ${{ steps.gitversion.outputs.majorMinorPatch }}'
-          assets:  |
+          assets: |
             release.zip
 
       - name: Publish release with GitReleaseManager
