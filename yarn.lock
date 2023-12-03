@@ -790,9 +790,9 @@
     "@types/yargs-parser" "*"
 
 "@vladfrangu/async_event_emitter@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@vladfrangu/async_event_emitter/-/async_event_emitter-2.2.2.tgz#84c5a3f8d648842cec5cc649b88df599af32ed88"
-  integrity sha512-HIzRG7sy88UZjBJamssEczH5q7t5+axva19UbZLO6u0ySbYPrwzWiXBcC0WuHyhKKoeCyneH+FvYzKQq/zTtkQ==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@vladfrangu/async_event_emitter/-/async_event_emitter-2.2.3.tgz#545914c29484f9e6f863ee0f2a498da05b550a6d"
+  integrity sha512-JSDoNoZ1VLVAD5xZbKiExFBJNtaNBJ1SmiDGFSOf8nFbUafENSUCURYcJeNIqrcVbECzAYyJ3kgXdR2qBF1IIQ==
 
 abbrev@1:
   version "1.1.1"
