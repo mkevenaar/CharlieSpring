@@ -35,7 +35,7 @@
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
     "discord.js": "14.14.1",
-    "dotenv": "16.4.2",
+    "dotenv": "16.4.3",
     "html-to-text": "9.0.5",
     "mongoose": "8.1.2",
     "node-fetch": "3.3.2",
