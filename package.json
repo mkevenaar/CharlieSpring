@@ -37,7 +37,7 @@
     "discord.js": "14.18.0",
     "dotenv": "16.4.7",
     "html-to-text": "9.0.5",
-    "mongoose": "8.12.2",
+    "mongoose": "8.13.0",
     "node-fetch": "3.3.2",
     "rss-parser": "3.13.0",
     "topgg-autoposter": "2.0.2",
