@@ -22,12 +22,12 @@ export async function execute(interaction) {
   help.addFields([{ name: myCategory[0].label, value: myCategory[0].description }]);
 
   const commands = (await findCommandFiles(true)).filter(
-    (command) => command.group === interaction.values[0],
+    (command) => command.group === interaction.values[0]
   );
 
   commands.forEach((command) => {
     const filteredOptions = command.options.filter(
-      (option) => option.type === 1 || option.type === 2,
+      (option) => option.type === 1 || option.type === 2
     );
     if (filteredOptions.length) {
       filteredOptions.forEach((option) => {
@@ -35,8 +35,7 @@ export async function execute(interaction) {
           help.addFields([
             { name: `/${command.name} ${option.name}`, value: option.description, inline: true },
           ]);
-        }
-        else if (option.type === 2) {
+        } else if (option.type === 2) {
           option.options.forEach((subOption) => {
             help.addFields([
               {
@@ -48,8 +47,7 @@ export async function execute(interaction) {
           });
         }
       });
-    }
-    else {
+    } else {
       help.addFields([{ name: `/${command.name}`, value: command.description, inline: true }]);
     }
   });
@@ -58,7 +56,7 @@ export async function execute(interaction) {
     new StringSelectMenuBuilder()
       .setCustomId('help')
       .setPlaceholder('Please select a category')
-      .addOptions(categories),
+      .addOptions(categories)
   );
   const buttonRow = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
@@ -80,7 +78,7 @@ export async function execute(interaction) {
       .setLabel('Add me to your server!')
       .setEmoji('🔗')
       .setURL(HelpUrls.inviteUrl)
-      .setStyle(ButtonStyle.Link),
+      .setStyle(ButtonStyle.Link)
   );
   await interaction.editReply({ embeds: [help], components: [selectRow, buttonRow] });
 }

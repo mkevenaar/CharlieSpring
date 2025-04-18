@@ -5,9 +5,9 @@ import { botPermissions } from '../../tools/botPermissions.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage('You don\'t have permission configure the reaction roles!')
+  .setUserMessage("You don't have permission configure the reaction roles!")
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage('It seems that I don\'t have permission to send messages!');
+  .setBotMessage("It seems that I don't have permission to send messages!");
 
 export const data = new SlashCommandBuilder()
   .setName('reactions')
@@ -204,63 +204,62 @@ export async function execute(interaction, client) {
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-    case null:
-      switch (interaction.options.getSubcommand()) {
-      case ReactionCommands.configure:
-        await reactionTools.configureReactions(interaction, client);
+      case null:
+        switch (interaction.options.getSubcommand()) {
+          case ReactionCommands.configure:
+            await reactionTools.configureReactions(interaction, client);
+            break;
+          case ReactionCommands.list:
+            await reactionTools.displayReactions(interaction, client);
+            break;
+          case ReactionCommands.rebuild:
+            await reactionTools.rebuildCategories(interaction, client);
+            break;
+          default:
+            console.log(interaction.options.getSubcommand());
+            throw new CommandNotFoundException(
+              'Unknown command: ' + interaction.options.getSubcommand()
+            );
+        }
         break;
-      case ReactionCommands.list:
-        await reactionTools.displayReactions(interaction, client);
+      case 'category':
+        switch (interaction.options.getSubcommand()) {
+          case ReactionCommands.add:
+            await reactionTools.addCategory(interaction, client);
+            break;
+          case ReactionCommands.edit:
+            await reactionTools.editCategory(interaction, client);
+            break;
+          case ReactionCommands.delete:
+            await reactionTools.deleteCategory(interaction, client);
+            break;
+          default:
+            console.log(interaction.options.getSubcommand());
+            throw new CommandNotFoundException(
+              'Unknown command: ' + interaction.options.getSubcommand()
+            );
+        }
         break;
-      case ReactionCommands.rebuild:
-        await reactionTools.rebuildCategories(interaction, client);
+      case 'roles':
+        switch (interaction.options.getSubcommand()) {
+          case ReactionCommands.add:
+            await reactionTools.createCategoryRole(interaction, client);
+            break;
+          case ReactionCommands.edit:
+            await reactionTools.editCategoryRole(interaction, client);
+            break;
+          case ReactionCommands.delete:
+            await reactionTools.deleteCategoryRole(interaction, client);
+            break;
+          default:
+            console.log(interaction.options.getSubcommand());
+            throw new CommandNotFoundException(
+              'Unknown command: ' + interaction.options.getSubcommand()
+            );
+        }
         break;
-      default:
-        console.log(interaction.options.getSubcommand());
-        throw new CommandNotFoundException(
-          'Unknown command: ' + interaction.options.getSubcommand(),
-        );
-      }
-      break;
-    case 'category':
-      switch (interaction.options.getSubcommand()) {
-      case ReactionCommands.add:
-        await reactionTools.addCategory(interaction, client);
-        break;
-      case ReactionCommands.edit:
-        await reactionTools.editCategory(interaction, client);
-        break;
-      case ReactionCommands.delete:
-        await reactionTools.deleteCategory(interaction, client);
-        break;
-      default:
-        console.log(interaction.options.getSubcommand());
-        throw new CommandNotFoundException(
-          'Unknown command: ' + interaction.options.getSubcommand(),
-        );
-      }
-      break;
-    case 'roles':
-      switch (interaction.options.getSubcommand()) {
-      case ReactionCommands.add:
-        await reactionTools.createCategoryRole(interaction, client);
-        break;
-      case ReactionCommands.edit:
-        await reactionTools.editCategoryRole(interaction, client);
-        break;
-      case ReactionCommands.delete:
-        await reactionTools.deleteCategoryRole(interaction, client);
-        break;
-      default:
-        console.log(interaction.options.getSubcommand());
-        throw new CommandNotFoundException(
-          'Unknown command: ' + interaction.options.getSubcommand(),
-        );
-      }
-      break;
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,

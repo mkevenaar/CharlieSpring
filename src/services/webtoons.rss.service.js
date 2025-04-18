@@ -21,12 +21,10 @@ export class WebtoonsRssService extends BaseRssService {
         // break out of the loop if the webtoon gets deleted!
         try {
           webtoon = await WebtoonsService.get(webtoon.guildId, webtoon.rss);
-        }
-        catch (error) {
+        } catch (error) {
           if ((!error) instanceof NotFoundException) {
             throw error;
-          }
-          else {
+          } else {
             return;
           }
         }
@@ -72,8 +70,7 @@ export class WebtoonsRssService extends BaseRssService {
               await webtoon.save();
             }
           }
-        }
-        catch (error) {
+        } catch (error) {
           console.error(error);
           // Disabled temporary
           // channel.send(
@@ -82,7 +79,7 @@ export class WebtoonsRssService extends BaseRssService {
         }
         this.fetch(webtoon, channelId);
       },
-      now ? 0 : 60000,
+      now ? 0 : 60000
     );
   }
 
@@ -99,8 +96,7 @@ export class WebtoonsRssService extends BaseRssService {
       if (item.link) {
         if (item.link.match(/(?:http).+(?::\/\/).+\..+/g)) {
           embed.setURL(item.link);
-        }
-        else {
+        } else {
           embed.setURL(feed.link);
         }
       }

@@ -15,7 +15,7 @@ export const permission = new botPermissions()
     PermissionsBitField.Flags.BanMembers,
   ])
   .setBotMessage(
-    'It seems that I don\'t have permission to send messages, embed links or ban members!\nThese are required for this function to work',
+    "It seems that I don't have permission to send messages, embed links or ban members!\nThese are required for this function to work"
   );
 
 export const data = new SlashCommandBuilder()
@@ -30,14 +30,14 @@ export async function execute(interaction) {
 
     // Get the amount of text and voice channels
     const textChannels = await interaction.guild.channels.cache.filter(
-      (x) => x.type === ChannelType.GuildText,
+      (x) => x.type === ChannelType.GuildText
     ).size;
     const voiceChannels = await interaction.guild.channels.cache.filter(
-      (x) => x.type === ChannelType.GuildVoice,
+      (x) => x.type === ChannelType.GuildVoice
     ).size;
     // Get the amount of categories
     const catCount = await interaction.guild.channels.cache.filter(
-      (x) => x.type === ChannelType.GuildCategory,
+      (x) => x.type === ChannelType.GuildCategory
     ).size;
     // Get the amount of role
     const roleCount = await interaction.guild.roles.cache.size;
@@ -96,12 +96,11 @@ export async function execute(interaction) {
             interaction.guild.premiumSubscriptionCount || 0
           }`,
           inline: false,
-        },
+        }
       );
 
     await interaction.reply({ embeds: [guildStatsEmbed] });
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     await interaction.reply({
       content:

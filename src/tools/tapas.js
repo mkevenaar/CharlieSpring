@@ -86,8 +86,7 @@ export class tapasTools {
 
     try {
       feed = await RSSParser.parseURL(tapas_rss);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw new RSSParseError('Failed to parse RSS feed');
     }

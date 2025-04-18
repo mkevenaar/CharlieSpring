@@ -12,7 +12,7 @@ const require = createRequire(import.meta.url);
 
 function validateEnvConfigState() {
   if (!envConfigured) {
-    throw new Error('Please configure the environment first using \'shared:configureEnv()\'. ');
+    throw new Error("Please configure the environment first using 'shared:configureEnv()'. ");
   }
 
   return true;
@@ -74,7 +74,7 @@ export async function findCommandFiles(docs = false) {
   const folders = readdirSync(`src/${commandsFolder}/`);
   for (const folder of folders) {
     const commandFiles = readdirSync(`src/${commandsFolder}/${folder}/`).filter((file) =>
-      file.endsWith(jsExt),
+      file.endsWith(jsExt)
     );
 
     for (const file of commandFiles) {
@@ -95,7 +95,7 @@ export async function findCategories(selected = '') {
   const folders = readdirSync(`src/${commandsFolder}/`);
   for (const folder of folders) {
     const categoryFiles = readdirSync(`src/${commandsFolder}/${folder}/`).filter((file) =>
-      file.endsWith('category.json'),
+      file.endsWith('category.json')
     );
 
     for (const file of categoryFiles) {

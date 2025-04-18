@@ -37,7 +37,7 @@ export class reactionTools {
       // Validation
       if (!colorValidation) {
         throw new InvalidColorException(
-          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c',
+          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
         );
       }
     }
@@ -67,7 +67,7 @@ export class reactionTools {
       // Validation
       if (!colorValidation) {
         throw new InvalidColorException(
-          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c',
+          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
         );
       }
       await reactionService.updateColor(interaction.guild.id, name, color);
@@ -109,7 +109,7 @@ export class reactionTools {
     // Validation
     if (!emojiValidation) {
       throw new EmojiDoesNotExistException(
-        'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.',
+        'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.'
       );
     }
 
@@ -131,7 +131,7 @@ export class reactionTools {
         interaction.guild.id,
         category,
         role.id,
-        description,
+        description
       );
     }
 
@@ -139,7 +139,7 @@ export class reactionTools {
       const emojiValidation = await this.parseEmoji(emoji, interaction);
       if (!emojiValidation) {
         throw new EmojiDoesNotExistException(
-          'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.',
+          'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.'
         );
       }
       await reactionRoleService.updateEmoji(interaction.guild.id, category, role.id, emoji);
@@ -199,8 +199,7 @@ export class reactionTools {
     if (messageId?.trim()?.length) {
       roleMessage = await roleChannel.messages.fetch(messageId);
       await roleMessage.edit({ embeds: [message] });
-    }
-    else {
+    } else {
       roleMessage = await roleChannel.send({ embeds: [message] });
       reactionService.updateMessageId(guild.id, categoryName, roleMessage.id);
       messageId = roleMessage.id;
@@ -218,7 +217,7 @@ export class reactionTools {
     });
 
     reactions.forEach((reaction) => {
-      reaction.users.fetch().then(function(userList) {
+      reaction.users.fetch().then(function (userList) {
         userList.forEach((user) => {
           reaction.users.remove(user.id);
         });
@@ -250,8 +249,7 @@ export class reactionTools {
       // Get custom emojis
       const lastTerm = emoji.split(':')[2].toString();
       return interaction.guild.emojis.cache.get(lastTerm.substring(0, lastTerm.length - 1));
-    }
-    else {
+    } else {
       // Unicode emojis
       const regex = /\p{Extended_Pictographic}|\p{Emoji_Presentation}/gu;
       return regex.test(emoji);

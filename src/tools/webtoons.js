@@ -51,7 +51,7 @@ export class webtoonTools {
       'https://www.webtoons.com/en/challenge/heartstopper/rss?title_no=329660',
       role,
       interaction,
-      client,
+      client
     );
   }
 
@@ -84,8 +84,7 @@ export class webtoonTools {
 
     try {
       feed = await RSSParser.parseURL(webtoon_rss);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw new RSSParseError('Failed to parse RSS feed');
     }

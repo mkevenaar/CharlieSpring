@@ -4,7 +4,7 @@ import { BotColors } from '../../constants.js';
 
 export const permission = new botPermissions()
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage('It seems that I don\'t have permission to send messages!');
+  .setBotMessage("It seems that I don't have permission to send messages!");
 
 export const data = new SlashCommandBuilder()
   .setName('botstats')
@@ -30,12 +30,11 @@ export async function execute(interaction, client) {
         { name: 'Guilds', value: `\`\`\`${client.guilds.cache.size}\`\`\``, inline: true },
         { name: 'RAM usage', value: `\`\`\`${ram}MB\`\`\``, inline: true },
         { name: 'API latency', value: `\`\`\`${client.ws.ping} ms\`\`\``, inline: true },
-        { name: 'Uptime', value: `\`\`\`${uptime}\`\`\`` },
+        { name: 'Uptime', value: `\`\`\`${uptime}\`\`\`` }
       );
 
     await interaction.reply({ embeds: [botStatsEmbed] });
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     await interaction.reply({
       content:

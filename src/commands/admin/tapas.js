@@ -5,14 +5,14 @@ import { tapasTools } from '../../tools/tapas.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage('You don\'t have permission configure Tapas!')
+  .setUserMessage("You don't have permission configure Tapas!")
   .setBotPerms([
     PermissionsBitField.Flags.SendMessages,
     PermissionsBitField.Flags.EmbedLinks,
     PermissionsBitField.Flags.MentionEveryone,
   ])
   .setBotMessage(
-    'It seems that I don\'t have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role',
+    "It seems that I don't have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role"
   );
 
 export const data = new SlashCommandBuilder()
@@ -114,36 +114,35 @@ export async function execute(interaction, client) {
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-    case null:
-      switch (interaction.options.getSubcommand()) {
-      case 'configure':
-        await tools.configureTapas(interaction, client);
+      case null:
+        switch (interaction.options.getSubcommand()) {
+          case 'configure':
+            await tools.configureTapas(interaction, client);
+            break;
+          case 'list':
+            await tools.displayTapas(interaction, client);
+            break;
+          case 'add':
+            await tools.addTapas(interaction, client);
+            break;
+          case 'heartstopper':
+            await tools.addHeartstopper(interaction, client);
+            break;
+          case 'edit':
+            await tools.editTapas(interaction, client);
+            break;
+          case 'remove':
+            await tools.deleteTapas(interaction, client);
+            break;
+          default:
+            console.log(interaction.options.getSubcommand());
+            throw new CommandNotFoundException(
+              'Unknown command: ' + interaction.options.getSubcommand()
+            );
+        }
         break;
-      case 'list':
-        await tools.displayTapas(interaction, client);
-        break;
-      case 'add':
-        await tools.addTapas(interaction, client);
-        break;
-      case 'heartstopper':
-        await tools.addHeartstopper(interaction, client);
-        break;
-      case 'edit':
-        await tools.editTapas(interaction, client);
-        break;
-      case 'remove':
-        await tools.deleteTapas(interaction, client);
-        break;
-      default:
-        console.log(interaction.options.getSubcommand());
-        throw new CommandNotFoundException(
-          'Unknown command: ' + interaction.options.getSubcommand(),
-        );
-      }
-      break;
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,
