@@ -6,10 +6,7 @@ export class GuildService {
     const categoryPath = { path: 'categories' };
     const webtoonPath = { path: 'webtoons' };
     const tapasPath = { path: 'tapas' };
-    let guildEntry = await GuildModel.findOne(filter)
-      .populate(categoryPath)
-      .populate(webtoonPath)
-      .populate(tapasPath);
+    let guildEntry = await GuildModel.findOne(filter).populate(categoryPath).populate(webtoonPath).populate(tapasPath);
 
     if (!guildEntry) {
       guildEntry = await this.create(guildId);
@@ -54,7 +51,7 @@ export class GuildService {
   static async deleteCategory(guildId, category) {
     const guildEntry = await this.get(guildId);
 
-    const itemToRemoveIndex = guildEntry.categories.findIndex(function (item) {
+    const itemToRemoveIndex = guildEntry.categories.findIndex(function(item) {
       return item._id.toString() === category._id.toString();
     });
 
@@ -102,7 +99,7 @@ export class GuildService {
   static async deleteTapas(guildId, tapas) {
     const guildEntry = await this.get(guildId);
 
-    const itemToRemoveIndex = guildEntry.tapas.findIndex(function (item) {
+    const itemToRemoveIndex = guildEntry.tapas.findIndex(function(item) {
       return item._id.toString() === tapas._id.toString();
     });
 
@@ -156,7 +153,7 @@ export class GuildService {
   static async deleteWebtoon(guildId, webtoon) {
     const guildEntry = await this.get(guildId);
 
-    const itemToRemoveIndex = guildEntry.webtoons.findIndex(function (item) {
+    const itemToRemoveIndex = guildEntry.webtoons.findIndex(function(item) {
       return item._id.toString() === webtoon._id.toString();
     });
 

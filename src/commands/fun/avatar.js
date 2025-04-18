@@ -4,16 +4,13 @@ import { botPermissions } from '../../tools/botPermissions.js';
 
 export const permission = new botPermissions()
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage("It seems that I don't have permission to send messages!");
+  .setBotMessage('It seems that I don\'t have permission to send messages!');
 
 export const data = new SlashCommandBuilder()
   .setName('avatar')
   .setDescription('Get a users avatar')
   .addUserOption((user) => {
-    return user
-      .setName('user')
-      .setDescription('User you want the avatar of (optional)')
-      .setRequired(false);
+    return user.setName('user').setDescription('User you want the avatar of (optional)').setRequired(false);
   });
 
 export async function execute(interaction) {
@@ -34,7 +31,8 @@ export async function execute(interaction) {
       const emoji = NickEmoji[Math.floor(Math.random() * NickEmoji.length)];
       await reply.react(emoji);
     }
-  } catch (err) {
+  }
+  catch (err) {
     console.log(err);
     await interaction.reply({
       content:

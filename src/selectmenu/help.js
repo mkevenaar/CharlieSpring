@@ -1,10 +1,4 @@
-import {
-  ActionRowBuilder,
-  EmbedBuilder,
-  ButtonBuilder,
-  StringSelectMenuBuilder,
-  ButtonStyle,
-} from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, ButtonBuilder, StringSelectMenuBuilder, ButtonStyle } from 'discord.js';
 import { BotColors, HelpUrls } from '../constants.js';
 import { findCategories, findCommandFiles } from '../shared.js';
 
@@ -21,21 +15,16 @@ export async function execute(interaction) {
 
   help.addFields([{ name: myCategory[0].label, value: myCategory[0].description }]);
 
-  const commands = (await findCommandFiles(true)).filter(
-    (command) => command.group === interaction.values[0]
-  );
+  const commands = (await findCommandFiles(true)).filter((command) => command.group === interaction.values[0]);
 
   commands.forEach((command) => {
-    const filteredOptions = command.options.filter(
-      (option) => option.type === 1 || option.type === 2
-    );
+    const filteredOptions = command.options.filter((option) => option.type === 1 || option.type === 2);
     if (filteredOptions.length) {
       filteredOptions.forEach((option) => {
         if (option.type === 1) {
-          help.addFields([
-            { name: `/${command.name} ${option.name}`, value: option.description, inline: true },
-          ]);
-        } else if (option.type === 2) {
+          help.addFields([{ name: `/${command.name} ${option.name}`, value: option.description, inline: true }]);
+        }
+        else if (option.type === 2) {
           option.options.forEach((subOption) => {
             help.addFields([
               {
@@ -47,16 +36,14 @@ export async function execute(interaction) {
           });
         }
       });
-    } else {
+    }
+    else {
       help.addFields([{ name: `/${command.name}`, value: command.description, inline: true }]);
     }
   });
 
   const selectRow = new ActionRowBuilder().addComponents(
-    new StringSelectMenuBuilder()
-      .setCustomId('help')
-      .setPlaceholder('Please select a category')
-      .addOptions(categories)
+    new StringSelectMenuBuilder().setCustomId('help').setPlaceholder('Please select a category').addOptions(categories),
   );
   const buttonRow = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
@@ -64,21 +51,13 @@ export async function execute(interaction) {
       .setEmoji('🆘')
       .setURL(HelpUrls.supportServer)
       .setStyle(ButtonStyle.Link),
-    new ButtonBuilder()
-      .setLabel('Online help')
-      .setEmoji('🌐')
-      .setURL(HelpUrls.websiteUrl)
-      .setStyle(ButtonStyle.Link),
-    new ButtonBuilder()
-      .setLabel('Create Issue')
-      .setEmoji('✍️')
-      .setURL(HelpUrls.gitHubUrl)
-      .setStyle(ButtonStyle.Link),
+    new ButtonBuilder().setLabel('Online help').setEmoji('🌐').setURL(HelpUrls.websiteUrl).setStyle(ButtonStyle.Link),
+    new ButtonBuilder().setLabel('Create Issue').setEmoji('✍️').setURL(HelpUrls.gitHubUrl).setStyle(ButtonStyle.Link),
     new ButtonBuilder()
       .setLabel('Add me to your server!')
       .setEmoji('🔗')
       .setURL(HelpUrls.inviteUrl)
-      .setStyle(ButtonStyle.Link)
+      .setStyle(ButtonStyle.Link),
   );
   await interaction.editReply({ embeds: [help], components: [selectRow, buttonRow] });
 }

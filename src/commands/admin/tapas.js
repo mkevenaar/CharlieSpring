@@ -5,14 +5,14 @@ import { tapasTools } from '../../tools/tapas.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage("You don't have permission configure Tapas!")
+  .setUserMessage('You don\'t have permission configure Tapas!')
   .setBotPerms([
     PermissionsBitField.Flags.SendMessages,
     PermissionsBitField.Flags.EmbedLinks,
     PermissionsBitField.Flags.MentionEveryone,
   ])
   .setBotMessage(
-    "It seems that I don't have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role"
+    'It seems that I don\'t have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role',
   );
 
 export const data = new SlashCommandBuilder()
@@ -49,10 +49,7 @@ export const data = new SlashCommandBuilder()
           .setRequired(true);
       })
       .addRoleOption((role) => {
-        return role
-          .setName('role')
-          .setDescription('Role to ping on updates (optional)')
-          .setRequired(false);
+        return role.setName('role').setDescription('Role to ping on updates (optional)').setRequired(false);
       });
   })
   .addSubcommand((addHS) => {
@@ -60,10 +57,7 @@ export const data = new SlashCommandBuilder()
       .setName('heartstopper')
       .setDescription('Adds the HeartStopper Tapas RSS URL')
       .addRoleOption((role) => {
-        return role
-          .setName('role')
-          .setDescription('Role to ping on updates (optional)')
-          .setRequired(false);
+        return role.setName('role').setDescription('Role to ping on updates (optional)').setRequired(false);
       });
   })
   .addSubcommand((edit) => {
@@ -71,10 +65,7 @@ export const data = new SlashCommandBuilder()
       .setName('edit')
       .setDescription('Edit a tapas comic role')
       .addStringOption((rssUrl) => {
-        return rssUrl
-          .setName('tapas_rss')
-          .setDescription('RSS URL of the tapas you want to update')
-          .setRequired(true);
+        return rssUrl.setName('tapas_rss').setDescription('RSS URL of the tapas you want to update').setRequired(true);
       })
       .addRoleOption((role) => {
         return role.setName('role').setDescription('Role to ping on updates').setRequired(true);
@@ -85,10 +76,7 @@ export const data = new SlashCommandBuilder()
       .setName('remove')
       .setDescription('Remove a tapas comic RSS URL')
       .addStringOption((rssUrl) => {
-        return rssUrl
-          .setName('tapas_rss')
-          .setDescription('RSS URL of the tapas you want to delete')
-          .setRequired(true);
+        return rssUrl.setName('tapas_rss').setDescription('RSS URL of the tapas you want to delete').setRequired(true);
       });
   });
 
@@ -114,35 +102,34 @@ export async function execute(interaction, client) {
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-      case null:
-        switch (interaction.options.getSubcommand()) {
-          case 'configure':
-            await tools.configureTapas(interaction, client);
-            break;
-          case 'list':
-            await tools.displayTapas(interaction, client);
-            break;
-          case 'add':
-            await tools.addTapas(interaction, client);
-            break;
-          case 'heartstopper':
-            await tools.addHeartstopper(interaction, client);
-            break;
-          case 'edit':
-            await tools.editTapas(interaction, client);
-            break;
-          case 'remove':
-            await tools.deleteTapas(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+    case null:
+      switch (interaction.options.getSubcommand()) {
+      case 'configure':
+        await tools.configureTapas(interaction, client);
         break;
+      case 'list':
+        await tools.displayTapas(interaction, client);
+        break;
+      case 'add':
+        await tools.addTapas(interaction, client);
+        break;
+      case 'heartstopper':
+        await tools.addHeartstopper(interaction, client);
+        break;
+      case 'edit':
+        await tools.editTapas(interaction, client);
+        break;
+      case 'remove':
+        await tools.deleteTapas(interaction, client);
+        break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException('Unknown command: ' + interaction.options.getSubcommand());
+      }
+      break;
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,

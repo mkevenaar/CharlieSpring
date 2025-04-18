@@ -34,7 +34,8 @@ export async function generateDocs() {
         const subCommandFilename = filename + '_' + option.name + '.md';
         // process here!
         await generateFile(option, dir, subCommandFilename);
-      } else if (option.type === 2) {
+      }
+      else if (option.type === 2) {
         let subCommandGroupFilename = filename + '_' + option.name;
         option.options.forEach(async (subCommand) => {
           const subCommandFilename = subCommandGroupFilename + '_' + subCommand.name + '.md';
@@ -63,16 +64,15 @@ export async function generateFile(command, folder, filename) {
     data.push('|-|-|-|-|');
   }
   command.options.forEach((option) => {
-    data.push(
-      `|${option.name}|${OptionNames[option.type]}|${option.description}|${option.required}|`
-    );
+    data.push(`|${option.name}|${OptionNames[option.type]}|${option.description}|${option.required}|`);
   });
   data.push('');
   console.log(filePath);
 
   try {
     await writeFile(filePath, data.join('\n'));
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
   }
 }

@@ -33,7 +33,8 @@ export class ReactionService {
 
     try {
       existingCategory = await this.get(guildId, categoryName);
-    } catch (error) {
+    }
+    catch (error) {
       if ((!error) instanceof NotFoundException) {
         throw error;
       }
@@ -123,7 +124,7 @@ export class ReactionService {
   static async deleteRole(guildId, categoryName, role) {
     const categoryEntry = await this.get(guildId, categoryName);
 
-    const itemToRemoveIndex = categoryEntry.roles.findIndex(function (item) {
+    const itemToRemoveIndex = categoryEntry.roles.findIndex(function(item) {
       return item._id.toString() === role._id.toString();
     });
 

@@ -1,12 +1,5 @@
 import { getEnvConfig } from './shared.js';
-import {
-  Client,
-  Collection,
-  GatewayIntentBits,
-  Partials,
-  InteractionType,
-  MessageFlags,
-} from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials, InteractionType, MessageFlags } from 'discord.js';
 import mongoose from 'mongoose';
 import { AutoPoster } from 'topgg-autoposter';
 import { resolveChannel, convertTime } from './tools/tools.js';
@@ -69,8 +62,8 @@ export async function initBot() {
   // Commands Setup
   const folders = readdirSync(`./${sourceFolder}/${commandsFolder}/`);
   for (const folder of folders) {
-    const commandFiles = readdirSync(`${sourceFolder}/${commandsFolder}/${folder}/`).filter(
-      (file) => file.endsWith(jsExt)
+    const commandFiles = readdirSync(`${sourceFolder}/${commandsFolder}/${folder}/`).filter((file) =>
+      file.endsWith(jsExt),
     );
 
     for (const file of commandFiles) {
@@ -80,9 +73,7 @@ export async function initBot() {
   }
 
   // SelectMenu Setup
-  const menuFiles = readdirSync(`./${sourceFolder}/${selectMenuFolder}/`).filter((file) =>
-    file.endsWith(jsExt)
-  );
+  const menuFiles = readdirSync(`./${sourceFolder}/${selectMenuFolder}/`).filter((file) => file.endsWith(jsExt));
   for (const menuFile of menuFiles) {
     const menu = await import(`./${selectMenuFolder}/${menuFile}`);
     await client.selectMenu.set(menu.data.name, menu);
@@ -98,7 +89,8 @@ export async function initBot() {
     try {
       await command.permission.checkUserPerms(interaction);
       await command.permission.checkBotPerms(interaction);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       await interaction.reply({
         content: 'There was an error while executing this command! \n ' + error.message,
@@ -109,7 +101,8 @@ export async function initBot() {
 
     try {
       await command.execute(interaction, client);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       await interaction.reply({
         content: 'There was an error while executing this command!',
@@ -127,7 +120,8 @@ export async function initBot() {
 
     try {
       await menu.execute(interaction, client);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       await interaction.reply({
         content: 'There was an error while executing this command!',
@@ -137,15 +131,14 @@ export async function initBot() {
   });
 
   // Events setup
-  const eventFiles = readdirSync(`./${sourceFolder}/${eventsFolder}`).filter((file) =>
-    file.endsWith(jsExt)
-  );
+  const eventFiles = readdirSync(`./${sourceFolder}/${eventsFolder}`).filter((file) => file.endsWith(jsExt));
 
   for (const file of eventFiles) {
     const event = await import(`./${eventsFolder}/${file}`);
     if (event.once) {
       client.once(event.name, (...args) => event.execute(...args, client));
-    } else {
+    }
+    else {
       client.on(event.name, (...args) => event.execute(...args, client));
     }
   }

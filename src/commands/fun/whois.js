@@ -5,16 +5,13 @@ import { botPermissions } from '../../tools/botPermissions.js';
 
 export const permission = new botPermissions()
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage("It seems that I don't have permission to send messages!");
+  .setBotMessage('It seems that I don\'t have permission to send messages!');
 
 export const data = new SlashCommandBuilder()
   .setName('whois')
   .setDescription('Get a users information')
   .addUserOption((user) => {
-    return user
-      .setName('user')
-      .setDescription('User you want the whois of (optional)')
-      .setRequired(false);
+    return user.setName('user').setDescription('User you want the whois of (optional)').setRequired(false);
   });
 
 export async function execute(interaction) {
@@ -63,7 +60,7 @@ export async function execute(interaction) {
 
     // Get a list of roles
     const roleCount = await member.roles.cache
-      .filter(function (role) {
+      .filter(function(role) {
         return role.id !== interaction.guild.roles.everyone.id;
       })
       .map((role) => '<@&' + role.id + '>');
@@ -84,8 +81,8 @@ export async function execute(interaction) {
         0,
         keyPermissions.splice(
           keyPermissions.findIndex((p) => p === 'Administrator'),
-          1
-        )[0]
+          1,
+        )[0],
       );
     }
     if (keyPermissions.includes('ManageGuild') && keyPermissions.includes('Administrator')) {
@@ -94,17 +91,18 @@ export async function execute(interaction) {
         0,
         keyPermissions.splice(
           keyPermissions.findIndex((p) => p === 'ManageGuild'),
-          1
-        )[0]
+          1,
+        )[0],
       );
-    } else if (keyPermissions.includes('ManageGuild')) {
+    }
+    else if (keyPermissions.includes('ManageGuild')) {
       keyPermissions.splice(
         0,
         0,
         keyPermissions.splice(
           keyPermissions.findIndex((p) => p === 'ManageGuild'),
-          1
-        )[0]
+          1,
+        )[0],
       );
     }
 
@@ -114,25 +112,25 @@ export async function execute(interaction) {
     if (member.presence?.activities) {
       for (const activity of member.presence.activities.values()) {
         switch (activity.type) {
-          case ActivityType.Playing:
-            activities.push(`Playing **${activity.name}**`);
-            break;
-          case ActivityType.Listening:
-            if (member.user.bot) activities.push(`Listening to **${activity.name}**`);
-            else activities.push(`Listening to **${activity.details}** by **${activity.state}**`);
-            break;
-          case ActivityType.Watching:
-            activities.push(`Watching **${activity.name}**`);
-            break;
-          case ActivityType.Streaming:
-            activities.push(`Streaming **${activity.name}**`);
-            break;
-          case ActivityType.Custom:
-            customStatus = activity.state;
-            break;
-          case ActivityType.Competing:
-            activities.push(`Competing in **${activities.name}**`);
-            break;
+        case ActivityType.Playing:
+          activities.push(`Playing **${activity.name}**`);
+          break;
+        case ActivityType.Listening:
+          if (member.user.bot) activities.push(`Listening to **${activity.name}**`);
+          else activities.push(`Listening to **${activity.details}** by **${activity.state}**`);
+          break;
+        case ActivityType.Watching:
+          activities.push(`Watching **${activity.name}**`);
+          break;
+        case ActivityType.Streaming:
+          activities.push(`Streaming **${activity.name}**`);
+          break;
+        case ActivityType.Custom:
+          customStatus = activity.state;
+          break;
+        case ActivityType.Competing:
+          activities.push(`Competing in **${activities.name}**`);
+          break;
         }
       }
     }
@@ -177,9 +175,7 @@ export async function execute(interaction) {
     }
 
     if (userFlags.length > 0) {
-      message.addFields([
-        { name: 'Badges', value: userFlags.map((flag) => flags[flag]).join('\n'), inline: true },
-      ]);
+      message.addFields([{ name: 'Badges', value: userFlags.map((flag) => flags[flag]).join('\n'), inline: true }]);
     }
 
     await interaction.reply({ embeds: [message] });
@@ -189,7 +185,8 @@ export async function execute(interaction) {
       const emoji = NickEmoji[Math.floor(Math.random() * NickEmoji.length)];
       await reply.react(emoji);
     }
-  } catch (err) {
+  }
+  catch (err) {
     console.log(err);
     await interaction.reply({
       content:

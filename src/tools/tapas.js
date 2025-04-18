@@ -34,9 +34,7 @@ export class tapasTools {
       if (tapas.role) {
         role = `\nRole: <@&${tapas.role}>`;
       }
-      tapasEmbed.addFields([
-        { name: `${tapas.title}`, value: `RSS: ${tapas.rss}${role}`, inline: false },
-      ]);
+      tapasEmbed.addFields([{ name: `${tapas.title}`, value: `RSS: ${tapas.rss}${role}`, inline: false }]);
     });
     return await interaction.reply({ embeds: [tapasEmbed], flags: MessageFlags.Ephemeral });
   }
@@ -86,7 +84,8 @@ export class tapasTools {
 
     try {
       feed = await RSSParser.parseURL(tapas_rss);
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
       throw new RSSParseError('Failed to parse RSS feed');
     }

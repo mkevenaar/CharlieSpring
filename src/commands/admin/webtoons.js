@@ -5,14 +5,14 @@ import { webtoonTools } from '../../tools/webtoons.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage("You don't have permission configure webtoons!")
+  .setUserMessage('You don\'t have permission configure webtoons!')
   .setBotPerms([
     PermissionsBitField.Flags.SendMessages,
     PermissionsBitField.Flags.EmbedLinks,
     PermissionsBitField.Flags.MentionEveryone,
   ])
   .setBotMessage(
-    "It seems that I don't have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role"
+    'It seems that I don\'t have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role',
   );
 
 export const data = new SlashCommandBuilder()
@@ -49,10 +49,7 @@ export const data = new SlashCommandBuilder()
           .setRequired(true);
       })
       .addRoleOption((role) => {
-        return role
-          .setName('role')
-          .setDescription('Role to ping on updates (optional)')
-          .setRequired(false);
+        return role.setName('role').setDescription('Role to ping on updates (optional)').setRequired(false);
       });
   })
   .addSubcommand((addHS) => {
@@ -60,10 +57,7 @@ export const data = new SlashCommandBuilder()
       .setName('heartstopper')
       .setDescription('Adds the HeartStopper Webtoon RSS URL')
       .addRoleOption((role) => {
-        return role
-          .setName('role')
-          .setDescription('Role to ping on updates (optional)')
-          .setRequired(false);
+        return role.setName('role').setDescription('Role to ping on updates (optional)').setRequired(false);
       });
   })
   .addSubcommand((edit) => {
@@ -114,35 +108,34 @@ export async function execute(interaction, client) {
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-      case null:
-        switch (interaction.options.getSubcommand()) {
-          case 'configure':
-            await tools.configureWebtoons(interaction, client);
-            break;
-          case 'list':
-            await tools.displayWebtoons(interaction, client);
-            break;
-          case 'add':
-            await tools.addWebtoon(interaction, client);
-            break;
-          case 'heartstopper':
-            await tools.addHeartstopper(interaction, client);
-            break;
-          case 'edit':
-            await tools.editWebtoon(interaction, client);
-            break;
-          case 'remove':
-            await tools.deleteWebtoon(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+    case null:
+      switch (interaction.options.getSubcommand()) {
+      case 'configure':
+        await tools.configureWebtoons(interaction, client);
         break;
+      case 'list':
+        await tools.displayWebtoons(interaction, client);
+        break;
+      case 'add':
+        await tools.addWebtoon(interaction, client);
+        break;
+      case 'heartstopper':
+        await tools.addHeartstopper(interaction, client);
+        break;
+      case 'edit':
+        await tools.editWebtoon(interaction, client);
+        break;
+      case 'remove':
+        await tools.deleteWebtoon(interaction, client);
+        break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException('Unknown command: ' + interaction.options.getSubcommand());
+      }
+      break;
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,
