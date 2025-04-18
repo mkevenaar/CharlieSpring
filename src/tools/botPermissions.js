@@ -39,7 +39,7 @@ export class botPermissions {
   checkUserPerms(interaction) {
     if (this.userPerms.length && !interaction.member.permissions.has(this.userPerms)) {
       throw new InvalidPermissionException(
-        this.userMessage ? this.userMessage : 'You do not have permission to do that!'
+        this.userMessage ? this.userMessage : 'You do not have permission to do that!',
       );
     }
   }
@@ -47,7 +47,7 @@ export class botPermissions {
   checkBotPerms(interaction) {
     if (this.botPerms.length && !interaction.guild.members.me.permissions.has(this.botPerms)) {
       throw new InvalidPermissionException(
-        this.botMessage ? this.botMessage : 'I do not have enough permissions to do that!'
+        this.botMessage ? this.botMessage : 'I do not have enough permissions to do that!',
       );
     }
   }

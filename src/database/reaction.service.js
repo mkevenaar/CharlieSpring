@@ -1,7 +1,6 @@
 import { ReactionCategoryModel } from './models/reaction.category.js';
 import { GuildService } from './guild.service.js';
 import { AlreadyExistException, NotFoundException } from '../exceptions/runtime.exceptions.js';
-import { GuildModel } from './models/guild.js';
 
 export class ReactionService {
   static async list(guildId) {
@@ -23,7 +22,7 @@ export class ReactionService {
 
   static async delete(guildId, categoryName) {
     const filter = { guildId: guildId, name: categoryName };
-    let categoryEntry = await this.get(guildId, categoryName);
+    const categoryEntry = await this.get(guildId, categoryName);
 
     await GuildService.deleteCategory(guildId, categoryEntry);
     return ReactionCategoryModel.findOneAndDelete(filter);
@@ -34,7 +33,8 @@ export class ReactionService {
 
     try {
       existingCategory = await this.get(guildId, categoryName);
-    } catch (error) {
+    }
+    catch (error) {
       if ((!error) instanceof NotFoundException) {
         throw error;
       }
@@ -44,17 +44,17 @@ export class ReactionService {
       throw new AlreadyExistException('Category name already exists');
     }
 
-    let categoryEntry = new ReactionCategoryModel({
+    const categoryEntry = new ReactionCategoryModel({
       guildId: guildId,
       name: categoryName,
       registeredAt: Date.now(),
     });
 
-    if (!!description?.length) {
+    if (description?.length) {
       categoryEntry.description = description;
     }
 
-    if (!!color?.length) {
+    if (color?.length) {
       categoryEntry.color = color;
     }
 
@@ -64,7 +64,7 @@ export class ReactionService {
   }
 
   static async updateMessageId(guildId, categoryName, messageId) {
-    let categoryEntry = await this.get(guildId, categoryName);
+    const categoryEntry = await this.get(guildId, categoryName);
 
     categoryEntry.messageId = messageId;
 
@@ -73,8 +73,8 @@ export class ReactionService {
   }
 
   static async updateDescription(guildId, categoryName, description) {
-    let categoryEntry = await this.get(guildId, categoryName);
-    if (!!description?.length) {
+    const categoryEntry = await this.get(guildId, categoryName);
+    if (description?.length) {
       categoryEntry.description = description;
     }
 
@@ -83,8 +83,8 @@ export class ReactionService {
   }
 
   static async updateColor(guildId, categoryName, color) {
-    let categoryEntry = await this.get(guildId, categoryName);
-    if (!!color?.length) {
+    const categoryEntry = await this.get(guildId, categoryName);
+    if (color?.length) {
       categoryEntry.color = color;
     }
 
@@ -93,8 +93,8 @@ export class ReactionService {
   }
 
   static async updateName(guildId, categoryName, newName) {
-    let categoryEntry = await this.get(guildId, categoryName);
-    if (!!newName?.length) {
+    const categoryEntry = await this.get(guildId, categoryName);
+    if (newName?.length) {
       categoryEntry.name = newName;
     }
 
@@ -115,16 +115,16 @@ export class ReactionService {
   }
 
   static async addRole(guildId, categoryName, role) {
-    let categoryEntry = await this.get(guildId, categoryName);
+    const categoryEntry = await this.get(guildId, categoryName);
     categoryEntry.roles.push(role);
     await categoryEntry.save();
     return categoryEntry;
   }
 
   static async deleteRole(guildId, categoryName, role) {
-    let categoryEntry = await this.get(guildId, categoryName);
+    const categoryEntry = await this.get(guildId, categoryName);
 
-    const itemToRemoveIndex = categoryEntry.roles.findIndex(function (item) {
+    const itemToRemoveIndex = categoryEntry.roles.findIndex(function(item) {
       return item._id.toString() === role._id.toString();
     });
 

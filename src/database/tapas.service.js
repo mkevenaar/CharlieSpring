@@ -21,7 +21,7 @@ export class TapasService {
 
   static async delete(guildId, rss) {
     const filter = { guildId: guildId, rss: rss };
-    let tapasEntry = await this.get(guildId, rss);
+    const tapasEntry = await this.get(guildId, rss);
 
     await GuildService.deleteTapas(guildId, tapasEntry);
     return TapasModel.findOneAndDelete(filter);
@@ -32,7 +32,8 @@ export class TapasService {
 
     try {
       existingTapas = await this.get(guildId, rss);
-    } catch (error) {
+    }
+    catch (error) {
       if ((!error) instanceof NotFoundException) {
         throw error;
       }
@@ -42,14 +43,14 @@ export class TapasService {
       throw new AlreadyExistException('Tapas already configured');
     }
 
-    let tapasEntry = new TapasModel({
+    const tapasEntry = new TapasModel({
       guildId: guildId,
       registeredAt: Date.now(),
       rss: rss,
       title: title,
     });
 
-    if (!!role?.id) {
+    if (role?.id) {
       tapasEntry.role = role.id;
     }
 
@@ -59,9 +60,9 @@ export class TapasService {
   }
 
   static async updateRole(guildId, rss, role) {
-    let tapasEntry = await this.get(guildId, rss);
+    const tapasEntry = await this.get(guildId, rss);
 
-    if (!!role?.id) {
+    if (role?.id) {
       tapasEntry.role = role.id;
     }
 

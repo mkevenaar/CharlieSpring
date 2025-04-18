@@ -13,9 +13,9 @@ export class BaseRssService {
   async convertHtml(text) {
     text = text
       .replace(/\*/gi, '')
-      .replace(/<(strong|b)>(.*?)<\/(strong|b)>/gi, '**$2**') // Bolded markdown
-      .replace(/<(em|i)>(.*?)<(\/(em|i))>/gi, '*$2*') // Italicized markdown
-      .replace(/<(u)>(.*?)<(\/(u))>/gi, '__$2__'); // Underlined markdown
+      .replace(/<(strong|b)>(.*?)<\/(strong|b)>/gi, '**$2**')
+      .replace(/<(em|i)>(.*?)<(\/(em|i))>/gi, '*$2*')
+      .replace(/<(u)>(.*?)<(\/(u))>/gi, '__$2__');
 
     return convert(text, {
       wordwrap: null,

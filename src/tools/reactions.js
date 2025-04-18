@@ -17,7 +17,7 @@ export class reactionTools {
 
   static async rebuildCategories(interaction, client) {
     const reactionService = client.database.ReactionService;
-    let categories = await reactionService.list(interaction.guild.id);
+    const categories = await reactionService.list(interaction.guild.id);
 
     await categories.forEach(async (category) => {
       await this.updateRoleMessage(client, interaction.guild, category.name);
@@ -32,12 +32,12 @@ export class reactionTools {
     const reactionService = client.database.ReactionService;
 
     if (color) {
-      let colorValidation = isHexColor(color);
+      const colorValidation = isHexColor(color);
 
-      //Validation
+      // Validation
       if (!colorValidation) {
         throw new InvalidColorException(
-          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
+          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c',
         );
       }
     }
@@ -57,23 +57,23 @@ export class reactionTools {
 
     let updateName = name;
 
-    if (!!description?.length) {
+    if (description?.length) {
       await reactionService.updateDescription(interaction.guild.id, name, description);
     }
 
-    if (!!color?.length) {
-      let colorValidation = isHexColor(color);
+    if (color?.length) {
+      const colorValidation = isHexColor(color);
       console.log(color);
-      //Validation
+      // Validation
       if (!colorValidation) {
         throw new InvalidColorException(
-          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c'
+          'Color verification failed. Make sure you use an Hexadecimal color. e.g. #aa22cc or #a2c',
         );
       }
       await reactionService.updateColor(interaction.guild.id, name, color);
     }
 
-    if (!!newName?.length) {
+    if (newName?.length) {
       await reactionService.updateName(interaction.guild.id, name, newName);
       updateName = newName;
     }
@@ -85,9 +85,9 @@ export class reactionTools {
     const name = interaction.options.getString('name');
 
     const reactionService = client.database.ReactionService;
-    let reactionRoleService = client.database.ReactionRoleService;
+    const reactionRoleService = client.database.ReactionRoleService;
 
-    let category = await reactionService.get(interaction.guild.id, name);
+    const category = await reactionService.get(interaction.guild.id, name);
     category.roles.forEach(async (role) => {
       await reactionRoleService.delete(interaction.guild.id, name, role);
     });
@@ -103,13 +103,13 @@ export class reactionTools {
     const category = interaction.options.getString('category');
     const description = interaction.options.getString('description');
 
-    let reactionRoleService = client.database.ReactionRoleService;
-    let emojiValidation = await this.parseEmoji(emoji, interaction);
+    const reactionRoleService = client.database.ReactionRoleService;
+    const emojiValidation = await this.parseEmoji(emoji, interaction);
 
-    //Validation
+    // Validation
     if (!emojiValidation) {
       throw new EmojiDoesNotExistException(
-        'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.'
+        'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.',
       );
     }
 
@@ -124,22 +124,22 @@ export class reactionTools {
     const category = interaction.options.getString('category');
     const description = interaction.options.getString('description');
 
-    let reactionRoleService = client.database.ReactionRoleService;
+    const reactionRoleService = client.database.ReactionRoleService;
 
-    if (!!description?.length) {
+    if (description?.length) {
       await reactionRoleService.updateDescription(
         interaction.guild.id,
         category,
         role.id,
-        description
+        description,
       );
     }
 
-    if (!!emoji?.length) {
-      let emojiValidation = await this.parseEmoji(emoji, interaction);
+    if (emoji?.length) {
+      const emojiValidation = await this.parseEmoji(emoji, interaction);
       if (!emojiValidation) {
         throw new EmojiDoesNotExistException(
-          'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.'
+          'Emoji verification failed. Make sure you use an guild or unicode emoji. Emoji from other servers will not work.',
         );
       }
       await reactionRoleService.updateEmoji(interaction.guild.id, category, role.id, emoji);
@@ -152,7 +152,7 @@ export class reactionTools {
     const role = interaction.options.getRole('role');
     const category = interaction.options.getString('category');
 
-    let reactionRoleService = client.database.ReactionRoleService;
+    const reactionRoleService = client.database.ReactionRoleService;
 
     await reactionRoleService.delete(interaction.guild.id, category, role);
 
@@ -162,17 +162,18 @@ export class reactionTools {
   static async updateRoleMessage(client, guild, categoryName) {
     const guildService = client.database.GuildService;
     const reactionService = client.database.ReactionService;
-    let guildData = await guildService.get(guild.id);
-    let category = await reactionService.get(guild.id, categoryName);
+    const guildData = await guildService.get(guild.id);
+    const category = await reactionService.get(guild.id, categoryName);
 
     const channelId = guildData.addons.reactions.channel;
     let messageId = category.messageId;
 
-    let roleChannel = await client.tools.resolveChannel(channelId, guild);
-    if (!roleChannel) return; // Unable to find channel in guild
+    const roleChannel = await client.tools.resolveChannel(channelId, guild);
+    // Unable to find channel in guild
+    if (!roleChannel) return;
 
-    let message = new EmbedBuilder();
-    let body = [];
+    const message = new EmbedBuilder();
+    const body = [];
 
     message.setTitle(category.name);
 
@@ -186,7 +187,7 @@ export class reactionTools {
     }
 
     category.roles.forEach((role) => {
-      let roleText = role.description ? role.description : '<@&' + role.id + '>';
+      const roleText = role.description ? role.description : '<@&' + role.id + '>';
       body.push(role.emoji + ' - ' + roleText);
     });
 
@@ -198,13 +199,14 @@ export class reactionTools {
     if (messageId?.trim()?.length) {
       roleMessage = await roleChannel.messages.fetch(messageId);
       await roleMessage.edit({ embeds: [message] });
-    } else {
+    }
+    else {
       roleMessage = await roleChannel.send({ embeds: [message] });
       reactionService.updateMessageId(guild.id, categoryName, roleMessage.id);
       messageId = roleMessage.id;
     }
 
-    let reactions = roleMessage.reactions.cache;
+    const reactions = roleMessage.reactions.cache;
 
     category.roles.forEach((role) => {
       roleMessage.react(role.emoji);
@@ -216,7 +218,7 @@ export class reactionTools {
     });
 
     reactions.forEach((reaction) => {
-      reaction.users.fetch().then(function (userList) {
+      reaction.users.fetch().then(function(userList) {
         userList.forEach((user) => {
           reaction.users.remove(user.id);
         });
@@ -227,27 +229,29 @@ export class reactionTools {
   static async deleteRoleMessage(client, guild, categoryName) {
     const guildService = client.database.GuildService;
     const reactionService = client.database.ReactionService;
-    let guildData = await guildService.get(guild.id);
-    let category = await reactionService.get(guild.id, categoryName);
+    const guildData = await guildService.get(guild.id);
+    const category = await reactionService.get(guild.id, categoryName);
 
     const channelId = guildData.addons.reactions.channel;
     const messageId = category.messageId;
 
-    let roleChannel = await client.tools.resolveChannel(channelId, guild);
-    if (!roleChannel) return; // Unable to find channel in guild
+    const roleChannel = await client.tools.resolveChannel(channelId, guild);
+    // Unable to find channel in guild
+    if (!roleChannel) return;
 
     if (messageId?.trim()?.length) {
       await roleChannel.messages.delete(messageId);
     }
   }
 
-  //Helper functions
+  // Helper functions
   static async parseEmoji(emoji, interaction) {
     if (emoji.split(':').length == 3) {
       // Get custom emojis
       const lastTerm = emoji.split(':')[2].toString();
       return interaction.guild.emojis.cache.get(lastTerm.substring(0, lastTerm.length - 1));
-    } else {
+    }
+    else {
       // Unicode emojis
       const regex = /\p{Extended_Pictographic}|\p{Emoji_Presentation}/gu;
       return regex.test(emoji);
@@ -262,7 +266,7 @@ export class reactionTools {
     const reactionService = client.database.ReactionService;
     const roleData = await reactionService.getRole(guild.id, messageId, emoji);
     if (roleData?.roles?.length) {
-      let roleId = roleData.roles[0].id;
+      const roleId = roleData.roles[0].id;
       if (roleId && reaction.message.guild) {
         return reaction.message.guild.roles.fetch(roleId);
       }

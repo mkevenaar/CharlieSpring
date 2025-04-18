@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Variables
 ENV TOKEN changeme
@@ -9,8 +9,10 @@ ENV MONGODB "mongodb://localhost:27017/CharlieSpring"
 RUN mkdir -p /usr/src/bot
 WORKDIR /usr/src/bot
 
-COPY package.json yarn.lock /usr/src/bot/
-RUN ["yarn", "install", "--frozen-lockfile", "--prod"]
+COPY .yarn/releases /usr/src/bot/.yarn/releases
+COPY package.json yarn.lock .yarnrc.yml /usr/src/bot/
+
+RUN ["yarn", "workspaces", "focus", "--all", "--production"]
 
 COPY . /usr/src/bot
 

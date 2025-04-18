@@ -1,17 +1,18 @@
-import { SlashCommandBuilder, PermissionsBitField } from 'discord.js';
+import { SlashCommandBuilder, PermissionsBitField, MessageFlags } from 'discord.js';
 import { CommandNotFoundException } from '../../exceptions/runtime.exceptions.js';
 import { botPermissions } from '../../tools/botPermissions.js';
+import { tapasTools } from '../../tools/tapas.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage("You don't have permission configure Tapas!")
+  .setUserMessage('You don\'t have permission configure Tapas!')
   .setBotPerms([
     PermissionsBitField.Flags.SendMessages,
     PermissionsBitField.Flags.EmbedLinks,
     PermissionsBitField.Flags.MentionEveryone,
   ])
   .setBotMessage(
-    "It seems that I don't have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role"
+    'It seems that I don\'t have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role',
   );
 
 export const data = new SlashCommandBuilder()
@@ -93,7 +94,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction, client) {
   const guildService = client.database.GuildService;
-  let guildData = await guildService.get(interaction.guild.id);
+  const guildData = await guildService.get(interaction.guild.id);
 
   // Ensure welcome messages enabled
   const tapasProp = guildData?.addons?.tapas;
@@ -102,53 +103,57 @@ export async function execute(interaction, client) {
     interaction.options.getSubcommand() !== 'list' &&
     !tapasProp?.enabled
   ) {
-    await interaction.reply({ content: 'Tapas not enabled, stopping', ephemeral: true });
+    await interaction.reply({
+      content: 'Tapas not enabled, stopping',
+      flags: MessageFlags.Ephemeral,
+    });
     return;
   }
 
-  const tapasTools = client.tools.tapasTools;
+  const tools = new tapasTools();
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-      case null:
-        switch (interaction.options.getSubcommand()) {
-          case 'configure':
-            await tapasTools.configureTapas(interaction, client);
-            break;
-          case 'list':
-            await tapasTools.displayTapas(interaction, client);
-            break;
-          case 'add':
-            await tapasTools.addTapas(interaction, client);
-            break;
-          case 'heartstopper':
-            await tapasTools.addHeartstopper(interaction, client);
-            break;
-          case 'edit':
-            await tapasTools.editTapas(interaction, client);
-            break;
-          case 'remove':
-            await tapasTools.deleteTapas(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+    case null:
+      switch (interaction.options.getSubcommand()) {
+      case 'configure':
+        await tools.configureTapas(interaction, client);
         break;
+      case 'list':
+        await tools.displayTapas(interaction, client);
+        break;
+      case 'add':
+        await tools.addTapas(interaction, client);
+        break;
+      case 'heartstopper':
+        await tools.addHeartstopper(interaction, client);
+        break;
+      case 'edit':
+        await tools.editTapas(interaction, client);
+        break;
+      case 'remove':
+        await tools.deleteTapas(interaction, client);
+        break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException(
+          'Unknown command: ' + interaction.options.getSubcommand(),
+        );
+      }
+      break;
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     return;
   }
 
   // Don't send a response during the list command!
   if (interaction.options.getSubcommand() !== 'list') {
-    await interaction.reply({ content: 'Settings saved!', ephemeral: true });
+    await interaction.reply({ content: 'Settings saved!', flags: MessageFlags.Ephemeral });
   }
 }

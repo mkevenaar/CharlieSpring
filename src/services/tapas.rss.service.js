@@ -7,7 +7,7 @@ import { BaseRssService } from './base.rss.service.js';
 
 export class TapasRssService extends BaseRssService {
   async load() {
-    let guilds = await GuildService.listTapas();
+    const guilds = await GuildService.listTapas();
     guilds.forEach((guild) => {
       guild.tapas.forEach((tapas) => {
         this.fetch(tapas, guild.addons.tapas.channel, true);
@@ -21,16 +21,18 @@ export class TapasRssService extends BaseRssService {
         // break out of the loop if the tapas gets deleted!
         try {
           tapas = await TapasService.get(tapas.guildId, tapas.rss);
-        } catch (error) {
+        }
+        catch (error) {
           if ((!error) instanceof NotFoundException) {
             throw error;
-          } else {
+          }
+          else {
             return;
           }
         }
 
-        //Do the RSS magic
-        let guild = await this.client.guilds.fetch(tapas.guildId);
+        // Do the RSS magic
+        const guild = await this.client.guilds.fetch(tapas.guildId);
         const channel = await this.client.tools.resolveChannel(channelId, guild);
         let newDate = 0;
 
@@ -57,7 +59,7 @@ export class TapasRssService extends BaseRssService {
           const embeds = await this.makeEmbeds(newItems, newFeed);
           for (const embed of embeds) {
             // Send to the channel
-            let returnData = {};
+            const returnData = {};
             if (tapas.role) {
               returnData.allowedMentions = { roles: [tapas.role] };
               returnData.content = `<@&${tapas.role}> a new update to ${tapas.title} is posted!`;
@@ -70,7 +72,8 @@ export class TapasRssService extends BaseRssService {
               await tapas.save();
             }
           }
-        } catch (error) {
+        }
+        catch (error) {
           console.error(error);
           // Disabled temporary
           // channel.send(
@@ -79,14 +82,14 @@ export class TapasRssService extends BaseRssService {
         }
         this.fetch(tapas, channelId);
       },
-      now ? 0 : 60000
+      now ? 0 : 60000,
     );
   }
 
   async makeEmbeds(items, feed) {
     const embeds = [];
     for (const item of items) {
-      let embed = new EmbedBuilder().setColor(BotColors.default);
+      const embed = new EmbedBuilder().setColor(BotColors.default);
 
       if (item.creator) embed.setAuthor({ name: item.creator + ' @ Tapas' });
       if (item.category) embed.addFields([{ name: 'Category:', value: item.category }]);
@@ -96,7 +99,8 @@ export class TapasRssService extends BaseRssService {
       if (item.link) {
         if (item.link.match(/(?:http).+(?::\/\/).+\..+/g)) {
           embed.setURL(item.link);
-        } else {
+        }
+        else {
           embed.setURL(feed.link);
         }
       }

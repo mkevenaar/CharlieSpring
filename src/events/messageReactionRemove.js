@@ -1,12 +1,14 @@
 import { NotFoundException } from '../exceptions/runtime.exceptions.js';
+import { reactionTools } from '../tools/reactions.js';
 
 export const name = 'messageReactionRemove';
 export const once = false;
 
 export async function execute(reaction, user, client) {
-  const reactionTools = client.tools.reactionTools;
+  const tools = new reactionTools();
 
   Promise.all([reaction.fetch(), user.fetch()])
+    // eslint-disable-next-line no-shadow
     .then(async ([reaction, user]) => {
       /* Early leave if the message is not sent to a guild. */
       if (!reaction.message.guild) {
@@ -20,7 +22,7 @@ export async function execute(reaction, user, client) {
       }
 
       /* Try to add the member to the guild. */
-      await reactionTools.getRole(client, reaction).then((role) => {
+      await tools.getRole(client, reaction).then((role) => {
         if (role) {
           return member.roles.remove(role);
         }

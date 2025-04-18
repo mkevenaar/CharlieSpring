@@ -23,7 +23,7 @@ export class ReactionRoleService {
 
   static async delete(guildId, categoryName, role) {
     const filter = { id: role.id, guildId: guildId, categoryName: categoryName };
-    let roleEntry = await this.get(guildId, categoryName, role.id);
+    const roleEntry = await this.get(guildId, categoryName, role.id);
 
     await ReactionService.deleteRole(guildId, categoryName, roleEntry);
     return ReactionRoleModel.findOneAndDelete(filter);
@@ -31,11 +31,12 @@ export class ReactionRoleService {
 
   static async create(guildId, categoryName, role, description, emoji) {
     let existingRole;
-    let existingCategory = await ReactionService.get(guildId, categoryName);
+    // const existingCategory = await ReactionService.get(guildId, categoryName);
 
     try {
       existingRole = await this.get(guildId, categoryName, role.id);
-    } catch (error) {
+    }
+    catch (error) {
       if ((!error) instanceof NotFoundException) {
         throw error;
       }
@@ -45,7 +46,7 @@ export class ReactionRoleService {
       throw new AlreadyExistException('Role already exists in this category');
     }
 
-    let roleEntry = new ReactionRoleModel({
+    const roleEntry = new ReactionRoleModel({
       id: role.id,
       categoryName: categoryName,
       guildId: guildId,
@@ -53,7 +54,7 @@ export class ReactionRoleService {
       registeredAt: Date.now(),
     });
 
-    if (!!description?.length) {
+    if (description?.length) {
       roleEntry.description = description;
     }
 
@@ -63,8 +64,8 @@ export class ReactionRoleService {
   }
 
   static async updateDescription(guildId, categoryName, role, description) {
-    let roleEntry = await this.get(guildId, categoryName, role);
-    if (!!description?.length) {
+    const roleEntry = await this.get(guildId, categoryName, role);
+    if (description?.length) {
       roleEntry.description = description;
     }
 
@@ -73,8 +74,8 @@ export class ReactionRoleService {
   }
 
   static async updateEmoji(guildId, categoryName, role, emoji) {
-    let roleEntry = await this.get(guildId, categoryName, role);
-    if (!!emoji?.length) {
+    const roleEntry = await this.get(guildId, categoryName, role);
+    if (emoji?.length) {
       roleEntry.emoji = emoji;
     }
 

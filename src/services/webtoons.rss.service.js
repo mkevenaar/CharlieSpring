@@ -7,7 +7,7 @@ import { BaseRssService } from './base.rss.service.js';
 
 export class WebtoonsRssService extends BaseRssService {
   async load() {
-    let guilds = await GuildService.listWebtoons();
+    const guilds = await GuildService.listWebtoons();
     guilds.forEach((guild) => {
       guild.webtoons.forEach((webtoon) => {
         this.fetch(webtoon, guild.addons.webtoons.channel, true);
@@ -21,16 +21,18 @@ export class WebtoonsRssService extends BaseRssService {
         // break out of the loop if the webtoon gets deleted!
         try {
           webtoon = await WebtoonsService.get(webtoon.guildId, webtoon.rss);
-        } catch (error) {
+        }
+        catch (error) {
           if ((!error) instanceof NotFoundException) {
             throw error;
-          } else {
+          }
+          else {
             return;
           }
         }
 
-        //Do the RSS magic
-        let guild = await this.client.guilds.fetch(webtoon.guildId);
+        // Do the RSS magic
+        const guild = await this.client.guilds.fetch(webtoon.guildId);
         const channel = await this.client.tools.resolveChannel(channelId, guild);
         let newDate = 0;
 
@@ -57,7 +59,7 @@ export class WebtoonsRssService extends BaseRssService {
           const embeds = await this.makeEmbeds(newItems, newFeed);
           for (const embed of embeds) {
             // Send to the channel
-            let returnData = {};
+            const returnData = {};
             if (webtoon.role) {
               returnData.allowedMentions = { roles: [webtoon.role] };
               returnData.content = `<@&${webtoon.role}> a new update to ${webtoon.title} is posted!`;
@@ -70,7 +72,8 @@ export class WebtoonsRssService extends BaseRssService {
               await webtoon.save();
             }
           }
-        } catch (error) {
+        }
+        catch (error) {
           console.error(error);
           // Disabled temporary
           // channel.send(
@@ -79,14 +82,14 @@ export class WebtoonsRssService extends BaseRssService {
         }
         this.fetch(webtoon, channelId);
       },
-      now ? 0 : 60000
+      now ? 0 : 60000,
     );
   }
 
   async makeEmbeds(items, feed) {
     const embeds = [];
     for (const item of items) {
-      let embed = new EmbedBuilder().setColor(BotColors.default);
+      const embed = new EmbedBuilder().setColor(BotColors.default);
 
       if (item.creator) embed.setAuthor({ name: item.creator + ' @ Webtoons' });
       if (item.category) embed.addFields([{ name: 'Category:', value: item.category }]);
@@ -96,7 +99,8 @@ export class WebtoonsRssService extends BaseRssService {
       if (item.link) {
         if (item.link.match(/(?:http).+(?::\/\/).+\..+/g)) {
           embed.setURL(item.link);
-        } else {
+        }
+        else {
           embed.setURL(feed.link);
         }
       }

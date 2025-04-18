@@ -11,8 +11,9 @@ const jsExt = Constants.jsExt;
 const require = createRequire(import.meta.url);
 
 function validateEnvConfigState() {
-  if (!envConfigured)
-    throw new Error("Please configure the environment first using 'shared:configureEnv()'. ");
+  if (!envConfigured) {
+    throw new Error('Please configure the environment first using \'shared:configureEnv()\'. ');
+  }
 
   return true;
 }
@@ -37,8 +38,8 @@ export function processArgs() {
 
 export function getEnvConfig() {
   validateEnvConfigState();
-
-  let { CLIENT_ID, GUILD_ID, TOKEN, MONGODB, TOPGG_TOKEN } = process.env;
+  let { MONGODB } = process.env;
+  const { CLIENT_ID, GUILD_ID, TOKEN, TOPGG_TOKEN } = process.env;
 
   if (!MONGODB) {
     MONGODB = Constants.defaultMongoString;
@@ -70,15 +71,15 @@ async function importFile(folder, file) {
 
 export async function findCommandFiles(docs = false) {
   const commands = [];
-  let folders = readdirSync(`src/${commandsFolder}/`);
+  const folders = readdirSync(`src/${commandsFolder}/`);
   for (const folder of folders) {
     const commandFiles = readdirSync(`src/${commandsFolder}/${folder}/`).filter((file) =>
-      file.endsWith(jsExt)
+      file.endsWith(jsExt),
     );
 
     for (const file of commandFiles) {
       const command = await importFile(folder, file);
-      let data = command.data.toJSON();
+      const data = command.data.toJSON();
       if (docs) {
         data.group = folder;
       }
@@ -91,10 +92,10 @@ export async function findCommandFiles(docs = false) {
 
 export async function findCategories(selected = '') {
   const categories = [];
-  let folders = readdirSync(`src/${commandsFolder}/`);
+  const folders = readdirSync(`src/${commandsFolder}/`);
   for (const folder of folders) {
     const categoryFiles = readdirSync(`src/${commandsFolder}/${folder}/`).filter((file) =>
-      file.endsWith('category.json')
+      file.endsWith('category.json'),
     );
 
     for (const file of categoryFiles) {

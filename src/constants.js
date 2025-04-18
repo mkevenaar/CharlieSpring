@@ -30,7 +30,7 @@ export const Constants = {
 
 export const DefaultRestOptions = { version: '10' };
 
-export const NickBots = ['970253083718344704', '969889333156937740'];
+export const NickBots = ['970253083718344704', '980925033599889470', '969889333156937740'];
 
 export const NickEmoji = ['❤️', '💓', '❤️‍🔥', '♥️', '💞', '💕'];
 

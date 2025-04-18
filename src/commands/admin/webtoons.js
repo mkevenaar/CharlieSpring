@@ -1,17 +1,18 @@
-import { SlashCommandBuilder, PermissionsBitField } from 'discord.js';
+import { SlashCommandBuilder, PermissionsBitField, MessageFlags } from 'discord.js';
 import { CommandNotFoundException } from '../../exceptions/runtime.exceptions.js';
 import { botPermissions } from '../../tools/botPermissions.js';
+import { webtoonTools } from '../../tools/webtoons.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage("You don't have permission configure webtoons!")
+  .setUserMessage('You don\'t have permission configure webtoons!')
   .setBotPerms([
     PermissionsBitField.Flags.SendMessages,
     PermissionsBitField.Flags.EmbedLinks,
     PermissionsBitField.Flags.MentionEveryone,
   ])
   .setBotMessage(
-    "It seems that I don't have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role"
+    'It seems that I don\'t have all the permissions required!\nI need at least: Send messages; Embed links; Mention everyone, here and any role',
   );
 
 export const data = new SlashCommandBuilder()
@@ -93,7 +94,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction, client) {
   const guildService = client.database.GuildService;
-  let guildData = await guildService.get(interaction.guild.id);
+  const guildData = await guildService.get(interaction.guild.id);
 
   // Ensure welcome messages enabled
   const webtoonsProp = guildData?.addons?.webtoons;
@@ -102,53 +103,57 @@ export async function execute(interaction, client) {
     interaction.options.getSubcommand() !== 'list' &&
     !webtoonsProp?.enabled
   ) {
-    await interaction.reply({ content: 'Webtoons not enabled, stopping', ephemeral: true });
+    await interaction.reply({
+      content: 'Webtoons not enabled, stopping',
+      flags: MessageFlags.Ephemeral,
+    });
     return;
   }
 
-  const webtoonTools = client.tools.webtoonTools;
+  const tools = new webtoonTools();
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-      case null:
-        switch (interaction.options.getSubcommand()) {
-          case 'configure':
-            await webtoonTools.configureWebtoons(interaction, client);
-            break;
-          case 'list':
-            await webtoonTools.displayWebtoons(interaction, client);
-            break;
-          case 'add':
-            await webtoonTools.addWebtoon(interaction, client);
-            break;
-          case 'heartstopper':
-            await webtoonTools.addHeartstopper(interaction, client);
-            break;
-          case 'edit':
-            await webtoonTools.editWebtoon(interaction, client);
-            break;
-          case 'remove':
-            await webtoonTools.deleteWebtoon(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+    case null:
+      switch (interaction.options.getSubcommand()) {
+      case 'configure':
+        await tools.configureWebtoons(interaction, client);
         break;
+      case 'list':
+        await tools.displayWebtoons(interaction, client);
+        break;
+      case 'add':
+        await tools.addWebtoon(interaction, client);
+        break;
+      case 'heartstopper':
+        await tools.addHeartstopper(interaction, client);
+        break;
+      case 'edit':
+        await tools.editWebtoon(interaction, client);
+        break;
+      case 'remove':
+        await tools.deleteWebtoon(interaction, client);
+        break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException(
+          'Unknown command: ' + interaction.options.getSubcommand(),
+        );
+      }
+      break;
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     return;
   }
 
   // Don't send a response during the list command!
   if (interaction.options.getSubcommand() !== 'list') {
-    await interaction.reply({ content: 'Settings saved!', ephemeral: true });
+    await interaction.reply({ content: 'Settings saved!', flags: MessageFlags.Ephemeral });
   }
 }

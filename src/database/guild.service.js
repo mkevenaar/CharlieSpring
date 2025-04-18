@@ -18,7 +18,7 @@ export class GuildService {
   }
 
   static async create(guildId) {
-    let guildEntry = new GuildModel({
+    const guildEntry = new GuildModel({
       id: guildId,
       registeredAt: Date.now(),
     });
@@ -28,13 +28,13 @@ export class GuildService {
 
   // Reaction roles
   static async updateReactions(guildId, enable, channel) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
 
     if (typeof enable === 'boolean') {
       guildEntry.addons.reactions.enabled = enable;
     }
 
-    if (!!channel?.id) {
+    if (channel?.id) {
       guildEntry.addons.reactions.channel = channel.id;
     }
 
@@ -45,16 +45,16 @@ export class GuildService {
   }
 
   static async addCategory(guildId, category) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
     guildEntry.categories.push(category);
     await guildEntry.save();
     return guildEntry;
   }
 
   static async deleteCategory(guildId, category) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
 
-    const itemToRemoveIndex = guildEntry.categories.findIndex(function (item) {
+    const itemToRemoveIndex = guildEntry.categories.findIndex(function(item) {
       return item._id.toString() === category._id.toString();
     });
 
@@ -69,7 +69,7 @@ export class GuildService {
 
   // Tapas
   static async updateTapas(guildId, enable, channel) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
 
     if (!guildEntry.addons.tapas) {
       guildEntry.addons.tapas = {
@@ -82,7 +82,7 @@ export class GuildService {
       guildEntry.addons.tapas.enabled = enable;
     }
 
-    if (!!channel?.id) {
+    if (channel?.id) {
       guildEntry.addons.tapas.channel = channel.id;
     }
 
@@ -93,16 +93,16 @@ export class GuildService {
   }
 
   static async addTapas(guildId, tapas) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
     guildEntry.tapas.push(tapas);
     await guildEntry.save();
     return guildEntry;
   }
 
   static async deleteTapas(guildId, tapas) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
 
-    const itemToRemoveIndex = guildEntry.tapas.findIndex(function (item) {
+    const itemToRemoveIndex = guildEntry.tapas.findIndex(function(item) {
       return item._id.toString() === tapas._id.toString();
     });
 
@@ -123,7 +123,7 @@ export class GuildService {
 
   // Webtoons
   static async updateWebtoons(guildId, enable, channel) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
 
     if (!guildEntry.addons.webtoons) {
       guildEntry.addons.webtoons = {
@@ -136,7 +136,7 @@ export class GuildService {
       guildEntry.addons.webtoons.enabled = enable;
     }
 
-    if (!!channel?.id) {
+    if (channel?.id) {
       guildEntry.addons.webtoons.channel = channel.id;
     }
 
@@ -147,16 +147,16 @@ export class GuildService {
   }
 
   static async addWebtoon(guildId, webtoon) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
     guildEntry.webtoons.push(webtoon);
     await guildEntry.save();
     return guildEntry;
   }
 
   static async deleteWebtoon(guildId, webtoon) {
-    let guildEntry = await this.get(guildId);
+    const guildEntry = await this.get(guildId);
 
-    const itemToRemoveIndex = guildEntry.webtoons.findIndex(function (item) {
+    const itemToRemoveIndex = guildEntry.webtoons.findIndex(function(item) {
       return item._id.toString() === webtoon._id.toString();
     });
 

@@ -1,11 +1,15 @@
 import { getEnvConfig } from './shared.js';
-import { Client, Collection, GatewayIntentBits, Partials, InteractionType } from 'discord.js';
+import {
+  Client,
+  Collection,
+  GatewayIntentBits,
+  Partials,
+  InteractionType,
+  MessageFlags,
+} from 'discord.js';
 import mongoose from 'mongoose';
 import { AutoPoster } from 'topgg-autoposter';
 import { resolveChannel, convertTime } from './tools/tools.js';
-import { reactionTools } from './tools/reactions.js';
-import { tapasTools } from './tools/tapas.js';
-import { webtoonTools } from './tools/webtoons.js';
 import { Constants } from './constants.js';
 import { readdirSync } from 'fs';
 import { GuildService } from './database/guild.service.js';
@@ -49,9 +53,6 @@ export function createDiscordClient() {
   client.tools = {
     convertTime,
     resolveChannel,
-    reactionTools: reactionTools,
-    tapasTools: tapasTools,
-    webtoonTools: webtoonTools,
   };
 
   return client;
@@ -66,10 +67,10 @@ export async function initBot() {
   const client = createDiscordClient();
 
   // Commands Setup
-  let folders = readdirSync(`./${sourceFolder}/${commandsFolder}/`);
+  const folders = readdirSync(`./${sourceFolder}/${commandsFolder}/`);
   for (const folder of folders) {
     const commandFiles = readdirSync(`${sourceFolder}/${commandsFolder}/${folder}/`).filter(
-      (file) => file.endsWith(jsExt)
+      (file) => file.endsWith(jsExt),
     );
 
     for (const file of commandFiles) {
@@ -80,7 +81,7 @@ export async function initBot() {
 
   // SelectMenu Setup
   const menuFiles = readdirSync(`./${sourceFolder}/${selectMenuFolder}/`).filter((file) =>
-    file.endsWith(jsExt)
+    file.endsWith(jsExt),
   );
   for (const menuFile of menuFiles) {
     const menu = await import(`./${selectMenuFolder}/${menuFile}`);
@@ -97,22 +98,24 @@ export async function initBot() {
     try {
       await command.permission.checkUserPerms(interaction);
       await command.permission.checkBotPerms(interaction);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       await interaction.reply({
         content: 'There was an error while executing this command! \n ' + error.message,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
 
     try {
       await command.execute(interaction, client);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       await interaction.reply({
         content: 'There was an error while executing this command!',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
   });
@@ -126,25 +129,27 @@ export async function initBot() {
 
     try {
       await menu.execute(interaction, client);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       await interaction.reply({
         content: 'There was an error while executing this command!',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
   });
 
   // Events setup
   const eventFiles = readdirSync(`./${sourceFolder}/${eventsFolder}`).filter((file) =>
-    file.endsWith(jsExt)
+    file.endsWith(jsExt),
   );
 
   for (const file of eventFiles) {
     const event = await import(`./${eventsFolder}/${file}`);
     if (event.once) {
       client.once(event.name, (...args) => event.execute(...args, client));
-    } else {
+    }
+    else {
       client.on(event.name, (...args) => event.execute(...args, client));
     }
   }
@@ -162,7 +167,7 @@ export async function initBot() {
 
   // Top.gg AutoPoster; only do this when we have a token setup
   if (TOPGG_TOKEN) {
-    const poster = AutoPoster(TOPGG_TOKEN, client); // your discord.js or eris client
+    const poster = AutoPoster(TOPGG_TOKEN, client);
 
     // optional
     poster.on('posted', (stats) => {
@@ -175,10 +180,7 @@ export async function initBot() {
 // Connect to the database
 async function connectWithRetry(MONGODB) {
   return mongoose
-    .connect(MONGODB, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
+    .connect(MONGODB, {})
     .then(() => {
       console.log('Connected to MongoDB');
     })

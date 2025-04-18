@@ -21,7 +21,7 @@ export class WebtoonsService {
 
   static async delete(guildId, rss) {
     const filter = { guildId: guildId, rss: rss };
-    let webtoonEntry = await this.get(guildId, rss);
+    const webtoonEntry = await this.get(guildId, rss);
 
     await GuildService.deleteWebtoon(guildId, webtoonEntry);
     return WebtoonsModel.findOneAndDelete(filter);
@@ -32,7 +32,8 @@ export class WebtoonsService {
 
     try {
       existingWebtoon = await this.get(guildId, rss);
-    } catch (error) {
+    }
+    catch (error) {
       if ((!error) instanceof NotFoundException) {
         throw error;
       }
@@ -42,14 +43,14 @@ export class WebtoonsService {
       throw new AlreadyExistException('Webtoon already configured');
     }
 
-    let webtoonEntry = new WebtoonsModel({
+    const webtoonEntry = new WebtoonsModel({
       guildId: guildId,
       registeredAt: Date.now(),
       rss: rss,
       title: title,
     });
 
-    if (!!role?.id) {
+    if (role?.id) {
       webtoonEntry.role = role.id;
     }
 
@@ -59,9 +60,9 @@ export class WebtoonsService {
   }
 
   static async updateRole(guildId, rss, role) {
-    let webtoonEntry = await this.get(guildId, rss);
+    const webtoonEntry = await this.get(guildId, rss);
 
-    if (!!role?.id) {
+    if (role?.id) {
       webtoonEntry.role = role.id;
     }
 

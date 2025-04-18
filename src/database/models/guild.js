@@ -5,7 +5,7 @@ const GuildSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-  }, //ID of the guild
+  },
   registeredAt: {
     type: Number,
     default: Date.now,
@@ -15,16 +15,16 @@ const GuildSchema = new mongoose.Schema({
     default: {
       // Extra features data
       reactions: {
-        enabled: false, // Reactions features are enabled
-        channel: null, // ID for the channel to send reaction messages to
+        enabled: false,
+        channel: null,
       },
       tapas: {
-        enabled: false, // Tapas features are enabled
-        channel: null, // ID for the channel to send tapas messages to
+        enabled: false,
+        channel: null,
       },
       webtoons: {
-        enabled: false, // Webtoons features are enabled
-        channel: null, // ID for the channel to send webtoon messages to
+        enabled: false,
+        channel: null,
       },
     },
   },

@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   EmbedBuilder,
   ButtonBuilder,
-  SelectMenuBuilder,
+  StringSelectMenuBuilder,
   ButtonStyle,
 } from 'discord.js';
 import { BotColors, HelpUrls } from '../constants.js';
@@ -10,24 +10,24 @@ import { findCategories, findCommandFiles } from '../shared.js';
 
 export const data = { name: 'help' };
 
-export async function execute(interaction, client) {
+export async function execute(interaction) {
   await interaction.deferUpdate();
 
   const help = new EmbedBuilder().setColor(BotColors.default);
 
   const categories = await findCategories(interaction.values[0]);
 
-  let myCategory = categories.filter((category) => category.default === true);
+  const myCategory = categories.filter((category) => category.default === true);
 
   help.addFields([{ name: myCategory[0].label, value: myCategory[0].description }]);
 
-  let commands = (await findCommandFiles(true)).filter(
-    (command) => command.group === interaction.values[0]
+  const commands = (await findCommandFiles(true)).filter(
+    (command) => command.group === interaction.values[0],
   );
 
   commands.forEach((command) => {
     const filteredOptions = command.options.filter(
-      (option) => option.type === 1 || option.type === 2
+      (option) => option.type === 1 || option.type === 2,
     );
     if (filteredOptions.length) {
       filteredOptions.forEach((option) => {
@@ -35,7 +35,8 @@ export async function execute(interaction, client) {
           help.addFields([
             { name: `/${command.name} ${option.name}`, value: option.description, inline: true },
           ]);
-        } else if (option.type === 2) {
+        }
+        else if (option.type === 2) {
           option.options.forEach((subOption) => {
             help.addFields([
               {
@@ -47,16 +48,17 @@ export async function execute(interaction, client) {
           });
         }
       });
-    } else {
+    }
+    else {
       help.addFields([{ name: `/${command.name}`, value: command.description, inline: true }]);
     }
   });
 
   const selectRow = new ActionRowBuilder().addComponents(
-    new SelectMenuBuilder()
+    new StringSelectMenuBuilder()
       .setCustomId('help')
       .setPlaceholder('Please select a category')
-      .addOptions(categories)
+      .addOptions(categories),
   );
   const buttonRow = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
@@ -78,7 +80,7 @@ export async function execute(interaction, client) {
       .setLabel('Add me to your server!')
       .setEmoji('🔗')
       .setURL(HelpUrls.inviteUrl)
-      .setStyle(ButtonStyle.Link)
+      .setStyle(ButtonStyle.Link),
   );
   await interaction.editReply({ embeds: [help], components: [selectRow, buttonRow] });
 }

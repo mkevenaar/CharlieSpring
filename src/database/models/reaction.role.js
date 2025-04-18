@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const ReactionRoleSchema = new mongoose.Schema({
-  id: { type: String }, // ID of the role
+  id: { type: String },
   categoryName: { type: String },
   guildId: { type: String },
   registeredAt: { type: Number, default: Date.now },

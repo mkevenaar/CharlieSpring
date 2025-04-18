@@ -1,13 +1,13 @@
-import { SlashCommandBuilder, PermissionsBitField } from 'discord.js';
+import { SlashCommandBuilder, PermissionsBitField, MessageFlags } from 'discord.js';
 import { ReactionCommands } from '../../constants.js';
 import { CommandNotFoundException } from '../../exceptions/runtime.exceptions.js';
 import { botPermissions } from '../../tools/botPermissions.js';
 
 export const permission = new botPermissions()
   .setUserPerms(PermissionsBitField.Flags.Administrator)
-  .setUserMessage("You don't have permission configure the reaction roles!")
+  .setUserMessage('You don\'t have permission configure the reaction roles!')
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage("It seems that I don't have permission to send messages!");
+  .setBotMessage('It seems that I don\'t have permission to send messages!');
 
 export const data = new SlashCommandBuilder()
   .setName('reactions')
@@ -182,7 +182,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction, client) {
   const guildService = client.database.GuildService;
-  let guildData = await guildService.get(interaction.guild.id);
+  const guildData = await guildService.get(interaction.guild.id);
 
   // Ensure welcome messages enabled
   const reactionsProp = guildData?.addons?.reactions;
@@ -195,7 +195,7 @@ export async function execute(interaction, client) {
     await interaction.reply({
       content:
         'Reactions not enabled, stopping.\nPlease configure reactions using `/reaction configure`. Both `channel` and `enable` have to be set for the bot to function properly',
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     return;
   }
@@ -204,69 +204,70 @@ export async function execute(interaction, client) {
 
   try {
     switch (interaction.options.getSubcommandGroup(false)) {
-      case null:
-        switch (interaction.options.getSubcommand()) {
-          case ReactionCommands.configure:
-            await reactionTools.configureReactions(interaction, client);
-            break;
-          case ReactionCommands.list:
-            await reactionTools.displayReactions(interaction, client);
-            break;
-          case ReactionCommands.rebuild:
-            await reactionTools.rebuildCategories(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+    case null:
+      switch (interaction.options.getSubcommand()) {
+      case ReactionCommands.configure:
+        await reactionTools.configureReactions(interaction, client);
         break;
-      case 'category':
-        switch (interaction.options.getSubcommand()) {
-          case ReactionCommands.add:
-            await reactionTools.addCategory(interaction, client);
-            break;
-          case ReactionCommands.edit:
-            await reactionTools.editCategory(interaction, client);
-            break;
-          case ReactionCommands.delete:
-            await reactionTools.deleteCategory(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+      case ReactionCommands.list:
+        await reactionTools.displayReactions(interaction, client);
         break;
-      case 'roles':
-        switch (interaction.options.getSubcommand()) {
-          case ReactionCommands.add:
-            await reactionTools.createCategoryRole(interaction, client);
-            break;
-          case ReactionCommands.edit:
-            await reactionTools.editCategoryRole(interaction, client);
-            break;
-          case ReactionCommands.delete:
-            await reactionTools.deleteCategoryRole(interaction, client);
-            break;
-          default:
-            console.log(interaction.options.getSubcommand());
-            throw new CommandNotFoundException(
-              'Unknown command: ' + interaction.options.getSubcommand()
-            );
-        }
+      case ReactionCommands.rebuild:
+        await reactionTools.rebuildCategories(interaction, client);
         break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException(
+          'Unknown command: ' + interaction.options.getSubcommand(),
+        );
+      }
+      break;
+    case 'category':
+      switch (interaction.options.getSubcommand()) {
+      case ReactionCommands.add:
+        await reactionTools.addCategory(interaction, client);
+        break;
+      case ReactionCommands.edit:
+        await reactionTools.editCategory(interaction, client);
+        break;
+      case ReactionCommands.delete:
+        await reactionTools.deleteCategory(interaction, client);
+        break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException(
+          'Unknown command: ' + interaction.options.getSubcommand(),
+        );
+      }
+      break;
+    case 'roles':
+      switch (interaction.options.getSubcommand()) {
+      case ReactionCommands.add:
+        await reactionTools.createCategoryRole(interaction, client);
+        break;
+      case ReactionCommands.edit:
+        await reactionTools.editCategoryRole(interaction, client);
+        break;
+      case ReactionCommands.delete:
+        await reactionTools.deleteCategoryRole(interaction, client);
+        break;
+      default:
+        console.log(interaction.options.getSubcommand());
+        throw new CommandNotFoundException(
+          'Unknown command: ' + interaction.options.getSubcommand(),
+        );
+      }
+      break;
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     await interaction.reply({
       content: 'Failed to save settings! \n ' + error.message,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     return;
   }
 
-  await interaction.reply({ content: 'Settings saved!', ephemeral: true });
+  await interaction.reply({ content: 'Settings saved!', flags: MessageFlags.Ephemeral });
 }

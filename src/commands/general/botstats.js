@@ -1,10 +1,10 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, MessageFlags } from 'discord.js';
 import { botPermissions } from '../../tools/botPermissions.js';
 import { BotColors } from '../../constants.js';
 
 export const permission = new botPermissions()
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage("It seems that I don't have permission to send messages!");
+  .setBotMessage('It seems that I don\'t have permission to send messages!');
 
 export const data = new SlashCommandBuilder()
   .setName('botstats')
@@ -12,9 +12,9 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction, client) {
   try {
-    let uptime = await client.tools.convertTime(client.uptime);
+    const uptime = await client.tools.convertTime(client.uptime);
     const memory = process.memoryUsage();
-    let ram = (memory.heapUsed / 1024 / 1024 + memory.heapTotal / 1024 / 1024).toFixed(2);
+    const ram = (memory.heapUsed / 1024 / 1024 + memory.heapTotal / 1024 / 1024).toFixed(2);
 
     const botStatsEmbed = new EmbedBuilder()
       .setColor(BotColors.default)
@@ -30,15 +30,17 @@ export async function execute(interaction, client) {
         { name: 'Guilds', value: `\`\`\`${client.guilds.cache.size}\`\`\``, inline: true },
         { name: 'RAM usage', value: `\`\`\`${ram}MB\`\`\``, inline: true },
         { name: 'API latency', value: `\`\`\`${client.ws.ping} ms\`\`\``, inline: true },
-        { name: 'Uptime', value: `\`\`\`${uptime}\`\`\`` }
+        { name: 'Uptime', value: `\`\`\`${uptime}\`\`\`` },
       );
 
     await interaction.reply({ embeds: [botStatsEmbed] });
-  } catch (err) {
+  }
+  catch (err) {
     console.log(err);
     await interaction.reply({
-      content: `An issue has occurred while running the command. If this error keeps occurring please contact our development team.`,
-      ephemeral: true,
+      content:
+        'An issue has occurred while running the command. If this error keeps occurring please contact our development team.',
+      flags: MessageFlags.Ephemeral,
     });
   }
 }

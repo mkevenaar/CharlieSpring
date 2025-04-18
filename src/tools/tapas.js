@@ -1,4 +1,4 @@
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, MessageFlags } from 'discord.js';
 import { InvalidUrlException, RSSParseError } from '../exceptions/runtime.exceptions.js';
 import url from 'node:url';
 
@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 
 export class tapasTools {
-  //Slash command functions
+  // Slash command functions
   static async configureTapas(interaction, client) {
     const guildService = client.database.GuildService;
 
@@ -19,14 +19,14 @@ export class tapasTools {
 
   static async displayTapas(interaction, client) {
     const guildService = client.database.GuildService;
-    let guildData = await guildService.get(interaction.guild.id);
+    const guildData = await guildService.get(interaction.guild.id);
 
-    let tapasEmbed = new EmbedBuilder()
+    const tapasEmbed = new EmbedBuilder()
       .setTitle('Tapas')
       .setDescription('Currently configured on the server: ')
       .addFields([
-        { name: `Enabled`, value: `${guildData.addons.tapas.enabled}`, inline: true },
-        { name: `Channel`, value: `<#${guildData.addons.tapas.channel}>`, inline: true },
+        { name: 'Enabled', value: `${guildData.addons.tapas.enabled}`, inline: true },
+        { name: 'Channel', value: `<#${guildData.addons.tapas.channel}>`, inline: true },
       ]);
 
     guildData.tapas.forEach((tapas) => {
@@ -38,7 +38,7 @@ export class tapasTools {
         { name: `${tapas.title}`, value: `RSS: ${tapas.rss}${role}`, inline: false },
       ]);
     });
-    return await interaction.reply({ embeds: [tapasEmbed], ephemeral: true });
+    return await interaction.reply({ embeds: [tapasEmbed], flags: MessageFlags.Ephemeral });
   }
 
   static async addTapas(interaction, client) {
@@ -55,7 +55,7 @@ export class tapasTools {
   static async editTapas(interaction, client) {
     const role = interaction.options.getRole('role');
     const tapas_rss = interaction.options.getString('tapas_rss');
-    let tapasService = client.database.TapasService;
+    const tapasService = client.database.TapasService;
 
     await tapasService.updateRole(interaction.guild.id, tapas_rss, role);
     await client.TapasRssService.load();
@@ -64,18 +64,18 @@ export class tapasTools {
   static async deleteTapas(interaction, client) {
     const tapas_rss = interaction.options.getString('tapas_rss');
 
-    let tapasService = client.database.TapasService;
+    const tapasService = client.database.TapasService;
 
     await tapasService.delete(interaction.guild.id, tapas_rss);
     await client.TapasRssService.load();
   }
 
-  //Helper functions
+  // Helper functions
   static async createTapas(tapas_url, role, interaction, client) {
-    let RSSParser = new Parser();
+    const RSSParser = new Parser();
     let feed;
 
-    let tapasService = client.database.TapasService;
+    const tapasService = client.database.TapasService;
 
     await this.validateTapasUrl(tapas_url);
     let tapas_rss = tapas_url;
@@ -86,19 +86,20 @@ export class tapasTools {
 
     try {
       feed = await RSSParser.parseURL(tapas_rss);
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
       throw new RSSParseError('Failed to parse RSS feed');
     }
-    let title = feed.title;
-    let webToon = await tapasService.create(interaction.guild.id, tapas_rss, title, role);
+    const title = feed.title;
+    const webToon = await tapasService.create(interaction.guild.id, tapas_rss, title, role);
     await client.TapasRssService.load();
     return webToon;
   }
 
   static async validateTapasUrl(tapas_url) {
-    let host = url.parse(webtoon_rss).host;
-    let allowedHosts = ['www.tapas.io', 'tapas.io'];
+    const host = url.parse(tapas_url).host;
+    const allowedHosts = ['www.tapas.io', 'tapas.io'];
     if (!allowedHosts.includes(host)) {
       throw new InvalidUrlException('The provided URL is not a tapas URL');
     }
@@ -112,7 +113,7 @@ export class tapasTools {
     const id_regex = new RegExp('[0-9]+');
     const content = $('meta[property="al:ios:url"]').attr('content');
     if (tapastic_regex.test(content)) {
-      let id = id_regex.exec(content)[0];
+      const id = id_regex.exec(content)[0];
       return 'https://tapas.io/rss/series/' + id;
     }
     return;

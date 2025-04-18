@@ -12,17 +12,18 @@ export async function purgeCommands(clientId, guildId = null) {
   if (!guildId) {
     restClient
       .get(Routes.applicationCommands(clientId))
-      .then(function (result) {
+      .then(function(result) {
         console.log(result);
         result.forEach((command) => {
           restClient.delete(Routes.applicationCommand(clientId, command.id));
         });
       })
       .catch(console.error);
-  } else {
+  }
+  else {
     restClient
       .get(Routes.applicationGuildCommands(clientId, guildId))
-      .then(function (result) {
+      .then(function(result) {
         console.log(result);
         result.forEach((command) => {
           restClient.delete(Routes.applicationGuildCommand(clientId, guildId, command.id));
@@ -48,7 +49,8 @@ export async function deployCommands(clientId, guildId = null) {
       .put(Routes.applicationCommands(clientId), { body: commands })
       .then(() => console.log('Successfully registered global application commands.'))
       .catch(console.error);
-  } else {
+  }
+  else {
     await restClient
       .put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
       .then(() => console.log('Successfully registered application commands.'))

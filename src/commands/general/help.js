@@ -4,8 +4,9 @@ import {
   ActionRowBuilder,
   EmbedBuilder,
   ButtonBuilder,
-  SelectMenuBuilder,
+  StringSelectMenuBuilder,
   ButtonStyle,
+  MessageFlags,
 } from 'discord.js';
 import { botPermissions } from '../../tools/botPermissions.js';
 import { BotColors, HelpUrls } from '../../constants.js';
@@ -13,20 +14,20 @@ import { findCategories } from '../../shared.js';
 
 export const permission = new botPermissions()
   .setBotPerms([PermissionsBitField.Flags.SendMessages])
-  .setBotMessage("It seems that I don't have permission to send messages!");
+  .setBotMessage('It seems that I don\'t have permission to send messages!');
 
 export const data = new SlashCommandBuilder().setName('help').setDescription('Shows help');
 
-export async function execute(interaction, client) {
+export async function execute(interaction) {
   const help = new EmbedBuilder()
     .setColor(BotColors.default)
     .addFields([{ name: 'Help!', value: 'Please select a category below to continue' }]);
 
   const selectRow = new ActionRowBuilder().addComponents(
-    new SelectMenuBuilder()
+    new StringSelectMenuBuilder()
       .setCustomId('help')
       .setPlaceholder('Please select a category')
-      .addOptions(await findCategories())
+      .addOptions(await findCategories()),
   );
   const buttonRow = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
@@ -48,7 +49,11 @@ export async function execute(interaction, client) {
       .setLabel('Add me to your server!')
       .setEmoji('🔗')
       .setURL(HelpUrls.inviteUrl)
-      .setStyle(ButtonStyle.Link)
+      .setStyle(ButtonStyle.Link),
   );
-  await interaction.reply({ embeds: [help], components: [selectRow, buttonRow], ephemeral: true });
+  await interaction.reply({
+    embeds: [help],
+    components: [selectRow, buttonRow],
+    flags: MessageFlags.Ephemeral,
+  });
 }

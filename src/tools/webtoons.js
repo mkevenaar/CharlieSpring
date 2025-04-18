@@ -1,11 +1,11 @@
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, MessageFlags } from 'discord.js';
 import { InvalidUrlException, RSSParseError } from '../exceptions/runtime.exceptions.js';
 import url from 'node:url';
 
 import Parser from 'rss-parser';
 
 export class webtoonTools {
-  //Slash command functions
+  // Slash command functions
   static async configureWebtoons(interaction, client) {
     const guildService = client.database.GuildService;
 
@@ -17,14 +17,14 @@ export class webtoonTools {
 
   static async displayWebtoons(interaction, client) {
     const guildService = client.database.GuildService;
-    let guildData = await guildService.get(interaction.guild.id);
+    const guildData = await guildService.get(interaction.guild.id);
 
-    let webtoonsEmbed = new EmbedBuilder()
+    const webtoonsEmbed = new EmbedBuilder()
       .setTitle('Webtoons')
       .setDescription('Currently configured on the server: ')
       .addFields([
-        { name: `Enabled`, value: `${guildData.addons.webtoons.enabled}`, inline: true },
-        { name: `Channel`, value: `<#${guildData.addons.webtoons.channel}>`, inline: true },
+        { name: 'Enabled', value: `${guildData.addons.webtoons.enabled}`, inline: true },
+        { name: 'Channel', value: `<#${guildData.addons.webtoons.channel}>`, inline: true },
       ]);
 
     guildData.webtoons.forEach((webtoon) => {
@@ -36,7 +36,7 @@ export class webtoonTools {
         { name: `${webtoon.title}`, value: `RSS: ${webtoon.rss}${role}`, inline: false },
       ]);
     });
-    return await interaction.reply({ embeds: [webtoonsEmbed], ephemeral: true });
+    return await interaction.reply({ embeds: [webtoonsEmbed], flags: MessageFlags.Ephemeral });
   }
 
   static async addWebtoon(interaction, client) {
@@ -51,14 +51,14 @@ export class webtoonTools {
       'https://www.webtoons.com/en/challenge/heartstopper/rss?title_no=329660',
       role,
       interaction,
-      client
+      client,
     );
   }
 
   static async editWebtoon(interaction, client) {
     const role = interaction.options.getRole('role');
     const webtoon_rss = interaction.options.getString('webtoon_rss');
-    let webtoonsService = client.database.WebtoonsService;
+    const webtoonsService = client.database.WebtoonsService;
 
     await webtoonsService.updateRole(interaction.guild.id, webtoon_rss, role);
     await client.WebtoonsRssService.load();
@@ -67,36 +67,37 @@ export class webtoonTools {
   static async deleteWebtoon(interaction, client) {
     const webtoon_rss = interaction.options.getString('webtoon_rss');
 
-    let webtoonsService = client.database.WebtoonsService;
+    const webtoonsService = client.database.WebtoonsService;
 
     await webtoonsService.delete(interaction.guild.id, webtoon_rss);
     await client.WebtoonsRssService.load();
   }
 
-  //Helper functions
+  // Helper functions
   static async createWebtoon(webtoon_rss, role, interaction, client) {
-    let RSSParser = new Parser();
+    const RSSParser = new Parser();
     let feed;
 
-    let webtoonsService = client.database.WebtoonsService;
+    const webtoonsService = client.database.WebtoonsService;
 
     await this.validateWebtoonUrl(webtoon_rss);
 
     try {
       feed = await RSSParser.parseURL(webtoon_rss);
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
       throw new RSSParseError('Failed to parse RSS feed');
     }
-    let title = feed.title;
-    let webToon = await webtoonsService.create(interaction.guild.id, webtoon_rss, title, role);
+    const title = feed.title;
+    const webToon = await webtoonsService.create(interaction.guild.id, webtoon_rss, title, role);
     await client.WebtoonsRssService.load();
     return webToon;
   }
 
   static async validateWebtoonUrl(webtoon_rss) {
-    let host = url.parse(webtoon_rss).host;
-    let allowedHosts = ['www.webtoons.com', 'webtoons.com'];
+    const host = url.parse(webtoon_rss).host;
+    const allowedHosts = ['www.webtoons.com', 'webtoons.com'];
     if (!allowedHosts.includes(host)) {
       throw new InvalidUrlException('The provided URL is not a webtoon URL');
     }
