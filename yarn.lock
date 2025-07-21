@@ -1616,7 +1616,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:9.31.0"
     all-contributors-cli: "npm:6.26.1"
-    cheerio: "npm:1.1.1"
+    cheerio: "npm:1.1.2"
     cross-env: "npm:7.0.3"
     discord.js: "npm:14.21.0"
     dotenv: "npm:16.6.1"
@@ -1649,9 +1649,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cheerio@npm:1.1.1":
-  version: 1.1.1
-  resolution: "cheerio@npm:1.1.1"
+"cheerio@npm:1.1.2":
+  version: 1.1.2
+  resolution: "cheerio@npm:1.1.2"
   dependencies:
     cheerio-select: "npm:^2.1.0"
     dom-serializer: "npm:^2.0.0"
@@ -1662,9 +1662,9 @@ __metadata:
     parse5: "npm:^7.3.0"
     parse5-htmlparser2-tree-adapter: "npm:^7.1.0"
     parse5-parser-stream: "npm:^7.1.2"
-    undici: "npm:^7.11.0"
+    undici: "npm:^7.12.0"
     whatwg-mimetype: "npm:^4.0.0"
-  checksum: 10c0/1f54b83d30aa77162879d7bd5c94223dcfec091842af22fe969bd107025dc1d90b5956044c814e61e66380895601e24462c5549344e8f2332be0feabfd0356ea
+  checksum: 10c0/2c6d2274666fe122f54fdca457ee76453e1a993b19563acaa23eb565bf7776f0f01e4c3800092f00e84aa13c83a161f0cf000ac0a8332d1d7f2b2387d6ecc5fc
   languageName: node
   linkType: hard
 
@@ -5105,7 +5105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^7.11.0":
+"undici@npm:^7.12.0":
   version: 7.12.0
   resolution: "undici@npm:7.12.0"
   checksum: 10c0/27aada7bd8d2588f146a2ba554f2f6b7593f9c2d14bf3797bbc7b74825d9bee38eb3ab61e2d0ee01bb827a9ac8017eb2991cb4f06d9ed9971c8a142d8306fbab
