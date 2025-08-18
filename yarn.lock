@@ -1091,9 +1091,9 @@ __metadata:
   linkType: hard
 
 "@sinclair/typebox@npm:^0.34.0":
-  version: 0.34.39
-  resolution: "@sinclair/typebox@npm:0.34.39"
-  checksum: 10c0/627fd9da5b6e651329111000d5f665c2f7a5df300dfdf24a32156f483fd30c74ccad92396a33a1c5c23bf4354943cd8ac28d27ae4a2bd00665964f3eb4605f6b
+  version: 0.34.40
+  resolution: "@sinclair/typebox@npm:0.34.40"
+  checksum: 10c0/95d7003d49844b31b1f02e023bf0c5bb13cceb07297b20c4df23fb4ba075bd138c20ad2538b862c50a171c76e4a93b93ae831814a6884a7d50bf7c79b2819efb
   languageName: node
   linkType: hard
 
@@ -1505,9 +1505,9 @@ __metadata:
   linkType: hard
 
 "ansi-regex@npm:^6.0.1":
-  version: 6.1.0
-  resolution: "ansi-regex@npm:6.1.0"
-  checksum: 10c0/a91daeddd54746338478eef88af3439a7edf30f8e23196e2d6ed182da9add559c601266dbef01c2efa46a958ad6f1f8b176799657616c702b5b02e799e7fd8dc
+  version: 6.2.0
+  resolution: "ansi-regex@npm:6.2.0"
+  checksum: 10c0/20a2e55ae9816074a60e6729dbe3daad664cd967fc82acc08b02f5677db84baa688babf940d71f50acbbb184c02459453789705e079f4d521166ae66451de551
   languageName: node
   linkType: hard
 
@@ -5241,9 +5241,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^7.12.0":
-  version: 7.13.0
-  resolution: "undici@npm:7.13.0"
-  checksum: 10c0/8865d40b141f073215a6763aad5d1b2f4bd4e252600e93e68055d6c5d23a8a0e5782669236b2ecfa4d415d1d969d9c4623ff1c0386d32fa60088a19ffa58c611
+  version: 7.14.0
+  resolution: "undici@npm:7.14.0"
+  checksum: 10c0/4beab6a5bfb89add9e90195aee6bc993708afbabad33bff7da791b5334a6e26a591c29938822d2fb8f69ae0ad8d580d64e03247b11157af9f820d5bd9f8f16e7
   languageName: node
   linkType: hard
 
