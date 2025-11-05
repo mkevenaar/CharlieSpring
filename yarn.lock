@@ -1679,11 +1679,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.8.19":
-  version: 2.8.23
-  resolution: "baseline-browser-mapping@npm:2.8.23"
+  version: 2.8.24
+  resolution: "baseline-browser-mapping@npm:2.8.24"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10c0/5a63c1c241d288e5c79aa32a1cbea335b5af899172161aa9f9701a67c5b9b55ea3b3945a70a842385374627dde1de27504641bc95257d8c2e81f0c593c719121
+  checksum: 10c0/8add2f6fe6312134032caa1d385d07a939e25594566672a57d2eef2a53592252b8b56348cdd991d73d78741033d16a28d3da96ef3fc9f4d0bb9ea268124a53c3
   languageName: node
   linkType: hard
 
@@ -2249,9 +2249,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.238":
-  version: 1.5.244
-  resolution: "electron-to-chromium@npm:1.5.244"
-  checksum: 10c0/a3cbc8c9c9415234f97e92724924f943fcb82494b3a2f9ae998954d22496e86f7eaf5e2fceca8aa8be098b0693f508332ec2d3b4b39a42cd2de1fac4d048a19f
+  version: 1.5.245
+  resolution: "electron-to-chromium@npm:1.5.245"
+  checksum: 10c0/b129116a3a77eba49a5c3f35de16a6b76e39a08f608f8eedbefdd86669f255ead2e9a15f596eecd4521b3a87bcecab86cbd80843cd0a64a5daffde4af338d9c3
   languageName: node
   linkType: hard
 
@@ -4731,9 +4731,9 @@ __metadata:
   linkType: hard
 
 "sax@npm:>=0.6.0":
-  version: 1.4.2
-  resolution: "sax@npm:1.4.2"
-  checksum: 10c0/1009e9c5d677a6e256ab6295d486c092c6e70aeb54abe7040fee02af72f51e464ca3708da347a7779fa56ad895f03c36eb7d3b20454df3a7a0fcf8b358eef6fa
+  version: 1.4.3
+  resolution: "sax@npm:1.4.3"
+  checksum: 10c0/45bba07561d93f184a8686e1a543418ced8c844b994fbe45cc49d5cd2fc8ac7ec949dae38565e35e388ad0cca2b75997a29b6857c927bf6553da3f80ed0e4e62
   languageName: node
   linkType: hard
 
