@@ -5127,11 +5127,11 @@ __metadata:
   linkType: hard
 
 "text-decoder@npm:^1.1.0":
-  version: 1.2.6
-  resolution: "text-decoder@npm:1.2.6"
+  version: 1.2.7
+  resolution: "text-decoder@npm:1.2.7"
   dependencies:
     b4a: "npm:^1.6.4"
-  checksum: 10c0/990fe5fa5e2f33c305d5ea7e4b058fd5534298c66d4bd9aaceafa9a1c244b0857ceeba0da04669981f2bcaf08e14bf51bf80955a851102176ec4822f61069963
+  checksum: 10c0/929938ed154fbadb660a7f3d1aca30b7e53649a731af7583168fcfba0c158046325d35d945926e2a512bb62d1a49a7818151c987ea38b48853f01e1615722fc5
   languageName: node
   linkType: hard
 
