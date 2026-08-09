@@ -1197,11 +1197,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 26.1.2
-  resolution: "@types/node@npm:26.1.2"
+  version: 26.2.0
+  resolution: "@types/node@npm:26.2.0"
   dependencies:
     undici-types: "npm:~8.3.0"
-  checksum: 10c0/a45503222c7db8f374afd5c9381db63dd95b6b1f703abea0890dd3d4a09eeb41da489e08a1a45baf18fe89fb77fbf310ff2789f680c490b04dafc41a60800a86
+  checksum: 10c0/f8566d88162241eb55a46f7e4ea097188eab0aaafefea7a58e63adab8c4144eb98c08b7911452c846104c339a0f82282f5e1ed4b26b578d60709614fe2843f4d
   languageName: node
   linkType: hard
 
@@ -1736,11 +1736,11 @@ __metadata:
   linkType: hard
 
 "bare-url@npm:^2.2.2":
-  version: 2.4.7
-  resolution: "bare-url@npm:2.4.7"
+  version: 2.5.1
+  resolution: "bare-url@npm:2.5.1"
   dependencies:
     bare-path: "npm:^3.0.0"
-  checksum: 10c0/f499133ef33715972185f315ea5aa13c4ba0bb82071b205f83727b5fd01532a861473261f876f28cf38212307216a4fb3d9598ce4efcf441af385fd3f7252c95
+  checksum: 10c0/ed28e8c8b022f6180fbd6ee8b90c46022a00991bc82216fa90d48c328161450dda1cab7f328402ca2d23e68eba71884ebdb48e897e8bcbf2d1d02ed414e8a2be
   languageName: node
   linkType: hard
 
@@ -1871,9 +1871,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001806":
-  version: 1.0.30001806
-  resolution: "caniuse-lite@npm:1.0.30001806"
-  checksum: 10c0/9442c8afff0968e9b2ce0104a7340c1ce4a5c09f469ccb9eef10d25712ea0afe542486e5318c697c70dd502f988cfc04eaa1c9438c92ac3bcf4d708a2a17bee1
+  version: 1.0.30001809
+  resolution: "caniuse-lite@npm:1.0.30001809"
+  checksum: 10c0/cac2ed4e66cc6c4cbf126b94d2c02012566eb92f93c89949290f99edcd2bdc4ed1290b5c537ccb9b42c773936a479ed468e5d4e9b8938b126a0947090e42e008
   languageName: node
   linkType: hard
 
@@ -2224,9 +2224,9 @@ __metadata:
   linkType: hard
 
 "discord-api-types@npm:^0.38.1, discord-api-types@npm:^0.38.33, discord-api-types@npm:^0.38.40, discord-api-types@npm:^0.38.49, discord-api-types@npm:^0.38.50":
-  version: 0.38.52
-  resolution: "discord-api-types@npm:0.38.52"
-  checksum: 10c0/32a37c4f3050eaf432cb326a316c08cc549507e2437f2f755c787b353955b50b4314f277c363131d2b124e8cf8767a52b8c0078ec049358015041f1c134e0d7f
+  version: 0.38.53
+  resolution: "discord-api-types@npm:0.38.53"
+  checksum: 10c0/fb101743794e2b17be5056eff5eda1fd5c0970f9fb909f0c77ab1a79d989cacbfba71a7130e4fc3ac68bc6b46cf42e14462ab55ba6aeb645ae409215ef505783
   languageName: node
   linkType: hard
 
@@ -4101,9 +4101,9 @@ __metadata:
   linkType: hard
 
 "node-releases@npm:^2.0.51":
-  version: 2.0.52
-  resolution: "node-releases@npm:2.0.52"
-  checksum: 10c0/2c04530e86035c7f46371e167c49a4d99dfe600c010cb1fe53cd040d34dca314720de749d361ebe467aa4213d6d6de330454a2e1ee0f3e2a25fb6eef9b4ab14e
+  version: 2.0.53
+  resolution: "node-releases@npm:2.0.53"
+  checksum: 10c0/db9fb29b21ec12e223ead8bd9406100ff14fce01678a9a4865e288098456b84869431421a739f216aa520b6f57d9425f6537662501ae8a2d9e1771bfa87751bc
   languageName: node
   linkType: hard
 
@@ -5172,8 +5172,8 @@ __metadata:
   linkType: hard
 
 "update-browserslist-db@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "update-browserslist-db@npm:1.2.3"
+  version: 1.3.0
+  resolution: "update-browserslist-db@npm:1.3.0"
   dependencies:
     escalade: "npm:^3.2.0"
     picocolors: "npm:^1.1.1"
@@ -5181,7 +5181,7 @@ __metadata:
     browserslist: ">= 4.21.0"
   bin:
     update-browserslist-db: cli.js
-  checksum: 10c0/13a00355ea822388f68af57410ce3255941d5fb9b7c49342c4709a07c9f230bbef7f7499ae0ca7e0de532e79a82cc0c4edbd125f1a323a1845bf914efddf8bec
+  checksum: 10c0/9d9725f24961fa89f28c89112990562f009f699f05f165a9aeca0f9c35fe0e649ec5f7cd54d64b9d6e58b52309bfa689e331f09d3d7cd9754b37d9b140a24f85
   languageName: node
   linkType: hard
 
@@ -5369,8 +5369,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.17.0":
-  version: 8.21.2
-  resolution: "ws@npm:8.21.2"
+  version: 8.21.3
+  resolution: "ws@npm:8.21.3"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -5379,7 +5379,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/82d687bbfbccce04e91266ff9911b27c67ca622fd8fbacc6a64d467a43fbd7ecaa3ef6d820b315c060682f901463f57cac01a02b00c4379f49c747ec7da83169
+  checksum: 10c0/7b28dc2863ea0e2cece68d142a3eee90361021b73f750431e6d8076bb7dede5fdfdb75b3d29534b62f411261147b76b1bc80fb5cc63ab0aabd467280e85b22e0
   languageName: node
   linkType: hard
 
