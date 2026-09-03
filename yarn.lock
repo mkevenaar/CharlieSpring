@@ -1346,11 +1346,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 26.4.0
-  resolution: "@types/node@npm:26.4.0"
+  version: 26.4.1
+  resolution: "@types/node@npm:26.4.1"
   dependencies:
     undici-types: "npm:~8.3.0"
-  checksum: 10c0/e6fc94ea3b58fb8040b38c465dec1c53c1fd9d2c092c81f699d28799726baf59f12e1600318e79e8e6f985bb919dab6ae820180b942b8e38c51acaad63e8aada
+  checksum: 10c0/29568336db8bc67740744782492af0e81ab1f88d86eaa07e38cf0a4c8bae7250a7b4b85c80ac1014fc98b2bc6d4bcac872b2c494ee0671b3880eada7c1fdbc94
   languageName: node
   linkType: hard
 
@@ -1856,9 +1856,9 @@ __metadata:
   linkType: hard
 
 "bare-path@npm:^3.0.0":
-  version: 3.1.1
-  resolution: "bare-path@npm:3.1.1"
-  checksum: 10c0/833f0fe2df164e518878b9c71646228d7841c2e35bd3fc428e432b512317ce7fdbd2a127649366f34db3312778d12a83f2fff5485004bbbdcdd15975fce73f4c
+  version: 3.1.2
+  resolution: "bare-path@npm:3.1.2"
+  checksum: 10c0/85bbe4c53916219a51804f04728bd2c84dce8bbc3129ec47f736370b8ae43a86ab504301d911ff7668811ac3569456939e20b359d03497199d52be8d0aa7f500
   languageName: node
   linkType: hard
 
@@ -1885,11 +1885,11 @@ __metadata:
   linkType: hard
 
 "bare-url@npm:^2.2.2":
-  version: 2.5.2
-  resolution: "bare-url@npm:2.5.2"
+  version: 2.5.4
+  resolution: "bare-url@npm:2.5.4"
   dependencies:
     bare-path: "npm:^3.0.0"
-  checksum: 10c0/f88871df80b733423434e7917f3cd35b1b89e2bf46a2bf305981d4c6627ca4c34ba2147920f217739bd6c01c684ae30a827911c419b640645eadbd91a28881ea
+  checksum: 10c0/5da943bebd744c9e2f47b6c73b32b3f04d0fd0a10bb6c54016bbe13f017673765fddc7615b953b64951ffdc4ab7d0377c5db89ca47c908a2cf004309ef2ce047
   languageName: node
   linkType: hard
 
@@ -2436,9 +2436,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.402":
-  version: 1.5.417
-  resolution: "electron-to-chromium@npm:1.5.417"
-  checksum: 10c0/268f13ddc2c032f72b4aef74db90d1d0f71e188bc62f82fe2d020ef45dd9b7078ac01177f9de4e28b82f73efed3cf1a27a680c9d6a9173ce96766c9cbe7202fd
+  version: 1.5.420
+  resolution: "electron-to-chromium@npm:1.5.420"
+  checksum: 10c0/0c4a4932991cefc9aa655cbb00b3b693680709df9e4eb2fc1a51cab851b735a2be9510c345b5ed6cad571e58e6d27867731607741df82de9535a7eb041fceda2
   languageName: node
   linkType: hard
 
